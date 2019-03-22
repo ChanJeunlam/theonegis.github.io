@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+    <link rel="dns-prefetch" href="//cdn.mathjax.org" />
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info"/>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            Fiona简介及Shapefile数据读取 | 
+        
+        TheOneGIS
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/logo.png">
+    <link rel="icon" href="/img/logo.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="博学之，审问之，慎思之，明辨之，笃行之">
+    <meta name="keywords" content="TheoneGIS, 空间信息处理,空间数据处理,Python,Fiona,Shapefile">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/atelier-lakeside-light.min.css?vHkP60BXIENHxF6lUdDXhA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", Arial, "Microsoft YaHei", "微软雅黑", sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="TheOneGIS">
+    <meta name="msapplication-starturl" content="http://theonegis.github.io/geos/Fiona简介及Shapefile数据读取/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="TheOneGIS">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/logo.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+        
+            <link rel=alternate type="application/atom+xml" href="/atom.xml">
+        
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://theonegis.github.io/geos/Fiona简介及Shapefile数据读取/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Fiona简介及Shapefile数据读取 | TheOneGIS">
+    <meta property="og:image" content="/img/logo.png">
+    <meta property="og:description" content="博学之，审问之，慎思之，明辨之，笃行之">
+    <meta property="og:article:tag" content="空间数据处理"> <meta property="og:article:tag" content="Python"> <meta property="og:article:tag" content="Fiona"> <meta property="og:article:tag" content="Shapefile"> 
+
+    
+        <meta property="article:published_time" content="Wed Jul 11 2018 20:25:11 GMT+0800">
+        <meta property="article:modified_time" content="Fri Mar 22 2019 15:39:53 GMT-0400">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://theonegis.github.io/geos/Fiona简介及Shapefile数据读取/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://theonegis.github.io/geos/Fiona简介及Shapefile数据读取/index.html",
+    "headline": "Fiona简介及Shapefile数据读取",
+    "datePublished": "Wed Jul 11 2018 20:25:11 GMT+0800",
+    "dateModified": "Fri Mar 22 2019 15:39:53 GMT-0400",
+    "author": {
+        "@type": "Person",
+        "name": "阿振",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.gif"
+        },
+        "description": "博学之，审问之，慎思之，明辨之，笃行之"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "TheOneGIS",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/logo.png"
+        }
+    },
+    "keywords": ",空间数据处理,Python,Fiona,ShapefileTheoneGIS, 空间信息处理",
+    "description": "博学之，审问之，慎思之，明辨之，笃行之",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#fiona简介及shapefile数据读取"><span class="post-toc-number">1.</span> <span class="post-toc-text">Fiona简介及Shapefile数据读取</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fiona简介"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Fiona简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#shapefile数据读取"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Shapefile数据读取</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Fiona简介及Shapefile数据读取
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.gif" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>阿振</strong>
+        <span>7月 11, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Fiona/">Fiona</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Python/">Python</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Shapefile/">Shapefile</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/空间数据处理/">空间数据处理</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Fiona简介及Shapefile数据读取&url=http://theonegis.github.io/geos/Fiona简介及Shapefile数据读取/index.html&pic=http://theonegis.github.io/img/logo.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Fiona简介及Shapefile数据读取&url=http://theonegis.github.io/geos/Fiona简介及Shapefile数据读取/index.html&via=阿振" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://theonegis.github.io/geos/Fiona简介及Shapefile数据读取/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=TheOneGIS&title=Fiona简介及Shapefile数据读取&summary=博学之，审问之，慎思之，明辨之，笃行之&pics=http://theonegis.github.io/img/logo.png&url=http://theonegis.github.io/geos/Fiona简介及Shapefile数据读取/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="fiona简介及shapefile数据读取">Fiona简介及Shapefile数据读取</h1>
+<p>作者：阿振</p>
+<p>邮箱：tanzhenyugis@163.com</p>
+<p>博客：<a href="https://blog.csdn.net/theonegis/article/details/80089375" class="uri" target="_blank" rel="noopener">https://blog.csdn.net/theonegis/article/details/80089375</a></p>
+<p>修改时间：2018-06-06</p>
+<p>声明：本文为博主原创文章，转载请注明原文出处</p>
+<hr>
+<h2 id="fiona简介">Fiona简介</h2>
+<p>用GDAL的Python绑定API书写程序有没有一种仍然在写C/C++的感觉，Fiona基于GDAL提供了更加Pythonic的读取空间矢量数据的API，参见：http://toblerity.org/fiona/index.html</p>
+<p>这里主要说一下Fiona中对数据的描述模型和GDAL中的不同：</p>
+<p>GDAL中对于矢量数据采用数据源（DataSource）- 图层（Layer）- 要素（Feature）- 属性和几何体（Attributes and Geometry）</p>
+<p>Fiona采用Python中内置的数据结构表示矢量数据，一个要素以GeoJSON表示，使用Python内置的字典（<code>dict</code>）结构组织；一个图层包含在一个集合中（<code>Collection</code>）。可以对该集合进行迭代遍历，得到其中的要素。</p>
+<p>要素是以GeoJSON表示的，结构如下：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">{</span><span class="er">&#39;type&#39;</span><span class="fu">:</span> <span class="er">&#39;Feature&#39;</span><span class="fu">,</span> <span class="er">&#39;id&#39;</span><span class="fu">:</span> <span class="er">&#39;</span><span class="dv">0</span><span class="er">&#39;</span><span class="fu">,</span> <span class="er">&#39;geometry&#39;</span><span class="fu">:</span> <span class="fu">{</span><span class="er">&#39;type&#39;</span><span class="fu">:</span> <span class="er">&#39;Polygon&#39;</span><span class="fu">,</span> <span class="er">&#39;coordinates&#39;</span><span class="fu">:</span> <span class="ot">[[</span><span class="er">(</span><span class="fl">96.416</span><span class="ot">,</span> <span class="fl">42.7588</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">96.416</span><span class="ot">,</span> <span class="fl">42.7148</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">95.9766</span><span class="ot">,</span> <span class="fl">42.4951</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">96.0645</span><span class="ot">,</span> <span class="fl">42.3193</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">96.2402</span><span class="ot">,</span> <span class="fl">42.2314</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">95.9766</span><span class="ot">,</span> <span class="fl">41.9238</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">95.2734</span><span class="ot">,</span> <span class="fl">41.6162</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">95.1855</span><span class="ot">,</span> <span class="fl">41.792</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">94.5703</span><span class="ot">,</span> <span class="fl">41.4844</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">94.043</span><span class="ot">,</span> <span class="fl">41.0889</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">93.8672</span><span class="ot">,</span> <span class="fl">40.6934</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">93.0762</span><span class="ot">,</span> <span class="fl">40.6494</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">92.6367</span><span class="ot">,</span> <span class="fl">39.6387</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">92.373</span><span class="ot">,</span> <span class="fl">39.3311</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">92.373</span><span class="ot">,</span> <span class="fl">39.1113</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">92.373</span><span class="ot">,</span> <span class="fl">39.0234</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.1758</span><span class="ot">,</span> <span class="fl">38.4961</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.3516</span><span class="ot">,</span> <span class="fl">38.2324</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.6152</span><span class="ot">,</span> <span class="fl">38.3203</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.5273</span><span class="ot">,</span> <span class="fl">37.8369</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">91.0547</span><span class="ot">,</span> <span class="fl">37.4414</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">91.3184</span><span class="ot">,</span> <span class="fl">37.0898</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.7031</span><span class="ot">,</span> <span class="fl">36.7822</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.791</span><span class="ot">,</span> <span class="fl">36.6064</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">91.0547</span><span class="ot">,</span> <span class="fl">36.5186</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">91.0547</span><span class="ot">,</span> <span class="fl">36.0791</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.8789</span><span class="ot">,</span> <span class="fl">36.0352</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.0</span><span class="ot">,</span> <span class="fl">36.2549</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">89.9121</span><span class="ot">,</span> <span class="fl">36.0791</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">89.7363</span><span class="ot">,</span> <span class="fl">36.0791</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">89.209</span><span class="ot">,</span> <span class="fl">36.2988</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">88.7695</span><span class="ot">,</span> <span class="fl">36.3428</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">88.5938</span><span class="ot">,</span> <span class="fl">36.4746</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">87.3633</span><span class="ot">,</span> <span class="fl">36.4307</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">86.2207</span><span class="ot">,</span> <span class="fl">36.167</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">86.1328</span><span class="ot">,</span> <span class="fl">35.8594</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">85.6055</span><span class="ot">,</span> <span class="fl">35.6836</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">85.0781</span><span class="ot">,</span> <span class="fl">35.7275</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">84.1992</span><span class="ot">,</span> <span class="fl">35.376</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">83.1445</span><span class="ot">,</span> <span class="fl">35.4199</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">82.8809</span><span class="ot">,</span> <span class="fl">35.6836</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">82.4414</span><span class="ot">,</span> <span class="fl">35.7275</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">82.002</span><span class="ot">,</span> <span class="fl">35.332</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">81.6504</span><span class="ot">,</span> <span class="fl">35.2441</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.4199</span><span class="ot">,</span> <span class="fl">35.4199</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.2441</span><span class="ot">,</span> <span class="fl">35.2881</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.332</span><span class="ot">,</span> <span class="fl">35.1563</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.2441</span><span class="ot">,</span> <span class="fl">35.2002</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">79.8926</span><span class="ot">,</span> <span class="fl">34.8047</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">79.8047</span><span class="ot">,</span> <span class="fl">34.4971</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">79.1016</span><span class="ot">,</span> <span class="fl">34.4531</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">79.0137</span><span class="ot">,</span> <span class="fl">34.3213</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">78.2227</span><span class="ot">,</span> <span class="fl">34.7168</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">78.0469</span><span class="ot">,</span> <span class="fl">35.2441</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">78.0469</span><span class="ot">,</span> <span class="fl">35.5078</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">77.4316</span><span class="ot">,</span> <span class="fl">35.4639</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">76.8164</span><span class="ot">,</span> <span class="fl">35.6396</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">76.5527</span><span class="ot">,</span> <span class="fl">35.8594</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">76.2012</span><span class="ot">,</span> <span class="fl">35.8154</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">75.9375</span><span class="ot">,</span> <span class="fl">36.0352</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">76.0254</span><span class="ot">,</span> <span class="fl">36.4746</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">75.8496</span><span class="ot">,</span> <span class="fl">36.6943</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">75.498</span><span class="ot">,</span> <span class="fl">36.7383</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">75.4102</span><span class="ot">,</span> <span class="fl">36.958</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">75.0586</span><span class="ot">,</span> <span class="fl">37.002</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.8828</span><span class="ot">,</span> <span class="fl">36.9141</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.7949</span><span class="ot">,</span> <span class="fl">37.0459</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.5313</span><span class="ot">,</span> <span class="fl">37.0898</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.5313</span><span class="ot">,</span> <span class="fl">37.2217</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.8828</span><span class="ot">,</span> <span class="fl">37.2217</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">75.1465</span><span class="ot">,</span> <span class="fl">37.4414</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.8828</span><span class="ot">,</span> <span class="fl">37.5732</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.9707</span><span class="ot">,</span> <span class="fl">37.749</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.8828</span><span class="ot">,</span> <span class="fl">38.4521</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.3555</span><span class="ot">,</span> <span class="fl">38.6719</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.1797</span><span class="ot">,</span> <span class="fl">38.6719</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.0918</span><span class="ot">,</span> <span class="fl">38.54</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">73.8281</span><span class="ot">,</span> <span class="fl">38.584</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">73.7402</span><span class="ot">,</span> <span class="fl">38.8477</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">73.8281</span><span class="ot">,</span> <span class="fl">38.9795</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">73.4766</span><span class="ot">,</span> <span class="fl">39.375</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">73.916</span><span class="ot">,</span> <span class="fl">39.5068</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">73.916</span><span class="ot">,</span> <span class="fl">39.6826</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">73.8281</span><span class="ot">,</span> <span class="fl">39.7705</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.0039</span><span class="ot">,</span> <span class="fl">40.0342</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.8828</span><span class="ot">,</span> <span class="fl">40.3418</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">74.7949</span><span class="ot">,</span> <span class="fl">40.5176</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">75.2344</span><span class="ot">,</span> <span class="fl">40.4297</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">75.5859</span><span class="ot">,</span> <span class="fl">40.6494</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">75.7617</span><span class="ot">,</span> <span class="fl">40.2979</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">76.377</span><span class="ot">,</span> <span class="fl">40.3857</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">76.9043</span><span class="ot">,</span> <span class="fl">41.001</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">77.6074</span><span class="ot">,</span> <span class="fl">41.001</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">78.1348</span><span class="ot">,</span> <span class="fl">41.2207</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">78.1348</span><span class="ot">,</span> <span class="fl">41.3965</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.1563</span><span class="ot">,</span> <span class="fl">42.0557</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.2441</span><span class="ot">,</span> <span class="fl">42.2754</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.1563</span><span class="ot">,</span> <span class="fl">42.627</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.2441</span><span class="ot">,</span> <span class="fl">42.8467</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.5078</span><span class="ot">,</span> <span class="fl">42.8906</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.4199</span><span class="ot">,</span> <span class="fl">43.0664</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.7715</span><span class="ot">,</span> <span class="fl">43.1982</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.4199</span><span class="ot">,</span> <span class="fl">44.165</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">80.4199</span><span class="ot">,</span> <span class="fl">44.6045</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">79.9805</span><span class="ot">,</span> <span class="fl">44.8242</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">79.9805</span><span class="ot">,</span> <span class="fl">44.9561</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">81.7383</span><span class="ot">,</span> <span class="fl">45.3955</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">82.0898</span><span class="ot">,</span> <span class="fl">45.2197</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">82.5293</span><span class="ot">,</span> <span class="fl">45.2197</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">82.2656</span><span class="ot">,</span> <span class="fl">45.6592</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">83.0566</span><span class="ot">,</span> <span class="fl">47.2412</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">83.6719</span><span class="ot">,</span> <span class="fl">47.0215</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">84.7266</span><span class="ot">,</span> <span class="fl">47.0215</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">84.9023</span><span class="ot">,</span> <span class="fl">46.8896</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">85.5176</span><span class="ot">,</span> <span class="fl">47.0654</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">85.6934</span><span class="ot">,</span> <span class="fl">47.2852</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">85.5176</span><span class="ot">,</span> <span class="fl">48.1201</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">85.7813</span><span class="ot">,</span> <span class="fl">48.4277</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">86.5723</span><span class="ot">,</span> <span class="fl">48.5596</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">86.8359</span><span class="ot">,</span> <span class="fl">48.8232</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">86.748</span><span class="ot">,</span> <span class="fl">48.9551</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">86.8359</span><span class="ot">,</span> <span class="fl">49.1309</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">87.8027</span><span class="ot">,</span> <span class="fl">49.1748</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">87.8906</span><span class="ot">,</span> <span class="fl">48.999</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">87.7148</span><span class="ot">,</span> <span class="fl">48.9111</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">88.0664</span><span class="ot">,</span> <span class="fl">48.7354</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">87.9785</span><span class="ot">,</span> <span class="fl">48.6035</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">88.5059</span><span class="ot">,</span> <span class="fl">48.3838</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">88.6816</span><span class="ot">,</span> <span class="fl">48.1641</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">89.1211</span><span class="ot">,</span> <span class="fl">47.9883</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">89.5605</span><span class="ot">,</span> <span class="fl">48.0322</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">89.7363</span><span class="ot">,</span> <span class="fl">47.8564</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.0879</span><span class="ot">,</span> <span class="fl">47.8564</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.3516</span><span class="ot">,</span> <span class="fl">47.6807</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.5273</span><span class="ot">,</span> <span class="fl">47.2412</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.8789</span><span class="ot">,</span> <span class="fl">46.9775</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">91.0547</span><span class="ot">,</span> <span class="fl">46.582</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.8789</span><span class="ot">,</span> <span class="fl">46.3184</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">91.0547</span><span class="ot">,</span> <span class="fl">46.0107</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.7031</span><span class="ot">,</span> <span class="fl">45.7471</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.7031</span><span class="ot">,</span> <span class="fl">45.5273</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">90.8789</span><span class="ot">,</span> <span class="fl">45.2197</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">91.582</span><span class="ot">,</span> <span class="fl">45.0879</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">93.5156</span><span class="ot">,</span> <span class="fl">44.9561</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">94.7461</span><span class="ot">,</span> <span class="fl">44.3408</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">95.3613</span><span class="ot">,</span> <span class="fl">44.2969</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">95.3613</span><span class="ot">,</span> <span class="fl">44.0332</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">95.5371</span><span class="ot">,</span> <span class="fl">43.9014</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">95.8887</span><span class="ot">,</span> <span class="fl">43.2422</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">96.3281</span><span class="ot">,</span> <span class="fl">42.9346</span><span class="er">)</span><span class="ot">,</span> <span class="er">(</span><span class="fl">96.416</span><span class="ot">,</span> <span class="fl">42.7588</span><span class="er">)</span><span class="ot">]]</span><span class="fu">},</span> <span class="er">&#39;properties&#39;</span><span class="fu">:</span> <span class="er">OrderedDict(</span><span class="ot">[</span><span class="er">(&#39;Name&#39;</span><span class="ot">,</span> <span class="er">&#39;新疆维吾尔自治区&#39;)</span><span class="ot">,</span> <span class="er">(&#39;CenterX&#39;</span><span class="ot">,</span> <span class="fl">84.9023</span><span class="er">)</span><span class="ot">,</span> <span class="er">(&#39;CenterY&#39;</span><span class="ot">,</span> <span class="fl">42.148</span><span class="er">)</span><span class="ot">]</span><span class="er">)</span><span class="fu">}</span></a></code></pre></div>
+<h2 id="shapefile数据读取">Shapefile数据读取</h2>
+<p>下面我们来体验一下Fiona的简洁之处，主要是使用Python内置的结构表示所有数据，所以使用Fiona操作空间数据就像操作Python内置的数据结构一样简单。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="im">import</span> fiona</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">with</span> fiona.<span class="bu">open</span>(<span class="st">&#39;China.shp&#39;</span>, encoding<span class="op">=</span><span class="st">&#39;utf-8&#39;</span>) <span class="im">as</span> c:</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="co"># 输出数据的基本信息</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="bu">print</span>(<span class="ss">f&#39;数据范围：</span><span class="sc">{c.</span>bounds<span class="sc">}</span><span class="ss">&#39;</span>)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="bu">print</span>(<span class="ss">f&#39;投影定义：</span><span class="sc">{c.</span>crs<span class="sc">}</span><span class="ss">&#39;</span>)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="bu">print</span>(<span class="ss">f&#39;数据格式：</span><span class="sc">{c.</span>driver<span class="sc">}</span><span class="ss">&#39;</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="bu">print</span>(<span class="ss">f&#39;数据编码：</span><span class="sc">{c.</span>encoding<span class="sc">}</span><span class="ss">&#39;</span>)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">    <span class="co"># 输出文件的属性字段信息</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">    fields <span class="op">=</span> c.schema[<span class="st">&#39;properties&#39;</span>]</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">    <span class="bu">print</span>(<span class="st">&#39;文件的属性字段信息：&#39;</span>)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">    <span class="cf">for</span> k, v <span class="kw">in</span> fields.items():</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">        <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{k}</span><span class="ss"> -&gt; </span><span class="sc">{v}</span><span class="ss">&#39;</span>)</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">    <span class="co"># 遍历集合中的要素</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    <span class="co"># f是一个tuple，第一个元素是要素编号，第二个是dict格式的要素</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">    <span class="cf">for</span> f <span class="kw">in</span> c.items():</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">        <span class="co"># 输入要素的详细信息</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">        <span class="co"># 要素是以GeoJSON表示的</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">        <span class="bu">print</span>(f[<span class="dv">1</span>][<span class="st">&#39;properties&#39;</span>][<span class="st">&#39;Name&#39;</span>])</a></code></pre></div>
+<p>特别需要注意数据的编码问题，要不然默认的编码会引起中文乱码，常见中文编码可能采用GBK或者UTF-8等。</p>
+<p>输出结果如下：</p>
+<pre><code>数据范围：(73.4766, 18.1055, 135.0879, 53.5693)
+投影定义：{&#39;init&#39;: &#39;epsg:4326&#39;}
+数据格式：ESRI Shapefile
+数据编码：utf-8
+文件的属性字段信息：
+Name -&gt; str:24
+CenterX -&gt; float:24.15
+CenterY -&gt; float:24.15
+新疆维吾尔自治区
+西藏自治区
+内蒙古自治区
+青海省
+四川省
+黑龙江省
+甘肃省
+云南省
+广西壮族自治区
+湖南省
+陕西省
+广东省
+吉林省
+河北省
+湖北省
+贵州省
+山东省
+江西省
+河南省
+辽宁省
+山西省
+安徽省
+福建省
+浙江省
+江苏省
+重庆市
+宁夏回族自治区
+海南省
+台湾省
+北京市
+天津市
+上海市
+香港特别行政区
+澳门特别行政区</code></pre>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/geos/使用Fiona创建Shapefile矢量数据/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            下一篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/geos/矢量数据投影转换/" id="post_nav-older" class="next-content">
+            上一篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.gif" alt="阿振's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        tanzhenyugis@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:tanzhenyugis@163.com" target="_blank" title="写信告诉我">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        写信告诉我
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">5</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="标签">
+                
+                    <i class="material-icons sidebar-material-icons">label</i>
+                
+                标签
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">linear_scale</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="http://weibo.com/theonegis" title="微博">
+                
+                    <i class="material-icons sidebar-material-icons">group_add</i>
+                
+                微博
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="https://blog.csdn.net/theonegis" title="CSDN">
+                
+                    <i class="material-icons sidebar-material-icons">edit</i>
+                
+                CSDN
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="https://github.com/theonegis" title="GitHub">
+                
+                    <i class="material-icons sidebar-material-icons">code</i>
+                
+                GitHub
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="http://i.youku.com/theonegis" title="优酷">
+                
+                    <i class="material-icons sidebar-material-icons">videocam</i>
+                
+                优酷
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="https://scholar.google.com/citations?user=CLpkU_cAAAAJ" title="谷歌学术">
+                
+                    <i class="material-icons sidebar-material-icons">school</i>
+                
+                谷歌学术
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">info</i>
+                
+                关于
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">53</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+        <a href="http://weibo.com/theonegis" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-weibo">
+                <span class="visuallyhidden">Weibo</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/theonegis" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            版权所有&nbsp;&copy;<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>TheOneGIS
+            
+                <br>
+                
+                    空间信息处理技术分享站，转载请注明出处
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?d+XW6aNuIPgOn1iA7NnB4g==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?lOy/ACj5suSNi7ZVFVbpFQ==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+        </body>
+    
+</html>
