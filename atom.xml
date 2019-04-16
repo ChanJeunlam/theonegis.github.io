@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://theonegis.github.io/"/>
-  <updated>2019-03-22T19:39:16.792Z</updated>
+  <updated>2019-04-16T19:35:24.935Z</updated>
   <id>http://theonegis.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NumPy中的维度Axis</title>
+    <link href="http://theonegis.github.io/python/NumPy%E4%B8%AD%E7%9A%84%E7%BB%B4%E5%BA%A6Axis/"/>
+    <id>http://theonegis.github.io/python/NumPy中的维度Axis/</id>
+    <published>2019-04-16T06:56:53.000Z</published>
+    <updated>2019-04-16T19:35:24.935Z</updated>
+    
+    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2019-04-16 14:56:53</p><hr><h1 id="浅谈numpy中的维度axis">浅谈NumPy中的维度Axis</h1><p>NumPy中的维度是一个很重要的概念，很多函数的参数都需要给定维度Axis，如何直观的理解维度呢？我们首先以二维数组为例进行说明，然后推广到多维数组。</p><p>(有人将<code>ndim</code>属性叫维度，将<code>axis</code>叫轴，我还是习惯将<code>axis</code>称之为维度，<code>axis=0</code>称为第一个维度)</p><h2 id="二维数组的列子">二维数组的列子</h2><p>下面是一个二维数组的列子：</p><div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1">In [<span class="dv">1</span>]: <span class="im">import</span> numpy <span class="im">as</span> np</a><a class="sourceLine" id="cb1-2" data-line-number="2"></a><a class="sourceLine" id="cb1-3" data-line-number="3">In [<span class="dv">2</span>]: x <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">9</span>, (<span class="dv">2</span>, <span class="dv">3</span>))</a><a class="sourceLine" id="cb1-4" data-line-number="4"></a><a class="sourceLine" id="cb1-5" data-line-number="5">In [<span class="dv">3</span>]: x</a><a class="sourceLine" id="cb1-6" data-line-number="6">Out[<span class="dv">3</span>]:</a><a class="sourceLine" id="cb1-7" data-line-number="7">array([[<span class="dv">0</span>, <span class="dv">8</span>, <span class="dv">6</span>],</a><a class="sourceLine" id="cb1-8" data-line-number="8">       [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>]])</a><a class="sourceLine" id="cb1-9" data-line-number="9"></a><a class="sourceLine" id="cb1-10" data-line-number="10">In [<span class="dv">4</span>]: x.ndim</a><a class="sourceLine" id="cb1-11" data-line-number="11">Out[<span class="dv">4</span>]: <span class="dv">2</span></a><a class="sourceLine" id="cb1-12" data-line-number="12"></a><a class="sourceLine" id="cb1-13" data-line-number="13">In [<span class="dv">5</span>]: x.shape</a><a class="sourceLine" id="cb1-14" data-line-number="14">Out[<span class="dv">5</span>]: (<span class="dv">2</span>, <span class="dv">3</span>)</a><a class="sourceLine" id="cb1-15" data-line-number="15"></a><a class="sourceLine" id="cb1-16" data-line-number="16">In [<span class="dv">6</span>]: x[<span class="dv">0</span>]</a><a class="sourceLine" id="cb1-17" data-line-number="17">Out[<span class="dv">6</span>]: array([<span class="dv">0</span>, <span class="dv">8</span>, <span class="dv">6</span>])</a><a class="sourceLine" id="cb1-18" data-line-number="18"></a><a class="sourceLine" id="cb1-19" data-line-number="19">In [<span class="dv">7</span>]: x[:, <span class="dv">0</span>]</a><a class="sourceLine" id="cb1-20" data-line-number="20">Out[<span class="dv">7</span>]: array([<span class="dv">0</span>, <span class="dv">1</span>])</a><a class="sourceLine" id="cb1-21" data-line-number="21"></a><a class="sourceLine" id="cb1-22" data-line-number="22">In [<span class="dv">8</span>]: x.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">0</span>)</a><a class="sourceLine" id="cb1-23" data-line-number="23">Out[<span class="dv">8</span>]: array([ <span class="dv">1</span>, <span class="dv">10</span>,  <span class="dv">7</span>])</a><a class="sourceLine" id="cb1-24" data-line-number="24"></a><a class="sourceLine" id="cb1-25" data-line-number="25">In [<span class="dv">9</span>]: x.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</a><a class="sourceLine" id="cb1-26" data-line-number="26">Out[<span class="dv">9</span>]: array([<span class="dv">14</span>,  <span class="dv">4</span>])</a><a class="sourceLine" id="cb1-27" data-line-number="27"></a><a class="sourceLine" id="cb1-28" data-line-number="28">In [<span class="dv">10</span>]: x[<span class="dv">0</span>] <span class="op">+</span> x[<span class="dv">1</span>]</a><a class="sourceLine" id="cb1-29" data-line-number="29">Out[<span class="dv">10</span>]: array([ <span class="dv">1</span>, <span class="dv">10</span>,  <span class="dv">7</span>])</a><a class="sourceLine" id="cb1-30" data-line-number="30"></a><a class="sourceLine" id="cb1-31" data-line-number="31">In [<span class="dv">11</span>]: x[:, <span class="dv">0</span>] <span class="op">+</span> x[:, <span class="dv">1</span>] <span class="op">+</span> x[:, <span class="dv">2</span>]</a><a class="sourceLine" id="cb1-32" data-line-number="32">Out[<span class="dv">11</span>]: array([<span class="dv">14</span>,  <span class="dv">4</span>])</a></code></pre></div><p>看上面这个例子，<code>x</code>是一个2行3列的数组，所以<code>x</code>是一个二维数组。</p><p>从第6和第7个输入输出，我们可以肯定地说“对于二维数组，第一维指的是行，第二维指的是列”。</p><p>我们通过<code>sum</code>求和函数，探究一下<code>x</code>的第一维和第二维的意义？从第8个和第9个输入输出，我们可以看到对于参数<code>axis=0</code>，其结果是数组列的和；而对于参数<code>axis=1</code>，其参数是数组行的和。</p><p>对于<code>axis=0</code>第一个维度求和，不是将第一维度（行）中的所有元素相加，而是沿着第一个维度，将对应其他维度（列）的数据相加，分解开来就是第10个输入输出。同理，对于<code>axis=1</code>，是沿着列，将行中的元素相加。</p><p>NumPy中对于维度的操作都是以类似这样的逻辑操作的。</p><h2 id="多维数组">多维数组</h2><p>对于多维数组我们如何准确区分维度呢？下面以图示进行说明：</p><figure><img src="/images/python/NumPy中的维度.png" alt="NumPy中的维度"><figcaption>NumPy中的维度</figcaption></figure><p>所以，我的结论就是：在概念上维度是从整体到局部看的，最外围的是第一个维度，然后依次往里，最内部的就是最后一维。</p><p>下面我们用代码验证一下上面的结论：</p><div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1">In [<span class="dv">19</span>]: x <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">9</span>, (<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</a><a class="sourceLine" id="cb2-2" data-line-number="2"></a><a class="sourceLine" id="cb2-3" data-line-number="3">In [<span class="dv">20</span>]: x</a><a class="sourceLine" id="cb2-4" data-line-number="4">Out[<span class="dv">20</span>]:</a><a class="sourceLine" id="cb2-5" data-line-number="5">array([[[<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">5</span>],</a><a class="sourceLine" id="cb2-6" data-line-number="6">        [<span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>],</a><a class="sourceLine" id="cb2-7" data-line-number="7">        [<span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>]],</a><a class="sourceLine" id="cb2-8" data-line-number="8"></a><a class="sourceLine" id="cb2-9" data-line-number="9">       [[<span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>],</a><a class="sourceLine" id="cb2-10" data-line-number="10">        [<span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">8</span>],</a><a class="sourceLine" id="cb2-11" data-line-number="11">        [<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">8</span>, <span class="dv">2</span>]]])</a><a class="sourceLine" id="cb2-12" data-line-number="12"></a><a class="sourceLine" id="cb2-13" data-line-number="13">In [<span class="dv">21</span>]: x[<span class="dv">0</span>]</a><a class="sourceLine" id="cb2-14" data-line-number="14">Out[<span class="dv">21</span>]:</a><a class="sourceLine" id="cb2-15" data-line-number="15">array([[<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">5</span>],</a><a class="sourceLine" id="cb2-16" data-line-number="16">       [<span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>],</a><a class="sourceLine" id="cb2-17" data-line-number="17">       [<span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>]])</a><a class="sourceLine" id="cb2-18" data-line-number="18"></a><a class="sourceLine" id="cb2-19" data-line-number="19">In [<span class="dv">22</span>]: x[:, <span class="dv">0</span>, :]</a><a class="sourceLine" id="cb2-20" data-line-number="20">Out[<span class="dv">22</span>]:</a><a class="sourceLine" id="cb2-21" data-line-number="21">array([[<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">5</span>],</a><a class="sourceLine" id="cb2-22" data-line-number="22">       [<span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>]])</a></code></pre></div><p>可以看到，第21个输入输出取到的是第一维的第一个元素，第22个输入输出取到的是第二维的第一个元素。大家可以细细体味一下！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
+&lt;p&gt;写作时间：2019-04-16 14:56:53&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;浅谈numpy中的维度axis&quot;&gt;浅谈NumPy中的维度Axis&lt;/h1&gt;
+&lt;p&gt;NumPy中的维度是一个很重要的概念，很多
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://theonegis.github.io/categories/python/"/>
+    
+    
+      <category term="NumPy" scheme="http://theonegis.github.io/tags/NumPy/"/>
+    
+  </entry>
   
   <entry>
     <title>栅格数据裁剪</title>
@@ -600,39 +629,6 @@
       <category term="协方差" scheme="http://theonegis.github.io/tags/%E5%8D%8F%E6%96%B9%E5%B7%AE/"/>
     
       <category term="相关系数" scheme="http://theonegis.github.io/tags/%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一文详解卷积和逆卷积</title>
-    <link href="http://theonegis.github.io/dl/%E4%B8%80%E6%96%87%E8%AF%A6%E8%A7%A3%E5%8D%B7%E7%A7%AF%E5%92%8C%E9%80%86%E5%8D%B7%E7%A7%AF/"/>
-    <id>http://theonegis.github.io/dl/一文详解卷积和逆卷积/</id>
-    <published>2018-11-09T06:52:57.000Z</published>
-    <updated>2019-03-22T19:39:53.827Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="一文详解卷积和逆卷积">一文详解卷积和逆卷积</h1><p>卷积神经网络（CNN）在计算机视觉大放异彩，入门CNN的第一步就是理解什么是卷积（Convolution）运算。本文旨在以通俗易懂的方式让读者理解卷积的概念。</p><p>注：本文的图片素材全部来源于网络，如有侵权，请联系作者删除。</p><h2 id="卷积运算">卷积运算</h2><p>卷积在数学上是两个变量在某范围内相乘后求和的结果。在数字图像处理中，卷积操作其实就是利用卷积核（卷积模板）在图像上滑动，将图像点上的像素灰度值与对应的卷积核上的数值相乘，然后将所有相乘后的值相加作为卷积核中间像素对应的图像上像素的灰度值，并最终滑动完所有图像的过程，如图下图所示（图中的蓝色代表输入，青色代表输出）。</p><figure><img src="/images/ml/no_padding_no_strides.gif" alt="卷积运算"><figcaption>卷积运算</figcaption></figure><p>在卷积运算中，我们有下面几个概念：</p><ul><li>Padding 有的时候对于给定输入图像的大小，我们需要得到制定大小的输出。这时候，我们可以通过给图像的边缘增加0像素值得方法获得。这个0像素值区域的大小，我们一般称之为padding。</li><li>Stride 在一般的卷积过程中，我们使用步长为1进行卷积核在图像上的滑动；但是有时候出于缩小输出图片尺寸的原因，我们也会采用大于1的步长。卷积核每次滑动的步长，我们称之为stride。</li></ul><table><thead><tr class="header"><th style="text-align: center;"><img src="/images/ml/same_padding_no_strides.gif" alt="Padding为1的卷积" width="260"></th><th style="text-align: center;"><img src="/images/ml/no_padding_strides.gif" alt="Stride为2的卷积" width="300"></th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">Padding为<span class="math inline">\(1\times1\)</span>的卷积操作</td><td style="text-align: center;">Stride为<span class="math inline">\(2\times2\)</span>的卷积操作</td></tr></tbody></table><h3 id="单通道">单通道</h3><p>对于一个长为<span class="math inline">\(H\)</span>，宽为<span class="math inline">\(W\)</span>的灰度图像来说，其尺寸可以表示为<span class="math inline">\((1, W, H)\)</span>。这里的1我们称之为通道（Channel）。所谓“一图胜千言”，下面的动图以单通道为例，演示了如何进行卷积运算得到最终的输出结果。</p><figure><img src="/images/ml/stride1.gif" alt="步长为1的卷积"><figcaption>步长为1的卷积</figcaption></figure><figure><img src="/images/ml/stride2.gif" alt="步长为2的卷积"><figcaption>步长为2的卷积</figcaption></figure><h3 id="多通道">多通道</h3><p>那如果对于一个RGB彩色图像我们的通道就是3，对于多通道的输入，我们如何进行卷积操作，输出为多通道或者单通道呢？</p><figure><img src="/images/ml/rgb.gif" alt="多通道卷积"><figcaption>多通道卷积</figcaption></figure><p>从上图可以知道，对于多通道的输入，卷积操作在每个Channel上分别进行，然后进行求和得到输出。比如，我的输入是<span class="math inline">\((32, W, H)\)</span>，我的输出是<span class="math inline">\((64, W, H)\)</span>，则需要新的卷积核的个数是<span class="math inline">\(32 \times 64\)</span>。因为，对于在输入的32个通道的每个通道都需要64个卷积核，每个通道做完卷积运算，然后再求和，得到最后的64个通道的输出。</p><h3 id="卷积运算的参数计算">卷积运算的参数计算</h3><p>根据前面的分析，到这里，卷积运算的参数的求解就很明确了。</p><p>设我们的输入通道是<span class="math inline">\(p\)</span>，输出通道是<span class="math inline">\(q\)</span>，则</p><p>如果我们不考虑Bias（增益），那么对于一个<span class="math inline">\(m \times n\)</span>的卷积核（我们一般取<span class="math inline">\(m =n\)</span>），我们需要学习的参数为<span class="math inline">\((m \times n \times p) \times q\)</span>；</p><p>如果加上Bias（就是给卷积核作用以后的结果添加一个常数），那么我们需要学习的参数为$(m n p + 1) q $。</p><h2 id="逆卷积">逆卷积</h2><p>在CNN中，我们经常会使用所谓的逆卷积（Decovolution）进行输入尺寸的放大，但是注意这个逆卷积不是卷积的逆操作。下面，我们还是看图说话，到底什么是逆卷积呢？(图中蓝色代表的是输入，青色代表的是输出)</p><figure><img src="/images/ml/no_padding_no_strides_transposed.gif" alt="逆卷积"><figcaption>逆卷积</figcaption></figure><p>可以看到其实逆卷积和卷积操作并没有本质的区别，只是在输出的尺寸上有所区别。</p><h2 id="卷积运算的矩阵实现">卷积运算的矩阵实现</h2><p>那么在计算机内部我们如何实现卷积操作呢？答案是矩阵乘法。</p><p>我们还是看图说话，对于卷积操作，我们对输入图像以及卷积核做Unroll操作以后，进行矩阵相乘得到输出。</p><figure><img src="/images/ml/deconvolution-unroll.jpg" alt="卷积操作的矩阵实现"><figcaption>卷积操作的矩阵实现</figcaption></figure><p>对于逆卷积操作，我们对卷积核进行Unroll操作以后进行转置，然后再做矩阵乘法，得到输入。所以基于这个原因，我们一般称逆卷积为转置卷积（Transposed Convolution）。</p><figure><img src="/images/ml/deconvolution.jpg" alt="逆卷积操作的矩阵实现"><figcaption>逆卷积操作的矩阵实现</figcaption></figure><h2 id="参考资料">参考资料</h2><ol type="1"><li><a href="https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md" target="_blank" rel="noopener">Convolution arithmetic</a></li><li><a href="http://machinelearninguru.com/computer_vision/basics/convolution/convolution_layer.html" target="_blank" rel="noopener">Undrestanding Convolutional Layers in Convolutional Neural Networks</a></li><li><a href="https://nrupatunga.github.io/convolution-2/" target="_blank" rel="noopener">Convolution Arithmetic in Deep Learning</a></li><li><a href="https://arxiv.org/pdf/1603.07285.pdf" target="_blank" rel="noopener">A guide to convolution arithmetic for deep learning</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;一文详解卷积和逆卷积&quot;&gt;一文详解卷积和逆卷积&lt;/h1&gt;
-&lt;p&gt;卷积神经网络（CNN）在计算机视觉大放异彩，入门CNN的第一步就是理解什么是卷积（Convolution）运算。本文旨在以通俗易懂的方式让读者理解卷积的概念。&lt;/p&gt;
-&lt;p&gt;注：本文的图片素材全部来源于
-      
-    
-    </summary>
-    
-      <category term="深度学习" scheme="http://theonegis.github.io/categories/dl/"/>
-    
-    
-      <category term="深度学习" scheme="http://theonegis.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="卷积" scheme="http://theonegis.github.io/tags/%E5%8D%B7%E7%A7%AF/"/>
-    
-      <category term="转置卷积" scheme="http://theonegis.github.io/tags/%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/"/>
-    
-      <category term="逆卷积" scheme="http://theonegis.github.io/tags/%E9%80%86%E5%8D%B7%E7%A7%AF/"/>
     
   </entry>
   
