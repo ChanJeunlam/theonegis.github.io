@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://theonegis.github.io/"/>
-  <updated>2019-04-16T19:35:24.935Z</updated>
+  <updated>2019-07-08T09:31:42.511Z</updated>
   <id>http://theonegis.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Morton码</title>
+    <link href="http://theonegis.github.io/algorithm/Morton%E7%A0%81/"/>
+    <id>http://theonegis.github.io/algorithm/Morton码/</id>
+    <published>2019-07-08T09:11:27.000Z</published>
+    <updated>2019-07-08T09:31:42.511Z</updated>
+    
+    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2019-07-08 17:11:27</p><hr><h1 id="morton码的计算">Morton码的计算</h1><p>Morton码是对栅格格网进行编码的一种算法，在Google中搜索Morton，搜索结果第一位是Wikipedia的Z-order Curve，这是因为Morton码编码结果展现为一种Z形的填充曲线。下面简要说一下如何计算四进制和十进制的Morton码。</p><figure><img src="/images/geos/z-curve.png" alt="Morton码二进制"><figcaption>Morton码二进制</figcaption></figure><h2 id="四进制morton码计算">四进制Morton码计算</h2><p>四进制编码对左上，右上，左下，右下的顺序对四个格网单元分布编码为0，1，2，3。</p><p>其计算方式为：二进制的行列号<span class="math inline">\(r\)</span>、<span class="math inline">\(l\)</span>（从第0行0列开始），四进制编码<span class="math inline">\(M=2*l+ r\)</span>；那么这里就是：第5行（101）第7列（111）：<span class="math inline">\(M=2*101+111=313\)</span>（313对应的十进制是55）</p><h2 id="十进制morton码计算">十进制Morton码计算</h2><p>十进制的编码规则：首先，行列号转为二进制（从第0行0列开始）；然后行列号交叉排列；最后将二进制结果转为十进制。十进制Morton编码是按左上，右上，左下，右下的顺序从0开始对每个格网进行自然编码的。</p><p>对于第5行（101）第7列（111），交叉排列得到110111，然后转为十进制就是55。和四进制的编码结果是一样的。</p><p>下面给出十进制Morton码的C++实现：</p><div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a><a class="sourceLine" id="cb1-2" data-line-number="2"></a><a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">using</span> <span class="bu">std::</span>cout;</a><a class="sourceLine" id="cb1-4" data-line-number="4"></a><a class="sourceLine" id="cb1-5" data-line-number="5"><span class="dt">int</span> main() {</a><a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">uint32_t</span> row = <span class="dv">5</span>;</a><a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">uint32_t</span> col = <span class="dv">7</span>;</a><a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="dt">uint64_t</span> morton = <span class="dv">0</span>;</a><a class="sourceLine" id="cb1-9" data-line-number="9"></a><a class="sourceLine" id="cb1-10" data-line-number="10">    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="kw">sizeof</span>(row) * <span class="dv">8</span>; i++) {</a><a class="sourceLine" id="cb1-11" data-line-number="11">        morton |= (row &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; i | (col &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; (i + <span class="dv">1</span>);</a><a class="sourceLine" id="cb1-12" data-line-number="12">    }</a><a class="sourceLine" id="cb1-13" data-line-number="13">    cout &lt;&lt; morton &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a><a class="sourceLine" id="cb1-14" data-line-number="14">    <span class="cf">return</span> <span class="dv">0</span>;</a><a class="sourceLine" id="cb1-15" data-line-number="15">}</a></code></pre></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
+&lt;p&gt;写作时间：2019-07-08 17:11:27&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;morton码的计算&quot;&gt;Morton码的计算&lt;/h1&gt;
+&lt;p&gt;Morton码是对栅格格网进行编码的一种算法，在Google中
+      
+    
+    </summary>
+    
+      <category term="algorithm" scheme="http://theonegis.github.io/categories/algorithm/"/>
+    
+    
+      <category term="Morton" scheme="http://theonegis.github.io/tags/Morton/"/>
+    
+  </entry>
   
   <entry>
     <title>NumPy中的维度Axis</title>
@@ -594,41 +623,6 @@
       <category term="假设检验" scheme="http://theonegis.github.io/tags/%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/"/>
     
       <category term="P值" scheme="http://theonegis.github.io/tags/P%E5%80%BC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Python计算方差协方差相关系数</title>
-    <link href="http://theonegis.github.io/math/%E4%BD%BF%E7%94%A8Python%E8%AE%A1%E7%AE%97%E6%96%B9%E5%B7%AE%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0/"/>
-    <id>http://theonegis.github.io/math/使用Python计算方差协方差相关系数/</id>
-    <published>2018-12-17T03:32:10.000Z</published>
-    <updated>2019-03-22T19:39:53.828Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="使用python计算方差协方差和相关系数">使用Python计算方差，协方差和相关系数</h1><p>[TOC]</p><h2 id="数学定义">数学定义</h2><h3 id="期望">期望</h3><p>设随机变量<span class="math inline">\(X\)</span>只取有限个可能值<span class="math inline">\(a_i (i=0, 1, ..., m)\)</span>，其概率分布为<span class="math inline">\(P (X = a_i) = p_i\)</span>. 则<span class="math inline">\(X\)</span>的数学期望，记为<span class="math inline">\(E(X)\)</span>或<span class="math inline">\(EX\)</span>，定义为：</p><p><span class="math display">\[E(X) = \sum\limits_ia_ip_i\]</span></p><h3 id="方差">方差</h3><p>设<span class="math inline">\(X\)</span>为随机变量，分布为<span class="math inline">\(F\)</span>，则</p><p><span class="math display">\[Var(X) = E(X-EX)^2 \]</span></p><p>称为<span class="math inline">\(X\)</span>(或分布<span class="math inline">\(F\)</span>)的方差，其平方根<span class="math inline">\(\sqrt{Var(X)}\)</span>称为<span class="math inline">\(X\)</span>(或分布<span class="math inline">\(F\)</span>)的标准差.</p><p>方差和标准差是刻画随机变量在其中心位置附近散布程度的数字特征。</p><p>注意：样本方差和总体方差的区别</p><p>统计学上对于样本方差的无偏估计使用如下公式计算：</p><p><span class="math display">\[s^2 = \frac{1}{n-1} \sum\limits_{i=1}^n(x_i -\bar{x})^2 \]</span></p><p>前面有一个系数<span class="math inline">\(\frac{1}{n-1}\)</span>，当时当样本数量很大的时候，<span class="math inline">\(\frac{n}{n-1}\)</span>近似为1，可以直接使用总体方差公式进行计算。</p><h3 id="协方差">协方差</h3><p>协方差用来刻画两个随机变量<span class="math inline">\(X, Y\)</span>之间的相关性，定义为</p><p><span class="math display">\[Cov(X, Y) = E[(X - EX)(Y-EY)]\]</span></p><p>如果协方差为正，说明X，Y同向变化，协方差越大说明同向程度越高；如果协方差为负，说明X，Y反向运动，协方差越小说明反向程度越高</p><h3 id="相关系数">相关系数</h3><p>相关系数可以理解为标准化以后的协方差，设<span class="math inline">\(X\)</span>的标准差为<span class="math inline">\(\sigma_x\)</span>，<span class="math inline">\(Y\)</span>的标准差为<span class="math inline">\(\sigma_y\)</span>定义为</p><p><span class="math display">\[\rho = \frac{Cov(X, Y)}{\sigma_x\sigma_y}\]</span></p><p>相关系数消除了两个变量变化幅度的影响，而只是单纯反应两个变量每单位变化时的相似程度</p><h3 id="协方差矩阵">协方差矩阵</h3><p>协方差只能表示两个随机变量的相关程度（二维问题），对于大于二维的随机变量，可以使用协方差矩阵表示.</p><p>协方差矩阵的每一个值就是对应下标的两个随机变量的协方差</p><p>对于三维协方差矩阵，<span class="math inline">\(C=\begin{bmatrix}Cov(X, X) &amp; Cov(X, Y) &amp; Cov(X, Z) \\ Cov(Y, X) &amp; Cov(Y, Y) &amp; Cov(X, Y) \\ Cov(Z, X) &amp; Cov(Z, Y) &amp; Cov(Z, Z)\end{bmatrix}\)</span></p><h2 id="使用numpy包计算">使用NumPy包计算</h2><div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">import</span> numpy <span class="im">as</span> np</a><a class="sourceLine" id="cb1-2" data-line-number="2"></a><a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># 随机生成两个样本</span></a><a class="sourceLine" id="cb1-4" data-line-number="4">x <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">9</span>, <span class="dv">1000</span>)</a><a class="sourceLine" id="cb1-5" data-line-number="5">y <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">9</span>, <span class="dv">1000</span>)</a><a class="sourceLine" id="cb1-6" data-line-number="6"></a><a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># 计算平均值</span></a><a class="sourceLine" id="cb1-8" data-line-number="8">mx <span class="op">=</span> x.mean()</a><a class="sourceLine" id="cb1-9" data-line-number="9">my <span class="op">=</span> y.mean()</a><a class="sourceLine" id="cb1-10" data-line-number="10"></a><a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co"># 计算标准差</span></a><a class="sourceLine" id="cb1-12" data-line-number="12">stdx <span class="op">=</span> x.std()</a><a class="sourceLine" id="cb1-13" data-line-number="13">stdy <span class="op">=</span> y.std()</a><a class="sourceLine" id="cb1-14" data-line-number="14"></a><a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co"># 计算协方差矩阵</span></a><a class="sourceLine" id="cb1-16" data-line-number="16">covxy <span class="op">=</span> np.cov(x, y)</a><a class="sourceLine" id="cb1-17" data-line-number="17"><span class="bu">print</span>(covxy)</a><a class="sourceLine" id="cb1-18" data-line-number="18"></a><a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co"># 我们可以手动进行验证</span></a><a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co"># covx等于covxy[0, 0], covy等于covxy[1, 1]</span></a><a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co"># 我们这里的计算结果应该是约等于，因为我们在计算的时候是使用的总体方差(总体方差和样本方差是稍微有点区别的)</span></a><a class="sourceLine" id="cb1-22" data-line-number="22">covx <span class="op">=</span> np.mean((x <span class="op">-</span> x.mean()) <span class="op">**</span> <span class="dv">2</span>) </a><a class="sourceLine" id="cb1-23" data-line-number="23">covy <span class="op">=</span> np.mean((y <span class="op">-</span> y.mean()) <span class="op">**</span> <span class="dv">2</span>) </a><a class="sourceLine" id="cb1-24" data-line-number="24"><span class="bu">print</span>(covx)</a><a class="sourceLine" id="cb1-25" data-line-number="25"><span class="bu">print</span>(covy)</a><a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co"># 这里计算的covxy等于上面的covxy[0, 1]和covxy[1, 0]，三者相等</span></a><a class="sourceLine" id="cb1-27" data-line-number="27">covxy <span class="op">=</span> np.mean((x <span class="op">-</span> x.mean()) <span class="op">*</span> (y <span class="op">-</span> y.mean()))</a><a class="sourceLine" id="cb1-28" data-line-number="28"><span class="bu">print</span>(covxy)</a><a class="sourceLine" id="cb1-29" data-line-number="29"></a><a class="sourceLine" id="cb1-30" data-line-number="30"><span class="co"># 下面计算的是相关系数矩阵(和上面的协方差矩阵是类似的)</span></a><a class="sourceLine" id="cb1-31" data-line-number="31">coefxy <span class="op">=</span> np.corrcoef(x, y)</a><a class="sourceLine" id="cb1-32" data-line-number="32"><span class="bu">print</span>(coefxy)</a></code></pre></div><p>一组可能的输出结果：</p><pre><code>[[6.83907508 0.10925926] [0.10925926 6.53390891]]6.8322366.5273750.10914999999999989[[1.         0.01634455] [0.01634455 1.        ]]</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;使用python计算方差协方差和相关系数&quot;&gt;使用Python计算方差，协方差和相关系数&lt;/h1&gt;
-&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h2 id=&quot;数学定义&quot;&gt;数学定义&lt;/h2&gt;
-&lt;h3 id=&quot;期望&quot;&gt;期望&lt;/h3&gt;
-&lt;p&gt;设随机变量&lt;span class=&quot;math 
-      
-    
-    </summary>
-    
-      <category term="数学" scheme="http://theonegis.github.io/categories/math/"/>
-    
-    
-      <category term="数理统计" scheme="http://theonegis.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/"/>
-    
-      <category term="方差" scheme="http://theonegis.github.io/tags/%E6%96%B9%E5%B7%AE/"/>
-    
-      <category term="协方差" scheme="http://theonegis.github.io/tags/%E5%8D%8F%E6%96%B9%E5%B7%AE/"/>
-    
-      <category term="相关系数" scheme="http://theonegis.github.io/tags/%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0/"/>
     
   </entry>
   

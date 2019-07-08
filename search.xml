@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title>Morton码</title>
+      <link href="/algorithm/Morton%E7%A0%81/"/>
+      <url>/algorithm/Morton%E7%A0%81/</url>
+      <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2019-07-08 17:11:27</p><hr><h1 id="morton码的计算">Morton码的计算</h1><p>Morton码是对栅格格网进行编码的一种算法，在Google中搜索Morton，搜索结果第一位是Wikipedia的Z-order Curve，这是因为Morton码编码结果展现为一种Z形的填充曲线。下面简要说一下如何计算四进制和十进制的Morton码。</p><figure><img src="/images/geos/z-curve.png" alt="Morton码二进制"><figcaption>Morton码二进制</figcaption></figure><h2 id="四进制morton码计算">四进制Morton码计算</h2><p>四进制编码对左上，右上，左下，右下的顺序对四个格网单元分布编码为0，1，2，3。</p><p>其计算方式为：二进制的行列号<span class="math inline">\(r\)</span>、<span class="math inline">\(l\)</span>（从第0行0列开始），四进制编码<span class="math inline">\(M=2*l+ r\)</span>；那么这里就是：第5行（101）第7列（111）：<span class="math inline">\(M=2*101+111=313\)</span>（313对应的十进制是55）</p><h2 id="十进制morton码计算">十进制Morton码计算</h2><p>十进制的编码规则：首先，行列号转为二进制（从第0行0列开始）；然后行列号交叉排列；最后将二进制结果转为十进制。十进制Morton编码是按左上，右上，左下，右下的顺序从0开始对每个格网进行自然编码的。</p><p>对于第5行（101）第7列（111），交叉排列得到110111，然后转为十进制就是55。和四进制的编码结果是一样的。</p><p>下面给出十进制Morton码的C++实现：</p><div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a><a class="sourceLine" id="cb1-2" data-line-number="2"></a><a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">using</span> <span class="bu">std::</span>cout;</a><a class="sourceLine" id="cb1-4" data-line-number="4"></a><a class="sourceLine" id="cb1-5" data-line-number="5"><span class="dt">int</span> main() {</a><a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">uint32_t</span> row = <span class="dv">5</span>;</a><a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">uint32_t</span> col = <span class="dv">7</span>;</a><a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="dt">uint64_t</span> morton = <span class="dv">0</span>;</a><a class="sourceLine" id="cb1-9" data-line-number="9"></a><a class="sourceLine" id="cb1-10" data-line-number="10">    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="kw">sizeof</span>(row) * <span class="dv">8</span>; i++) {</a><a class="sourceLine" id="cb1-11" data-line-number="11">        morton |= (row &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; i | (col &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; (i + <span class="dv">1</span>);</a><a class="sourceLine" id="cb1-12" data-line-number="12">    }</a><a class="sourceLine" id="cb1-13" data-line-number="13">    cout &lt;&lt; morton &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a><a class="sourceLine" id="cb1-14" data-line-number="14">    <span class="cf">return</span> <span class="dv">0</span>;</a><a class="sourceLine" id="cb1-15" data-line-number="15">}</a></code></pre></div>]]></content>
+      
+      <categories>
+          
+          <category> algorithm </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Morton </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>NumPy中的维度Axis</title>
       <link href="/python/NumPy%E4%B8%AD%E7%9A%84%E7%BB%B4%E5%BA%A6Axis/"/>
       <url>/python/NumPy%E4%B8%AD%E7%9A%84%E7%BB%B4%E5%BA%A6Axis/</url>
@@ -1360,16 +1381,16 @@
     </entry>
     
     <entry>
-      <title>时间轴</title>
-      <link href="/timeline/index.html"/>
-      <url>/timeline/index.html</url>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
     <entry>
-      <title>标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>时间轴</title>
+      <link href="/timeline/index.html"/>
+      <url>/timeline/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
