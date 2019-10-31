@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://theonegis.github.io/"/>
-  <updated>2019-07-08T09:31:42.511Z</updated>
+  <updated>2019-10-31T12:29:06.727Z</updated>
   <id>http://theonegis.github.io/</id>
   
   <author>
@@ -17,11 +17,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>从傅立叶级数到傅立叶变化</title>
+    <link href="http://theonegis.github.io/math/%E4%BB%8E%E5%82%85%E7%AB%8B%E5%8F%B6%E7%BA%A7%E6%95%B0%E5%88%B0%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E5%8C%96/"/>
+    <id>http://theonegis.github.io/math/从傅立叶级数到傅立叶变化/</id>
+    <published>2019-10-31T11:09:32.000Z</published>
+    <updated>2019-10-31T12:29:06.727Z</updated>
+    
+    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2019-10-31</p><hr><p>写这篇博文的初衷是在翻阅数字图像处理相关教科书的时候，发现大部分对傅立叶变换的讲解直接给出了变换公式，而对于公式从何而来并没有给出说明。所以，本文在假设已经了解傅立叶级数的背景下，从傅立叶级数推导出傅立叶变换的一般公式。</p><h1 id="傅立叶级数">傅立叶级数</h1><p>学过高数的童鞋都听过傅立叶级数，下面直接给出定义，具体证明可以参考高等数学教材。</p><p>设周期为<span class="math inline">\(T\)</span>的周期函数<span class="math inline">\(f(x)\)</span>的傅立叶级数为</p><p><span class="math display">\[f(x) = \frac{a_{0}}{2}+\sum_{n=1}^{\infty}\left(a_{n} \cos \frac{2\pi n x}{T}+b_{n} \sin \frac{2\pi n x}{T}\right) \tag{1}\]</span></p><p>其中，系数<span class="math inline">\(a_n\)</span>和<span class="math inline">\(b_n\)</span>分别为：</p><p><span class="math display">\[\left.\begin{array}{ll}{a_{n}=\frac{2}{T} \int_{\frac{T}{2}}^{\frac{T}{2}} f(x) \cos \frac{2\pi n x}{T} \mathrm{d} x} &amp; {(n=0,1,2, \cdots)} \\ {b_{n}=\frac{2}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(x) \sin \frac{2\pi n x}{T} \mathrm{d} x} &amp; {(n=1,2,3, \cdots)}\end{array}\right\} \tag{2}\]</span></p><p>利用欧拉公式<span class="math display">\[\cos t=\frac{\mathrm{e}^{t \mathrm{i}}+\mathrm{e}^{-t i}}{2}, \quad \sin t=\frac{\mathrm{e}^{t i}-\mathrm{e}^{-t i}}{2 \mathrm{i}}\]</span></p><p>可以将公式（1）转化为傅立叶级数的复数形式</p><p><span class="math display">\[f(x) = \sum\limits_{n=-\infty}^{\infty} c_{n} e^{\frac{2\pi n x}{T} \mathrm{i}} \tag{3}\]</span></p><p>系数<span class="math inline">\(c_n\)</span>为</p><p><span class="math display">\[c_{n}=\frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(x) \mathrm{e}^{-\frac{2\pi n x}{T} \mathrm{i}} \mathrm{d} x \quad(n=0, \pm 1, \pm 2, \cdots) \tag{4}\]</span></p><p>傅立叶级数的两种形式本质上是一样的，但是复数形式比较简洁，而且只用一个算式计算系数。</p><h1 id="傅立叶变换">傅立叶变换</h1><p>傅立叶级数是针对周期函数的，为了可以处理非周期函数，需要傅立叶变换。</p><p>傅立叶变换将周期函数在一个周期内的部分无限延拓，即让周期趋紧于无穷，然后就得到了傅立叶变换，如下图所示。</p><figure><img src="/images/math/FourierTransform.jpeg" alt="非周期函数延拓"><figcaption>非周期函数延拓</figcaption></figure><p>图片来源：<a href="https://medium.com/sho-jp/fourier-transform-101-part-3-fourier-transform-6def0bd2ca9b" target="_blank" rel="noopener">Fourier Transform 101 — Part 3: Fourier Transform</a></p><p>下面我们看一下，当周期<span class="math inline">\(T\)</span>趋于<span class="math inline">\(\infty\)</span>的时候，我们看一下公式（3）和（4）的变化。</p><p>令<span class="math inline">\(\frac{1}{T} = \Delta \omega\)</span>，则</p><p><span class="math display">\[\begin{align}f(x) &amp;= \sum\limits_{n=-\infty}^{\infty} c_{n} e^{\frac{2 \pi n x}{T} \mathrm{i}} \\ &amp;= \sum\limits_{n=-\infty}^{\infty} c_{n} e^{2 \pi n \Delta \omega x \mathrm{i}} \\ &amp;= \sum\limits_{n=-\infty}^{\infty} \frac{1}{T} [\int_{-\frac{T}{2}}^{\frac{T}{2}} f(x) \mathrm{e}^{-2\pi n \Delta \omega x \mathrm{i}} \mathrm{d} x] e^{2 \pi n \Delta \omega x \mathrm{i}} \\ \end{align}\]</span></p><p>当<span class="math inline">\(T \to \infty\)</span>时，<span class="math inline">\(\Delta \omega \to 0\)</span>，<span class="math inline">\(\Delta \omega \to \mathrm{d}\omega\)</span> ，<span class="math inline">\(\mathrm{d}\omega\)</span>和<span class="math inline">\(n \mathrm{d}\omega\)</span>都成为连续的变量，记为<span class="math inline">\(\omega\)</span>。</p><p><span class="math display">\[\begin{align}f(x) &amp;= \lim_{T\to \infty}{\sum\limits_{n=-\infty}^{\infty} \frac{1}{T} [\int_{-\frac{T}{2}}^{\frac{T}{2}} f(x) \mathrm{e}^{-n \pi xl \mathrm{i}} \mathrm{d} x] e^{2 \pi n \Delta \omega x \mathrm{i}}} \\ &amp;= \int_{-\infty}^{\infty}[\int_{-\infty}^{\infty}f(x)e^{-2\pi\omega x \mathrm{i}} \mathrm{d}x]e^{2\pi\omega x \mathrm{i}}\mathrm{d}\omega \\ \end{align}\]</span></p><p>对应于傅立叶级数，傅立叶变换可以表示为</p><p><span class="math display">\[F(\omega) = \int_{-\infty}^{\infty}f(x)e^{-2\pi\omega x \mathrm{i}} \mathrm{d}x \tag{5}\]</span></p><p>而相应地傅立叶逆变换可以表示为</p><p><span class="math display">\[f(x) = \int_{-\infty}^{\infty}F(\omega) e^{2\pi\omega x \mathrm{i}}\mathrm{d}\omega \tag{6}\]</span></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
+&lt;p&gt;写作时间：2019-10-31&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;写这篇博文的初衷是在翻阅数字图像处理相关教科书的时候，发现大部分对傅立叶变换的讲解直接给出了变换公式，而对于公式从何而来并没有给出说明。所以，本文在假设
+      
+    
+    </summary>
+    
+      <category term="数学" scheme="http://theonegis.github.io/categories/math/"/>
+    
+    
+      <category term="傅立叶变换" scheme="http://theonegis.github.io/tags/%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2/"/>
+    
+      <category term="傅立叶级数" scheme="http://theonegis.github.io/tags/%E5%82%85%E7%AB%8B%E5%8F%B6%E7%BA%A7%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Morton码</title>
     <link href="http://theonegis.github.io/algorithm/Morton%E7%A0%81/"/>
     <id>http://theonegis.github.io/algorithm/Morton码/</id>
     <published>2019-07-08T09:11:27.000Z</published>
-    <updated>2019-07-08T09:31:42.511Z</updated>
+    <updated>2019-10-31T12:31:45.630Z</updated>
     
     <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2019-07-08 17:11:27</p><hr><h1 id="morton码的计算">Morton码的计算</h1><p>Morton码是对栅格格网进行编码的一种算法，在Google中搜索Morton，搜索结果第一位是Wikipedia的Z-order Curve，这是因为Morton码编码结果展现为一种Z形的填充曲线。下面简要说一下如何计算四进制和十进制的Morton码。</p><figure><img src="/images/geos/z-curve.png" alt="Morton码二进制"><figcaption>Morton码二进制</figcaption></figure><h2 id="四进制morton码计算">四进制Morton码计算</h2><p>四进制编码对左上，右上，左下，右下的顺序对四个格网单元分布编码为0，1，2，3。</p><p>其计算方式为：二进制的行列号<span class="math inline">\(r\)</span>、<span class="math inline">\(l\)</span>（从第0行0列开始），四进制编码<span class="math inline">\(M=2*l+ r\)</span>；那么这里就是：第5行（101）第7列（111）：<span class="math inline">\(M=2*101+111=313\)</span>（313对应的十进制是55）</p><h2 id="十进制morton码计算">十进制Morton码计算</h2><p>十进制的编码规则：首先，行列号转为二进制（从第0行0列开始）；然后行列号交叉排列；最后将二进制结果转为十进制。十进制Morton编码是按左上，右上，左下，右下的顺序从0开始对每个格网进行自然编码的。</p><p>对于第5行（101）第7列（111），交叉排列得到110111，然后转为十进制就是55。和四进制的编码结果是一样的。</p><p>下面给出十进制Morton码的C++实现：</p><div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a><a class="sourceLine" id="cb1-2" data-line-number="2"></a><a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">using</span> <span class="bu">std::</span>cout;</a><a class="sourceLine" id="cb1-4" data-line-number="4"></a><a class="sourceLine" id="cb1-5" data-line-number="5"><span class="dt">int</span> main() {</a><a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">uint32_t</span> row = <span class="dv">5</span>;</a><a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">uint32_t</span> col = <span class="dv">7</span>;</a><a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="dt">uint64_t</span> morton = <span class="dv">0</span>;</a><a class="sourceLine" id="cb1-9" data-line-number="9"></a><a class="sourceLine" id="cb1-10" data-line-number="10">    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="kw">sizeof</span>(row) * <span class="dv">8</span>; i++) {</a><a class="sourceLine" id="cb1-11" data-line-number="11">        morton |= (row &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; i | (col &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; (i + <span class="dv">1</span>);</a><a class="sourceLine" id="cb1-12" data-line-number="12">    }</a><a class="sourceLine" id="cb1-13" data-line-number="13">    cout &lt;&lt; morton &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a><a class="sourceLine" id="cb1-14" data-line-number="14">    <span class="cf">return</span> <span class="dv">0</span>;</a><a class="sourceLine" id="cb1-15" data-line-number="15">}</a></code></pre></div>]]></content>
     
@@ -38,7 +68,7 @@
     
     </summary>
     
-      <category term="algorithm" scheme="http://theonegis.github.io/categories/algorithm/"/>
+      <category term="算法" scheme="http://theonegis.github.io/categories/algorithm/"/>
     
     
       <category term="Morton" scheme="http://theonegis.github.io/tags/Morton/"/>
@@ -594,35 +624,6 @@
       <category term="相关系数" scheme="http://theonegis.github.io/tags/%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0/"/>
     
       <category term="决定系数" scheme="http://theonegis.github.io/tags/%E5%86%B3%E5%AE%9A%E7%B3%BB%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>假设检验和P值那些事</title>
-    <link href="http://theonegis.github.io/math/%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E5%92%8CP%E5%80%BC%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
-    <id>http://theonegis.github.io/math/假设检验和P值那些事/</id>
-    <published>2019-01-04T08:17:52.000Z</published>
-    <updated>2019-03-22T19:39:53.830Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="假设检验和p值那些事">假设检验和P值那些事</h1><p>记得大学时候学习概率论与数理统计的时候，学习过假设检验，但我不记得课本上有提到过P值。后来翻阅了一些资料，大概弄明白了它们之间的关系，本文旨在以浅显易懂的语言描述严密的数学知识。</p><h2 id="假设检验">假设检验</h2><p>在《Head First Statistics》一书中，作者给假设检验的定义是“Hypothesis tests give you a way of using samples to test whether or not statistical claims are likely to be true”。其实定义不重要，重要的是我们需要知道假设检验能做什么：以概率统计的视角判别一个统计假说是否成立。</p><p>下面举一个烂大街的例子：我有一枚专门用于玩抛硬币猜正反面的游戏的硬币，我需要判断这枚硬币是否是正常的（抛硬币游戏中出现正反面的概率相等）。所以我做了一个假说：该枚硬币是正常的，即抛硬币游戏中出现正面的概率为0.5。</p><p>那我现在需要做实验去验证我说的对不对。我抛了20次，正面朝上11次，背面朝上9次（设正面朝上记为1，反面朝上记为0）。基于这个实验结果，我应该做怎样的判断呢？</p><p>根据假设检验的一般步骤：</p><ol type="1"><li><p>建立假设</p></li><li><p>寻找检验统计量</p></li><li><p>确定显著性水平和拒绝域</p></li><li><p>做出判断</p></li></ol><p>第一步中我们的原假设<span class="math inline">\(H_0\)</span>（null hypothesis）为该枚硬币是正常的，备择假设<span class="math inline">\(H_1\)</span>（alternate hypothesis）为该硬币不正常。</p><p>注：当原假设正确，而由于样本的随机性使得样本观测值落在拒绝域（critical region或rejection region）而拒绝原假设产生的错误称为第一类错误；当原假设错误，而样本观测值落在接受域而接受原假设产生的错误称为第二类错误。</p><p>第二步中根据中心极限定理可知随机变量<span class="math inline">\(\bar{X}\)</span>服从正态分布。这里我们的检验统计量选择<span class="math inline">\(t=\frac{\bar{X}-\mu_0}{S/\sqrt{n}}\)</span>（这里的<span class="math inline">\(t\)</span>服从自由度为<span class="math inline">\(n-1\)</span>的<span class="math inline">\(t\)</span>分布），所以我们使用<span class="math inline">\(t\)</span>分布来估计投掷的均值（这里<span class="math inline">\(\bar{X}\)</span>为样本均值，<span class="math inline">\(\mu_0\)</span>为原假设中的均值（期望），<span class="math inline">\(S\)</span>为样本标准差，<span class="math inline">\(n\)</span>为样本个数）。</p><p><span class="math display">\[t=\frac{\bar{X}-\mu_0}{S/\sqrt{n}} = \frac{0.55 - 0.5}{0.5104178 / \sqrt{20}} = 0.4380858\]</span></p><p>注：<span class="math inline">\(t\)</span>分布用于根据小样本来估计呈正态分布且方差未知的总体的均值，称为<span class="math inline">\(t\)</span>检验。如果总体方差已知（例如在样本数量足够多时），则应该用正态分布来估计总体均值，称为<span class="math inline">\(U\)</span>检验。</p><p>第三步中显著性水平<span class="math inline">\(\alpha\)</span>（significance level，拒绝原假设时概率阈值）我们一般采用0.05（当然，你也可以使用0.1或者其它）。这个0.05的意思是观测值落在拒绝域的概率为0.05，概率为0.05说明这是小概率事件，而在一次测试中发生了小概率事件，所以我们有足够的理由拒绝原假设。</p><p>接下来我们应该计算拒绝域了。对于<span class="math inline">\(t\)</span>分布求0.025和0.975的分位数分别为-2.093024和2.093024（即<span class="math inline">\(t\)</span>的上下界，左右两边各是0.025，合起来就是0.05的拒绝域），我们可以反推出<span class="math inline">\(\bar{X}\)</span>的上下界为0.3111171和0.7888829（这个区间就是接受域）。</p><p>注：对于拒绝域来说，有单边和双边情况，我们这里显然是双边的情况。</p><p>第四步做出判断，我们实验的结果的均值是0.4380858，我们在0.05的显著性水平下得到的接受域是<span class="math inline">\((0.3111171, 0.7888829)\)</span>，实验结果落在接受域，所以我们不能拒绝原假设<span class="math inline">\(H_0\)</span>。这里的不能拒绝指的是我们没有足够的理由推翻原假设，但是这并不代表原假设一定正确。</p><h2 id="p值">P值</h2><p>上面讲了检验假设的一般过程，好像跟P值没什么关系？但是P值其实和检验假设息息相关的。上面的求解过程是通过判断样本观测值是否落在拒绝域而做出判断的，其实我们还可以通过计算P值直接进行判断。</p><p>那么什么是<span class="math inline">\(P\)</span>值呢？《Head First Statistics》给出的定义是“A p-value is the probability of getting the results in the sample, or something more extreme, in the direction of the critical region.”。我的理解就是P值是在原假设成立的情况下，出现比当前样本观测值更极端（包括当前样本观测值）情况的概率。</p><p>其实这样说还是挺抽象的，我们通过计算来进行说明。</p><p>我们把检验假设步骤中的第三步修改为：确定显著性水平和计算P值</p><p>在我们的实验中<span class="math inline">\(t=\frac{\bar{X}-\mu_0}{S/\sqrt{n}} = \frac{0.55 - 0.5}{0.5104178 / \sqrt{20}} = 0.4380858\)</span></p><p>然后我们通过查表可以得到0.4380858对应的上侧分位数为 0.3331321（和-0.4380858对应的下侧分位数相同），因为我们的实验中是双边情况，所以<span class="math inline">\(P = 0.4380858\times2 = 0.6662642 \gt 0.05\)</span></p><p>在确定了显著性水平<span class="math inline">\(\alpha\)</span>的情况下（<span class="math inline">\(\alpha=0.05\)</span>），如果计算出的<span class="math inline">\(P\le0.05\)</span>，说明观察值不合理，也就是样本均值离假设均值太远了，因此拒绝原假如果计算计算出的<span class="math inline">\(P\gt0.05\)</span>，则我们不能拒绝原假设。</p><p>注：设连续型随机变量<span class="math inline">\(X\)</span>的分布函数为<span class="math inline">\(F(x)\)</span>，密度函数为<span class="math inline">\(f(x)\)</span>，对于任意<span class="math inline">\(\alpha (0\lt\alpha\lt1)\)</span>，假如<span class="math inline">\(x_\alpha\)</span>满足条件</p><p><span class="math display">\[F(x_\alpha) = \int_{-\infty}^{x_\alpha} f(x) dx = \alpha\]</span></p><p>则<span class="math inline">\(x_\alpha\)</span>称为<span class="math inline">\(X\)</span>分布的<span class="math inline">\(\alpha\)</span>分位数，或称为<span class="math inline">\(\alpha\)</span>下侧分位数。假如<span class="math inline">\(x^{\prime}_\alpha\)</span>满足</p><p><span class="math display">\[1 - F(x^{\prime}_\alpha) = \int_{-\infty}^{x_\alpha} f(x) dx = \alpha\]</span></p><p>则<span class="math inline">\(x^{\prime}_\alpha\)</span>称为<span class="math inline">\(X\)</span>分布的<span class="math inline">\(\alpha\)</span>分位数。</p><p>通俗地理解分位数就是对应某个概率面积的横坐标，如果是左侧面积（概率）叫下侧分位数，如果是右侧面积（概率）叫上侧分位数。</p><h2 id="r中的实践">R中的实践</h2><p>好的，下面我们来看如何在R中重复上面的实验：</p><p>产生一个随机的模拟序列（二项分布，生成0和1）</p><p><code>flips &lt;- rbinom(20, 1, 0.4)</code></p><p>结果如下：<code>1 0 1 0 1 1 1 0 1 0 1 0 0 0 0 1 1 0 1 1</code></p><p>使用R内置的<span class="math inline">\(t\)</span>检验函数如下：</p><p><code>t.test (flips, mu=0.5)</code></p><p>输出结果如下：</p><pre><code>    One Sample t-testdata:  flipst = 0.43809, df = 19, p-value = 0.6663alternative hypothesis: true mean is not equal to 0.595 percent confidence interval: 0.3111171 0.7888829sample estimates:mean of x      0.55 </code></pre><p>如果需要我们手动计算上面这些值，我们是否可以计算出来呢？计算的过程就是上面讲解假设减压和P值的过程。</p><p>首先<span class="math inline">\(t\)</span>值的计算很简单，使用公式<span class="math inline">\(t=\frac{\bar{X}-\mu_0}{S/\sqrt{n}}\)</span>即可，代码如下，结果为0.4380858</p><p><code>(mean(flips) - 0.5) / (sd(flips) / sqrt(length(flips)))</code></p><p><span class="math inline">\(df\)</span>指代的是自由度<span class="math inline">\(n-1=20-1=19\)</span></p><p>接下来我们计算P值，通过计算-0.4380858的下侧分位数再乘以2可得，代码如下，结果为0.6662642</p><p><code>pt(-0.4380858, 19) * 2</code></p><p>在来看我们的置信区间，其实这里就是我们所要求的接受域</p><p>左侧计算代码：<code>qt(0.025, 19) * (sd(flips) / sqrt(20)) + 0.55</code> 结果为：0.3111171</p><p>右侧计算代码：<code>qt(0.975, 19) * (sd(flips) / sqrt(20)) + 0.55</code> 结果为：0.7888829</p><h2 id="参考文献">参考文献</h2><p>[1] 茆诗松. 概率论与数理统计 (第二版)[M]. 2000.</p><p>[2] Griffiths D. Head first statistics[M]. Oreilly Vlg Gmbh &amp; Co, 2009.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;假设检验和p值那些事&quot;&gt;假设检验和P值那些事&lt;/h1&gt;
-&lt;p&gt;记得大学时候学习概率论与数理统计的时候，学习过假设检验，但我不记得课本上有提到过P值。后来翻阅了一些资料，大概弄明白了它们之间的关系，本文旨在以浅显易懂的语言描述严密的数学知识。&lt;/p&gt;
-&lt;h2 id=
-      
-    
-    </summary>
-    
-      <category term="数学" scheme="http://theonegis.github.io/categories/math/"/>
-    
-    
-      <category term="假设检验" scheme="http://theonegis.github.io/tags/%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/"/>
-    
-      <category term="P值" scheme="http://theonegis.github.io/tags/P%E5%80%BC/"/>
     
   </entry>
   

@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>从傅立叶级数到傅立叶变化</title>
+      <link href="/math/%E4%BB%8E%E5%82%85%E7%AB%8B%E5%8F%B6%E7%BA%A7%E6%95%B0%E5%88%B0%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E5%8C%96/"/>
+      <url>/math/%E4%BB%8E%E5%82%85%E7%AB%8B%E5%8F%B6%E7%BA%A7%E6%95%B0%E5%88%B0%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E5%8C%96/</url>
+      <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2019-10-31</p><hr><p>写这篇博文的初衷是在翻阅数字图像处理相关教科书的时候，发现大部分对傅立叶变换的讲解直接给出了变换公式，而对于公式从何而来并没有给出说明。所以，本文在假设已经了解傅立叶级数的背景下，从傅立叶级数推导出傅立叶变换的一般公式。</p><h1 id="傅立叶级数">傅立叶级数</h1><p>学过高数的童鞋都听过傅立叶级数，下面直接给出定义，具体证明可以参考高等数学教材。</p><p>设周期为<span class="math inline">\(T\)</span>的周期函数<span class="math inline">\(f(x)\)</span>的傅立叶级数为</p><p><span class="math display">\[f(x) = \frac{a_{0}}{2}+\sum_{n=1}^{\infty}\left(a_{n} \cos \frac{2\pi n x}{T}+b_{n} \sin \frac{2\pi n x}{T}\right) \tag{1}\]</span></p><p>其中，系数<span class="math inline">\(a_n\)</span>和<span class="math inline">\(b_n\)</span>分别为：</p><p><span class="math display">\[\left.\begin{array}{ll}{a_{n}=\frac{2}{T} \int_{\frac{T}{2}}^{\frac{T}{2}} f(x) \cos \frac{2\pi n x}{T} \mathrm{d} x} &amp; {(n=0,1,2, \cdots)} \\ {b_{n}=\frac{2}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(x) \sin \frac{2\pi n x}{T} \mathrm{d} x} &amp; {(n=1,2,3, \cdots)}\end{array}\right\} \tag{2}\]</span></p><p>利用欧拉公式<span class="math display">\[\cos t=\frac{\mathrm{e}^{t \mathrm{i}}+\mathrm{e}^{-t i}}{2}, \quad \sin t=\frac{\mathrm{e}^{t i}-\mathrm{e}^{-t i}}{2 \mathrm{i}}\]</span></p><p>可以将公式（1）转化为傅立叶级数的复数形式</p><p><span class="math display">\[f(x) = \sum\limits_{n=-\infty}^{\infty} c_{n} e^{\frac{2\pi n x}{T} \mathrm{i}} \tag{3}\]</span></p><p>系数<span class="math inline">\(c_n\)</span>为</p><p><span class="math display">\[c_{n}=\frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(x) \mathrm{e}^{-\frac{2\pi n x}{T} \mathrm{i}} \mathrm{d} x \quad(n=0, \pm 1, \pm 2, \cdots) \tag{4}\]</span></p><p>傅立叶级数的两种形式本质上是一样的，但是复数形式比较简洁，而且只用一个算式计算系数。</p><h1 id="傅立叶变换">傅立叶变换</h1><p>傅立叶级数是针对周期函数的，为了可以处理非周期函数，需要傅立叶变换。</p><p>傅立叶变换将周期函数在一个周期内的部分无限延拓，即让周期趋紧于无穷，然后就得到了傅立叶变换，如下图所示。</p><figure><img src="/images/math/FourierTransform.jpeg" alt="非周期函数延拓"><figcaption>非周期函数延拓</figcaption></figure><p>图片来源：<a href="https://medium.com/sho-jp/fourier-transform-101-part-3-fourier-transform-6def0bd2ca9b" target="_blank" rel="noopener">Fourier Transform 101 — Part 3: Fourier Transform</a></p><p>下面我们看一下，当周期<span class="math inline">\(T\)</span>趋于<span class="math inline">\(\infty\)</span>的时候，我们看一下公式（3）和（4）的变化。</p><p>令<span class="math inline">\(\frac{1}{T} = \Delta \omega\)</span>，则</p><p><span class="math display">\[\begin{align}f(x) &amp;= \sum\limits_{n=-\infty}^{\infty} c_{n} e^{\frac{2 \pi n x}{T} \mathrm{i}} \\ &amp;= \sum\limits_{n=-\infty}^{\infty} c_{n} e^{2 \pi n \Delta \omega x \mathrm{i}} \\ &amp;= \sum\limits_{n=-\infty}^{\infty} \frac{1}{T} [\int_{-\frac{T}{2}}^{\frac{T}{2}} f(x) \mathrm{e}^{-2\pi n \Delta \omega x \mathrm{i}} \mathrm{d} x] e^{2 \pi n \Delta \omega x \mathrm{i}} \\ \end{align}\]</span></p><p>当<span class="math inline">\(T \to \infty\)</span>时，<span class="math inline">\(\Delta \omega \to 0\)</span>，<span class="math inline">\(\Delta \omega \to \mathrm{d}\omega\)</span> ，<span class="math inline">\(\mathrm{d}\omega\)</span>和<span class="math inline">\(n \mathrm{d}\omega\)</span>都成为连续的变量，记为<span class="math inline">\(\omega\)</span>。</p><p><span class="math display">\[\begin{align}f(x) &amp;= \lim_{T\to \infty}{\sum\limits_{n=-\infty}^{\infty} \frac{1}{T} [\int_{-\frac{T}{2}}^{\frac{T}{2}} f(x) \mathrm{e}^{-n \pi xl \mathrm{i}} \mathrm{d} x] e^{2 \pi n \Delta \omega x \mathrm{i}}} \\ &amp;= \int_{-\infty}^{\infty}[\int_{-\infty}^{\infty}f(x)e^{-2\pi\omega x \mathrm{i}} \mathrm{d}x]e^{2\pi\omega x \mathrm{i}}\mathrm{d}\omega \\ \end{align}\]</span></p><p>对应于傅立叶级数，傅立叶变换可以表示为</p><p><span class="math display">\[F(\omega) = \int_{-\infty}^{\infty}f(x)e^{-2\pi\omega x \mathrm{i}} \mathrm{d}x \tag{5}\]</span></p><p>而相应地傅立叶逆变换可以表示为</p><p><span class="math display">\[f(x) = \int_{-\infty}^{\infty}F(\omega) e^{2\pi\omega x \mathrm{i}}\mathrm{d}\omega \tag{6}\]</span></p>]]></content>
+      
+      <categories>
+          
+          <category> 数学 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 傅立叶变换 </tag>
+            
+            <tag> 傅立叶级数 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Morton码</title>
       <link href="/algorithm/Morton%E7%A0%81/"/>
       <url>/algorithm/Morton%E7%A0%81/</url>
@@ -10,7 +33,7 @@
       
       <categories>
           
-          <category> algorithm </category>
+          <category> 算法 </category>
           
       </categories>
       
@@ -1374,16 +1397,16 @@
     </entry>
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
     <entry>
-      <title>标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
