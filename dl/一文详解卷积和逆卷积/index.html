@@ -520,7 +520,7 @@
 <h2 id="卷积运算">卷积运算</h2>
 <p>卷积在数学上是两个变量在某范围内相乘后求和的结果。在数字图像处理中，卷积操作其实就是利用卷积核（卷积模板）在图像上滑动，将图像点上的像素灰度值与对应的卷积核上的数值相乘，然后将所有相乘后的值相加作为卷积核中间像素对应的图像上像素的灰度值，并最终滑动完所有图像的过程，如图下图所示（图中的蓝色代表输入，青色代表输出）。</p>
 <figure>
-<img src="/images/ml/no_padding_no_strides.gif" alt="卷积运算"><figcaption>卷积运算</figcaption>
+<img src="/images/ml/no_padding_no_strides.gif" alt=""><figcaption>卷积运算</figcaption>
 </figure>
 <p>在卷积运算中，我们有下面几个概念：</p>
 <ul>
@@ -544,15 +544,15 @@
 <h3 id="单通道">单通道</h3>
 <p>对于一个长为<span class="math inline">\(H\)</span>，宽为<span class="math inline">\(W\)</span>的灰度图像来说，其尺寸可以表示为<span class="math inline">\((1, W, H)\)</span>。这里的1我们称之为通道（Channel）。所谓“一图胜千言”，下面的动图以单通道为例，演示了如何进行卷积运算得到最终的输出结果。</p>
 <figure>
-<img src="/images/ml/stride1.gif" alt="步长为1的卷积"><figcaption>步长为1的卷积</figcaption>
+<img src="/images/ml/stride1.gif" alt=""><figcaption>步长为1的卷积</figcaption>
 </figure>
 <figure>
-<img src="/images/ml/stride2.gif" alt="步长为2的卷积"><figcaption>步长为2的卷积</figcaption>
+<img src="/images/ml/stride2.gif" alt=""><figcaption>步长为2的卷积</figcaption>
 </figure>
 <h3 id="多通道">多通道</h3>
 <p>那如果对于一个RGB彩色图像我们的通道就是3，对于多通道的输入，我们如何进行卷积操作，输出为多通道或者单通道呢？</p>
 <figure>
-<img src="/images/ml/rgb.gif" alt="多通道卷积"><figcaption>多通道卷积</figcaption>
+<img src="/images/ml/rgb.gif" alt=""><figcaption>多通道卷积</figcaption>
 </figure>
 <p>从上图可以知道，对于多通道的输入，卷积操作在每个Channel上分别进行，然后进行求和得到输出。比如，我的输入是<span class="math inline">\((32, W, H)\)</span>，我的输出是<span class="math inline">\((64, W, H)\)</span>，则需要新的卷积核的个数是<span class="math inline">\(32 \times 64\)</span>。因为，对于在输入的32个通道的每个通道都需要64个卷积核，每个通道做完卷积运算，然后再求和，得到最后的64个通道的输出。</p>
 <h3 id="卷积运算的参数计算">卷积运算的参数计算</h3>
@@ -563,18 +563,18 @@
 <h2 id="逆卷积">逆卷积</h2>
 <p>在CNN中，我们经常会使用所谓的逆卷积（Decovolution）进行输入尺寸的放大，但是注意这个逆卷积不是卷积的逆操作。下面，我们还是看图说话，到底什么是逆卷积呢？(图中蓝色代表的是输入，青色代表的是输出)</p>
 <figure>
-<img src="/images/ml/no_padding_no_strides_transposed.gif" alt="逆卷积"><figcaption>逆卷积</figcaption>
+<img src="/images/ml/no_padding_no_strides_transposed.gif" alt=""><figcaption>逆卷积</figcaption>
 </figure>
 <p>可以看到其实逆卷积和卷积操作并没有本质的区别，只是在输出的尺寸上有所区别。</p>
 <h2 id="卷积运算的矩阵实现">卷积运算的矩阵实现</h2>
 <p>那么在计算机内部我们如何实现卷积操作呢？答案是矩阵乘法。</p>
 <p>我们还是看图说话，对于卷积操作，我们对输入图像以及卷积核做Unroll操作以后，进行矩阵相乘得到输出。</p>
 <figure>
-<img src="/images/ml/deconvolution-unroll.jpg" alt="卷积操作的矩阵实现"><figcaption>卷积操作的矩阵实现</figcaption>
+<img src="/images/ml/deconvolution-unroll.jpg" alt=""><figcaption>卷积操作的矩阵实现</figcaption>
 </figure>
 <p>对于逆卷积操作，我们对卷积核进行Unroll操作以后进行转置，然后再做矩阵乘法，得到输入。所以基于这个原因，我们一般称逆卷积为转置卷积（Transposed Convolution）。</p>
 <figure>
-<img src="/images/ml/deconvolution.jpg" alt="逆卷积操作的矩阵实现"><figcaption>逆卷积操作的矩阵实现</figcaption>
+<img src="/images/ml/deconvolution.jpg" alt=""><figcaption>逆卷积操作的矩阵实现</figcaption>
 </figure>
 <h2 id="参考资料">参考资料</h2>
 <ol type="1">
@@ -709,7 +709,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -727,7 +727,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -827,7 +827,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

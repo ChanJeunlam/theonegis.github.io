@@ -521,7 +521,7 @@
 <p>至于RNN的能做什么，擅长什么，这里不赘述。如果不清楚，请先维基一下，那里比我说得更加清楚。</p>
 <p>我们首先来来看一张经典的RNN模型示意图！</p>
 <figure>
-<img src="/images/ml/Recurrent-Neural-Network.png" alt="Recurrent Neural Network"><figcaption>Recurrent Neural Network</figcaption>
+<img src="/images/ml/Recurrent-Neural-Network.png" alt=""><figcaption>Recurrent Neural Network</figcaption>
 </figure>
 <p>图分左右两边：左边给出的RNN是一个抽象的循环结构，右边是左边RNN展开以后的形式。先来看右边的结构，从下往上依次是序列数据的输入X（图中的绿色结构，可以是时间序列，也可以是文本序列等等）。对于t时刻的x经过一个线性变换（U是变换的权重），然后与t-1时刻经过线性变换V的h相加，再经过一个 非线性激活（一般使用tanh或者relu函数）以后，形成一个t时刻的中间状态h，然后再经过一个线性变换（W）输出o ，最后再经过一个非线性激活（可以是sigmoid函数或者softmax等函数）形成最后的输出y。</p>
 <p>上面的文字描述，可以形式化表示为下面的公式：</p>
@@ -533,7 +533,7 @@
 <p>下面我们以一个最简单的回归问题使用正弦sin函数预测余弦cos函数，介绍如何使用PyTorch实现RNN模型。</p>
 <p>先来看一下PyTorch中<a href="https://pytorch.org/docs/stable/nn.html#rnn" target="_blank" rel="noopener">RNN</a>类的原型：</p>
 <figure>
-<img src="/images/ml/RNNClass.png" alt="torch.nn.RNN"><figcaption>torch.nn.RNN</figcaption>
+<img src="/images/ml/RNNClass.png" alt=""><figcaption>torch.nn.RNN</figcaption>
 </figure>
 <ul>
 <li>必选参数<code>input_size</code>指定输入序列中单个样本的大小尺寸，比如在NLP中我们可能用用一个10000个长度的向量表示一个单词，则这个<code>input_size</code>就是10000。在咱们的回归案例中，一个序列中包含若干点，而每个点的所代表的函数值（Y）作为一个样本，则咱们案例中的<code>input_size</code>为1。这个参数需要根据自己的实际问题确定。</li>
@@ -544,7 +544,7 @@
 </ul>
 <p>下面再来说说RNN输入输出尺寸的问题，了解了这个可以让我们我们调试代码的时候更加清晰。下面是PyTorch官方的说明：</p>
 <figure>
-<img src="/images/ml/RNNInOut.png" alt="RNN的输入输出"><figcaption>RNN的输入输出</figcaption>
+<img src="/images/ml/RNNInOut.png" alt=""><figcaption>RNN的输入输出</figcaption>
 </figure>
 <p>对于RNN的输入包括输入序列和一个初始化的隐藏状态<span class="math inline">\(h_0\)</span>。输入序列尺寸默认是（<code>sequence_length</code>，<code>batch_size</code>， <code>input_size</code>），所以如果我们的数据形式不是这样的，则需要手动调整为这种类型的格式。</p>
 <p>隐藏状态<span class="math inline">\(h_i\)</span>的尺寸是（<code>num_layers * num_directions</code>， <code>batch_size</code>，<code>hidden_size</code>）。单向RNN的<code>num_directions</code>为1，双向RNN的<code>num_directions</code>为2。</p>
@@ -552,18 +552,18 @@
 <p>输出的尺寸为 （<code>sequence_length</code>， <code>batch_size</code>， <code>num_directions * hidden_size</code>）</p>
 <p>每一次RNN运行结果输出中还会附带输出中间隐藏状态<span class="math inline">\(h_i\)</span>，当然这个尺寸和初始的隐藏状态相同。</p>
 <p>下面以一个简单的例子说明怎么在程序中查看他们的尺寸：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">import</span> torch</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="im">import</span> torch.nn <span class="im">as</span> nn</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">rnn <span class="op">=</span> nn.RNN(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">inputs <span class="op">=</span> torch.randn(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">10</span>)  <span class="co"># (time_step, batch_size, input_size)</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">h0 <span class="op">=</span> torch.randn(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">20</span>)  <span class="co"># (num_layers, batch_size, hidden_size)</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">output, hn <span class="op">=</span> rnn(inputs, h0)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="bu">print</span>(output.shape)  <span class="co"># (time_step, batch_size, hidden_size)</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="cf">for</span> name, param <span class="kw">in</span> rnn.named_parameters():</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">    <span class="cf">if</span> param.requires_grad:</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">        <span class="bu">print</span>(name, param.size())</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>rnn <span class="op">=</span> nn.RNN(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">2</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>inputs <span class="op">=</span> torch.randn(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">10</span>)  <span class="co"># (time_step, batch_size, input_size)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>h0 <span class="op">=</span> torch.randn(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">20</span>)  <span class="co"># (num_layers, batch_size, hidden_size)</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>output, hn <span class="op">=</span> rnn(inputs, h0)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="bu">print</span>(output.shape)  <span class="co"># (time_step, batch_size, hidden_size)</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="cf">for</span> name, param <span class="kw">in</span> rnn.named_parameters():</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="cf">if</span> param.requires_grad:</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        <span class="bu">print</span>(name, param.size())</span></code></pre></div>
 <p>其输出结果如下：</p>
 <pre><code>torch.Size([5, 3, 20])
 weight_ih_l0 torch.Size([20, 10])
@@ -579,82 +579,82 @@ bias_hh_l1 torch.Size([20])</code></pre>
 <p>好了，搞清楚了RNN的基本原理以及PyTorch中RNN类的输入输出参数要求，我们下面实现我们的回归案例。</p>
 <p>比较重要的几个超参数是：<code>TIME_STEP</code>指定输入序列的长度（一个序列中包含的函数值的个数），<code>INPUT_SIZE</code>是1，表示一个序列中的每个样本包含一个函数值。</p>
 <p>我们自定义的RNN类包含两个模型：一个<code>nn.RNN</code>层，一个<code>nn.Linear</code>层，注意<code>forward</code>函数的实现，观察每个变量的尺寸（注释中给出了答案）。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="im">import</span> torch</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="im">from</span> torch <span class="im">import</span> nn</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="im">import</span> numpy <span class="im">as</span> np</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">torch.manual_seed(<span class="dv">2019</span>)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># 超参设置</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">TIME_STEP <span class="op">=</span> <span class="dv">10</span>  <span class="co"># RNN时间步长</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">INPUT_SIZE <span class="op">=</span> <span class="dv">1</span>  <span class="co"># RNN输入尺寸</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">INIT_LR <span class="op">=</span> <span class="fl">0.02</span>  <span class="co"># 初始学习率</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">N_EPOCHS <span class="op">=</span> <span class="dv">100</span>  <span class="co"># 训练回数</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="kw">class</span> RNN(nn.Module):</a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">        <span class="bu">super</span>(RNN, <span class="va">self</span>).<span class="fu">__init__</span>()</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">        <span class="va">self</span>.rnn <span class="op">=</span> nn.RNN(</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">            input_size<span class="op">=</span>INPUT_SIZE,</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">            hidden_size<span class="op">=</span><span class="dv">32</span>,  <span class="co"># RNN隐藏神经元个数</span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21">            num_layers<span class="op">=</span><span class="dv">1</span>,  <span class="co"># RNN隐藏层个数</span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">        )</a>
-<a class="sourceLine" id="cb3-23" data-line-number="23">        <span class="va">self</span>.out <span class="op">=</span> nn.Linear(<span class="dv">32</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25">    <span class="kw">def</span> forward(<span class="va">self</span>, x, h):</a>
-<a class="sourceLine" id="cb3-26" data-line-number="26">        <span class="co"># x (time_step, batch_size, input_size)</span></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27">        <span class="co"># h (n_layers, batch, hidden_size)</span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28">        <span class="co"># out (time_step, batch_size, hidden_size)</span></a>
-<a class="sourceLine" id="cb3-29" data-line-number="29">        out, h <span class="op">=</span> <span class="va">self</span>.rnn(x, h)</a>
-<a class="sourceLine" id="cb3-30" data-line-number="30">        prediction <span class="op">=</span> <span class="va">self</span>.out(out)</a>
-<a class="sourceLine" id="cb3-31" data-line-number="31">        <span class="cf">return</span> prediction, h</a>
-<a class="sourceLine" id="cb3-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb3-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb3-34" data-line-number="34">rnn <span class="op">=</span> RNN()</a>
-<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="bu">print</span>(rnn)</a>
-<a class="sourceLine" id="cb3-36" data-line-number="36"></a>
-<a class="sourceLine" id="cb3-37" data-line-number="37">optimizer <span class="op">=</span> torch.optim.Adam(rnn.parameters(), lr<span class="op">=</span>INIT_LR)</a>
-<a class="sourceLine" id="cb3-38" data-line-number="38">loss_func <span class="op">=</span> nn.MSELoss()</a>
-<a class="sourceLine" id="cb3-39" data-line-number="39">h_state <span class="op">=</span> <span class="va">None</span>  <span class="co"># 初始化隐藏层</span></a>
-<a class="sourceLine" id="cb3-40" data-line-number="40"></a>
-<a class="sourceLine" id="cb3-41" data-line-number="41">plt.figure()</a>
-<a class="sourceLine" id="cb3-42" data-line-number="42">plt.ion()</a>
-<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(N_EPOCHS):</a>
-<a class="sourceLine" id="cb3-44" data-line-number="44">    start, end <span class="op">=</span> step <span class="op">*</span> np.pi, (step <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> np.pi  <span class="co"># 时间跨度</span></a>
-<a class="sourceLine" id="cb3-45" data-line-number="45">    <span class="co"># 使用Sin函数预测Cos函数</span></a>
-<a class="sourceLine" id="cb3-46" data-line-number="46">    steps <span class="op">=</span> np.linspace(start, end, TIME_STEP, dtype<span class="op">=</span>np.float32, endpoint<span class="op">=</span><span class="va">False</span>)</a>
-<a class="sourceLine" id="cb3-47" data-line-number="47">    x_np <span class="op">=</span> np.sin(steps)</a>
-<a class="sourceLine" id="cb3-48" data-line-number="48">    y_np <span class="op">=</span> np.cos(steps)</a>
-<a class="sourceLine" id="cb3-49" data-line-number="49">    x <span class="op">=</span> torch.from_numpy(x_np[:, np.newaxis, np.newaxis])  <span class="co"># 尺寸大小为(time_step, batch, input_size)</span></a>
-<a class="sourceLine" id="cb3-50" data-line-number="50">    y <span class="op">=</span> torch.from_numpy(y_np[:, np.newaxis, np.newaxis])</a>
-<a class="sourceLine" id="cb3-51" data-line-number="51"></a>
-<a class="sourceLine" id="cb3-52" data-line-number="52">    prediction, h_state <span class="op">=</span> rnn(x, h_state)  <span class="co"># RNN输出（预测结果，隐藏状态）</span></a>
-<a class="sourceLine" id="cb3-53" data-line-number="53">    h_state <span class="op">=</span> h_state.detach()  <span class="co"># 这一行很重要，将每一次输出的中间状态传递下去(不带梯度)</span></a>
-<a class="sourceLine" id="cb3-54" data-line-number="54">    loss <span class="op">=</span> loss_func(prediction, y)</a>
-<a class="sourceLine" id="cb3-55" data-line-number="55">    optimizer.zero_grad()</a>
-<a class="sourceLine" id="cb3-56" data-line-number="56">    loss.backward()</a>
-<a class="sourceLine" id="cb3-57" data-line-number="57">    optimizer.step()</a>
-<a class="sourceLine" id="cb3-58" data-line-number="58"></a>
-<a class="sourceLine" id="cb3-59" data-line-number="59">    <span class="co"># 绘制中间结果</span></a>
-<a class="sourceLine" id="cb3-60" data-line-number="60">    plt.cla()</a>
-<a class="sourceLine" id="cb3-61" data-line-number="61">    plt.plot(steps, y_np, <span class="st">&#39;r-&#39;</span>)</a>
-<a class="sourceLine" id="cb3-62" data-line-number="62">    plt.plot(steps, prediction.data.numpy().flatten(), <span class="st">&#39;b-&#39;</span>)</a>
-<a class="sourceLine" id="cb3-63" data-line-number="63">    plt.draw()</a>
-<a class="sourceLine" id="cb3-64" data-line-number="64">    plt.pause(<span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb3-65" data-line-number="65">plt.ioff()</a>
-<a class="sourceLine" id="cb3-66" data-line-number="66">plt.show()</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> torch</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>torch.manual_seed(<span class="dv">2019</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co"># 超参设置</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>TIME_STEP <span class="op">=</span> <span class="dv">10</span>  <span class="co"># RNN时间步长</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>INPUT_SIZE <span class="op">=</span> <span class="dv">1</span>  <span class="co"># RNN输入尺寸</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>INIT_LR <span class="op">=</span> <span class="fl">0.02</span>  <span class="co"># 初始学习率</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>N_EPOCHS <span class="op">=</span> <span class="dv">100</span>  <span class="co"># 训练回数</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="kw">class</span> RNN(nn.Module):</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb3-17"><a href="#cb3-17"></a>        <span class="bu">super</span>(RNN, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb3-18"><a href="#cb3-18"></a>        <span class="va">self</span>.rnn <span class="op">=</span> nn.RNN(</span>
+<span id="cb3-19"><a href="#cb3-19"></a>            input_size<span class="op">=</span>INPUT_SIZE,</span>
+<span id="cb3-20"><a href="#cb3-20"></a>            hidden_size<span class="op">=</span><span class="dv">32</span>,  <span class="co"># RNN隐藏神经元个数</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>            num_layers<span class="op">=</span><span class="dv">1</span>,  <span class="co"># RNN隐藏层个数</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>        )</span>
+<span id="cb3-23"><a href="#cb3-23"></a>        <span class="va">self</span>.out <span class="op">=</span> nn.Linear(<span class="dv">32</span>, <span class="dv">1</span>)</span>
+<span id="cb3-24"><a href="#cb3-24"></a></span>
+<span id="cb3-25"><a href="#cb3-25"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x, h):</span>
+<span id="cb3-26"><a href="#cb3-26"></a>        <span class="co"># x (time_step, batch_size, input_size)</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>        <span class="co"># h (n_layers, batch, hidden_size)</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>        <span class="co"># out (time_step, batch_size, hidden_size)</span></span>
+<span id="cb3-29"><a href="#cb3-29"></a>        out, h <span class="op">=</span> <span class="va">self</span>.rnn(x, h)</span>
+<span id="cb3-30"><a href="#cb3-30"></a>        prediction <span class="op">=</span> <span class="va">self</span>.out(out)</span>
+<span id="cb3-31"><a href="#cb3-31"></a>        <span class="cf">return</span> prediction, h</span>
+<span id="cb3-32"><a href="#cb3-32"></a></span>
+<span id="cb3-33"><a href="#cb3-33"></a></span>
+<span id="cb3-34"><a href="#cb3-34"></a>rnn <span class="op">=</span> RNN()</span>
+<span id="cb3-35"><a href="#cb3-35"></a><span class="bu">print</span>(rnn)</span>
+<span id="cb3-36"><a href="#cb3-36"></a></span>
+<span id="cb3-37"><a href="#cb3-37"></a>optimizer <span class="op">=</span> torch.optim.Adam(rnn.parameters(), lr<span class="op">=</span>INIT_LR)</span>
+<span id="cb3-38"><a href="#cb3-38"></a>loss_func <span class="op">=</span> nn.MSELoss()</span>
+<span id="cb3-39"><a href="#cb3-39"></a>h_state <span class="op">=</span> <span class="va">None</span>  <span class="co"># 初始化隐藏层</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a></span>
+<span id="cb3-41"><a href="#cb3-41"></a>plt.figure()</span>
+<span id="cb3-42"><a href="#cb3-42"></a>plt.ion()</span>
+<span id="cb3-43"><a href="#cb3-43"></a><span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(N_EPOCHS):</span>
+<span id="cb3-44"><a href="#cb3-44"></a>    start, end <span class="op">=</span> step <span class="op">*</span> np.pi, (step <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> np.pi  <span class="co"># 时间跨度</span></span>
+<span id="cb3-45"><a href="#cb3-45"></a>    <span class="co"># 使用Sin函数预测Cos函数</span></span>
+<span id="cb3-46"><a href="#cb3-46"></a>    steps <span class="op">=</span> np.linspace(start, end, TIME_STEP, dtype<span class="op">=</span>np.float32, endpoint<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-47"><a href="#cb3-47"></a>    x_np <span class="op">=</span> np.sin(steps)</span>
+<span id="cb3-48"><a href="#cb3-48"></a>    y_np <span class="op">=</span> np.cos(steps)</span>
+<span id="cb3-49"><a href="#cb3-49"></a>    x <span class="op">=</span> torch.from_numpy(x_np[:, np.newaxis, np.newaxis])  <span class="co"># 尺寸大小为(time_step, batch, input_size)</span></span>
+<span id="cb3-50"><a href="#cb3-50"></a>    y <span class="op">=</span> torch.from_numpy(y_np[:, np.newaxis, np.newaxis])</span>
+<span id="cb3-51"><a href="#cb3-51"></a></span>
+<span id="cb3-52"><a href="#cb3-52"></a>    prediction, h_state <span class="op">=</span> rnn(x, h_state)  <span class="co"># RNN输出（预测结果，隐藏状态）</span></span>
+<span id="cb3-53"><a href="#cb3-53"></a>    h_state <span class="op">=</span> h_state.detach()  <span class="co"># 这一行很重要，将每一次输出的中间状态传递下去(不带梯度)</span></span>
+<span id="cb3-54"><a href="#cb3-54"></a>    loss <span class="op">=</span> loss_func(prediction, y)</span>
+<span id="cb3-55"><a href="#cb3-55"></a>    optimizer.zero_grad()</span>
+<span id="cb3-56"><a href="#cb3-56"></a>    loss.backward()</span>
+<span id="cb3-57"><a href="#cb3-57"></a>    optimizer.step()</span>
+<span id="cb3-58"><a href="#cb3-58"></a></span>
+<span id="cb3-59"><a href="#cb3-59"></a>    <span class="co"># 绘制中间结果</span></span>
+<span id="cb3-60"><a href="#cb3-60"></a>    plt.cla()</span>
+<span id="cb3-61"><a href="#cb3-61"></a>    plt.plot(steps, y_np, <span class="st">&#39;r-&#39;</span>)</span>
+<span id="cb3-62"><a href="#cb3-62"></a>    plt.plot(steps, prediction.data.numpy().flatten(), <span class="st">&#39;b-&#39;</span>)</span>
+<span id="cb3-63"><a href="#cb3-63"></a>    plt.draw()</span>
+<span id="cb3-64"><a href="#cb3-64"></a>    plt.pause(<span class="fl">0.1</span>)</span>
+<span id="cb3-65"><a href="#cb3-65"></a>plt.ioff()</span>
+<span id="cb3-66"><a href="#cb3-66"></a>plt.show()</span></code></pre></div>
 <p>最后的结果如下：</p>
 <figure>
-<img src="/images/ml/RNNSinCos.gif" alt="RNN使用Sin预测Cos"><figcaption>RNN使用Sin预测Cos</figcaption>
+<img src="/images/ml/RNNSinCos.gif" alt=""><figcaption>RNN使用Sin预测Cos</figcaption>
 </figure>
 <p>最后放一个当<code>TIME_STEP</code>分别等于10和20的最终预测结果的对比图：</p>
 <figure>
-<img src="/images/ml/Time-Step-10.png" alt="RNN TIME_STEP等于10"><figcaption>RNN TIME_STEP等于10</figcaption>
+<img src="/images/ml/Time-Step-10.png" alt=""><figcaption>RNN TIME_STEP等于10</figcaption>
 </figure>
 <figure>
-<img src="/images/ml/Time-Step-20.png" alt="RNN TIME_STEP=20"><figcaption>RNN TIME_STEP=20</figcaption>
+<img src="/images/ml/Time-Step-20.png" alt=""><figcaption>RNN TIME_STEP=20</figcaption>
 </figure>
 <p>第一张是<code>TIME_STEP</code>=10的预测结果，第二张是<code>TIME_STEP</code>=20的预测结果。为什么当<code>TIME_STEP</code>=20的预测结果差得十万八千里呢？</p>
 <p>这是因为经典的RNN存在梯度爆炸和梯度弥散问题（我尝试修剪了梯度可是结果还是很差，不知道是不是其它原因），对长时序的预测表现很不好，所以才有了后来的LSTM和GRU等RNN变种。实际现在已经很少使用经典RNN了。有时间在说说LSTM吧，欢迎关注！</p>
@@ -784,7 +784,7 @@ bias_hh_l1 torch.Size([20])</code></pre>
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -802,7 +802,7 @@ bias_hh_l1 torch.Size([20])</code></pre>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -902,7 +902,7 @@ bias_hh_l1 torch.Size([20])</code></pre>
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

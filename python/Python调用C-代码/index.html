@@ -529,19 +529,19 @@
 <p>感觉ctypes简单很多，对于小型程序感觉还是挺友好的，所以该篇博客介绍一下使用ctypes调用C/C++的步骤。</p>
 <h3 id="编写c或者c代码">编写C或者C++代码</h3>
 <p>头文件（test.h）</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dt">int</span> sum(<span class="dt">int</span>, <span class="dt">int</span>);</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">int</span> sum(<span class="dt">int</span>, <span class="dt">int</span>);</span></code></pre></div>
 <p>C++代码（test.cpp）</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">// Windows需要__declspec(dllexport)申明</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">// extern &quot;C&quot;指示以C语言规范进行编译</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="pp">#define DLLEXPORT extern &quot;C&quot;</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">DLLEXPORT <span class="dt">int</span> sum(<span class="dt">int</span> a, <span class="dt">int</span> b) {</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="cf">return</span> a + b;</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// Windows需要__declspec(dllexport)申明</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co">// extern &quot;C&quot;指示以C语言规范进行编译</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="pp">#define DLLEXPORT </span><span class="at">extern</span><span class="pp"> </span><span class="st">&quot;C&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>DLLEXPORT <span class="dt">int</span> sum(<span class="dt">int</span> a, <span class="dt">int</span> b) {</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="cf">return</span> a + b;</span>
+<span id="cb2-6"><a href="#cb2-6"></a>}</span></code></pre></div>
 <p>或者C代码（test.c）</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">// 同样的Windows在函数前面需要__declspec(dllexport)申明</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="dt">int</span> sum(<span class="dt">int</span> a, <span class="dt">int</span> b) {</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="cf">return</span> a + b;</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">// 同样的Windows在函数前面需要__declspec(dllexport)申明</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="dt">int</span> sum(<span class="dt">int</span> a, <span class="dt">int</span> b) {</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="cf">return</span> a + b;</span>
+<span id="cb3-4"><a href="#cb3-4"></a>}</span></code></pre></div>
 <h3 id="c代码编译成动态链接库">C代码编译成动态链接库</h3>
 <p>我使用的是macOS，选择使用<a href="https://gcc.gnu.org/" target="_blank" rel="noopener">gcc</a>进行编译<code>gcc -Wall -Wextra -O -ansi -pedantic -shared test.c -o test.so</code></p>
 <h3 id="在python中调用">在Python中调用</h3>
@@ -680,7 +680,7 @@ Out[4]: 7</code></pre>
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -698,7 +698,7 @@ Out[4]: 7</code></pre>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -798,7 +798,7 @@ Out[4]: 7</code></pre>
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

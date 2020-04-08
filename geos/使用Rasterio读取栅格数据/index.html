@@ -537,33 +537,33 @@
 <li>rasterio使用<code>read()</code>函数可以将数据集转为<code>numpy.ndarray</code>，该函数如果不带参数，将把数据的所有波段做转换（第一维是波段数），如果指定波段，则只取得指定波段对应的数据（波段索引从1开始）</li>
 <li>数据的很多元信息都是以数据集的属性进行表示的</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="im">import</span> rasterio</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">with</span> rasterio.<span class="bu">open</span>(<span class="st">&#39;example.tif&#39;</span>) <span class="im">as</span> ds:</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="bu">print</span>(<span class="st">&#39;该栅格数据的基本数据集信息（这些信息都是以数据集属性的形式表示的）：&#39;</span>)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="bu">print</span>(<span class="ss">f&#39;数据格式：</span><span class="sc">{ds.</span>driver<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="bu">print</span>(<span class="ss">f&#39;波段数目：</span><span class="sc">{ds.</span>count<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="bu">print</span>(<span class="ss">f&#39;影像宽度：</span><span class="sc">{ds.</span>width<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="bu">print</span>(<span class="ss">f&#39;影像高度：</span><span class="sc">{ds.</span>height<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">    <span class="bu">print</span>(<span class="ss">f&#39;地理范围：</span><span class="sc">{ds.</span>bounds<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">    <span class="bu">print</span>(<span class="ss">f&#39;反射变换参数（六参数模型）：</span><span class="ch">\n</span><span class="ss"> </span><span class="sc">{ds.</span>transform<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">    <span class="bu">print</span>(<span class="ss">f&#39;投影定义：</span><span class="sc">{ds.</span>crs<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">    <span class="co"># 获取第一个波段数据，跟GDAL一样索引从1开始</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">    <span class="co"># 直接获得numpy.ndarray类型的二维数组表示，如果read()函数不加参数，则得到所有波段（第一个维度是波段）</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">    band1 <span class="op">=</span> ds.read(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">    <span class="bu">print</span>(<span class="ss">f&#39;第一波段的最大值：</span><span class="sc">{</span>band1<span class="sc">.</span><span class="bu">max</span>()<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">    <span class="bu">print</span>(<span class="ss">f&#39;第一波段的最小值：</span><span class="sc">{</span>band1<span class="sc">.</span><span class="bu">min</span>()<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">    <span class="bu">print</span>(<span class="ss">f&#39;第一波段的平均值：</span><span class="sc">{</span>band1<span class="sc">.</span>mean()<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">    <span class="co"># 根据地理坐标得到行列号</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">    x, y <span class="op">=</span> (ds.bounds.left <span class="op">+</span> <span class="dv">300</span>, ds.bounds.top <span class="op">-</span> <span class="dv">300</span>)  <span class="co"># 距离左上角东300米，南300米的投影坐标</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">    row, col <span class="op">=</span> ds.index(x, y)  <span class="co"># 对应的行列号</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">    <span class="bu">print</span>(<span class="ss">f&#39;(投影坐标</span><span class="sc">{x}</span><span class="ss">, </span><span class="sc">{y}</span><span class="ss">)对应的行列号是(</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">)&#39;</span>)</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">    <span class="co"># 根据行列号得到地理坐标</span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">    x, y <span class="op">=</span> ds.xy(row, col)  <span class="co"># 中心点的坐标</span></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">    <span class="bu">print</span>(<span class="ss">f&#39;行列号(</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">)对应的中心投影坐标是(</span><span class="sc">{x}</span><span class="ss">, </span><span class="sc">{y}</span><span class="ss">)&#39;</span>)</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">    <span class="co"># 那么如何得到对应点左上角的信息</span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">    x, y <span class="op">=</span> (row, col) <span class="op">*</span> ds.transform</a>
-<a class="sourceLine" id="cb2-27" data-line-number="27">    <span class="bu">print</span>(<span class="ss">f&#39;行列号(</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">)对应的左上角投影坐标是(</span><span class="sc">{x}</span><span class="ss">, </span><span class="sc">{y}</span><span class="ss">)&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> rasterio</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="cf">with</span> rasterio.<span class="bu">open</span>(<span class="st">&#39;example.tif&#39;</span>) <span class="im">as</span> ds:</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="bu">print</span>(<span class="st">&#39;该栅格数据的基本数据集信息（这些信息都是以数据集属性的形式表示的）：&#39;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="bu">print</span>(<span class="ss">f&#39;数据格式：</span><span class="sc">{ds.</span>driver<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="bu">print</span>(<span class="ss">f&#39;波段数目：</span><span class="sc">{ds.</span>count<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="bu">print</span>(<span class="ss">f&#39;影像宽度：</span><span class="sc">{ds.</span>width<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="bu">print</span>(<span class="ss">f&#39;影像高度：</span><span class="sc">{ds.</span>height<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="bu">print</span>(<span class="ss">f&#39;地理范围：</span><span class="sc">{ds.</span>bounds<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="bu">print</span>(<span class="ss">f&#39;反射变换参数（六参数模型）：</span><span class="ch">\n</span><span class="ss"> </span><span class="sc">{ds.</span>transform<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="bu">print</span>(<span class="ss">f&#39;投影定义：</span><span class="sc">{ds.</span>crs<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="co"># 获取第一个波段数据，跟GDAL一样索引从1开始</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>    <span class="co"># 直接获得numpy.ndarray类型的二维数组表示，如果read()函数不加参数，则得到所有波段（第一个维度是波段）</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>    band1 <span class="op">=</span> ds.read(<span class="dv">1</span>)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    <span class="bu">print</span>(<span class="ss">f&#39;第一波段的最大值：</span><span class="sc">{</span>band1<span class="sc">.</span><span class="bu">max</span>()<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="bu">print</span>(<span class="ss">f&#39;第一波段的最小值：</span><span class="sc">{</span>band1<span class="sc">.</span><span class="bu">min</span>()<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-17"><a href="#cb2-17"></a>    <span class="bu">print</span>(<span class="ss">f&#39;第一波段的平均值：</span><span class="sc">{</span>band1<span class="sc">.</span>mean()<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb2-18"><a href="#cb2-18"></a>    <span class="co"># 根据地理坐标得到行列号</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>    x, y <span class="op">=</span> (ds.bounds.left <span class="op">+</span> <span class="dv">300</span>, ds.bounds.top <span class="op">-</span> <span class="dv">300</span>)  <span class="co"># 距离左上角东300米，南300米的投影坐标</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>    row, col <span class="op">=</span> ds.index(x, y)  <span class="co"># 对应的行列号</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="bu">print</span>(<span class="ss">f&#39;(投影坐标</span><span class="sc">{x}</span><span class="ss">, </span><span class="sc">{y}</span><span class="ss">)对应的行列号是(</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">)&#39;</span>)</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="co"># 根据行列号得到地理坐标</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>    x, y <span class="op">=</span> ds.xy(row, col)  <span class="co"># 中心点的坐标</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="bu">print</span>(<span class="ss">f&#39;行列号(</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">)对应的中心投影坐标是(</span><span class="sc">{x}</span><span class="ss">, </span><span class="sc">{y}</span><span class="ss">)&#39;</span>)</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    <span class="co"># 那么如何得到对应点左上角的信息</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a>    x, y <span class="op">=</span> (row, col) <span class="op">*</span> ds.transform</span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="bu">print</span>(<span class="ss">f&#39;行列号(</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">)对应的左上角投影坐标是(</span><span class="sc">{x}</span><span class="ss">, </span><span class="sc">{y}</span><span class="ss">)&#39;</span>)</span></code></pre></div>
 <p>输出如下：</p>
 <pre><code>该栅格数据的基本数据集信息（这些信息都是以数据集属性的形式表示的）：
 数据格式：GTiff
@@ -708,7 +708,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -726,7 +726,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -826,7 +826,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

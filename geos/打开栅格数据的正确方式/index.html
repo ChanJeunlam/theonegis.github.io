@@ -523,33 +523,33 @@
 <hr>
 <h2 id="以一个简单例子说明如何打开栅格影像">以一个简单例子说明如何打开栅格影像</h2>
 <p>下面的例子打开一副GeoTIFF影像，输出了影像的一些信息，然后遍历了所有波段，输出波段的一些信息</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">import</span> gdal</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># 打开栅格数据集</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># 获得栅格数据的一些重要信息</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="bu">print</span>(<span class="ss">f&#39;投影信息：</span><span class="sc">{ds.</span>GetProjection()<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="bu">print</span>(<span class="ss">f&#39;栅格波段数：</span><span class="sc">{ds.</span>RasterCount<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="bu">print</span>(<span class="ss">f&#39;栅格列数（宽度）：</span><span class="sc">{ds.</span>RasterXSize<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="bu">print</span>(<span class="ss">f&#39;栅格行数（高度）：</span><span class="sc">{ds.</span>RasterYSize<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co"># 获取数据集的元数据信息</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">metadata <span class="op">=</span> ds.GetMetadata_Dict()</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="cf">for</span> key, value <span class="kw">in</span> metadata.items():</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">    <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{</span>key<span class="sc">}</span><span class="ss"> -&gt; </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="cf">for</span> b <span class="kw">in</span> <span class="bu">range</span>(ds.RasterCount):</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">    <span class="co"># 注意GDAL中的band计数是从1开始的</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">    band <span class="op">=</span> ds.GetRasterBand(b <span class="op">+</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">    <span class="co"># 波段数据的一些信息</span></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22">    <span class="bu">print</span>(<span class="ss">f&#39;数据类型：</span><span class="sc">{</span>gdal<span class="sc">.</span>GetDataTypeName(band.DataType)<span class="sc">}</span><span class="ss">&#39;</span>)  <span class="co"># DataType属性返回的是数字</span></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23">    <span class="bu">print</span>(<span class="ss">f&#39;NoData值：</span><span class="sc">{</span>band<span class="sc">.</span>GetNoDataValue()<span class="sc">}</span><span class="ss">&#39;</span>)  <span class="co"># 很多影像都是NoData，我们在做数据处理时要特别对待</span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24">    <span class="bu">print</span>(<span class="ss">f&#39;统计值（最大值最小值）：</span><span class="sc">{</span>band<span class="sc">.</span>ComputeRasterMinMax()<span class="sc">}</span><span class="ss">&#39;</span>)  <span class="co"># 有些数据本身就存储了统计信息，有些数据没有需要计算</span></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co"># 关闭数据集</span></a>
-<a class="sourceLine" id="cb1-27" data-line-number="27">ds <span class="op">=</span> <span class="va">None</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> gdal</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># 打开栅格数据集</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># 获得栅格数据的一些重要信息</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="bu">print</span>(<span class="ss">f&#39;投影信息：</span><span class="sc">{ds.</span>GetProjection()<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="bu">print</span>(<span class="ss">f&#39;栅格波段数：</span><span class="sc">{ds.</span>RasterCount<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="bu">print</span>(<span class="ss">f&#39;栅格列数（宽度）：</span><span class="sc">{ds.</span>RasterXSize<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="bu">print</span>(<span class="ss">f&#39;栅格行数（高度）：</span><span class="sc">{ds.</span>RasterYSize<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># 获取数据集的元数据信息</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>metadata <span class="op">=</span> ds.GetMetadata_Dict()</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="cf">for</span> key, value <span class="kw">in</span> metadata.items():</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{</span>key<span class="sc">}</span><span class="ss"> -&gt; </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="cf">for</span> b <span class="kw">in</span> <span class="bu">range</span>(ds.RasterCount):</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    <span class="co"># 注意GDAL中的band计数是从1开始的</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>    band <span class="op">=</span> ds.GetRasterBand(b <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    <span class="co"># 波段数据的一些信息</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>    <span class="bu">print</span>(<span class="ss">f&#39;数据类型：</span><span class="sc">{</span>gdal<span class="sc">.</span>GetDataTypeName(band.DataType)<span class="sc">}</span><span class="ss">&#39;</span>)  <span class="co"># DataType属性返回的是数字</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>    <span class="bu">print</span>(<span class="ss">f&#39;NoData值：</span><span class="sc">{</span>band<span class="sc">.</span>GetNoDataValue()<span class="sc">}</span><span class="ss">&#39;</span>)  <span class="co"># 很多影像都是NoData，我们在做数据处理时要特别对待</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>    <span class="bu">print</span>(<span class="ss">f&#39;统计值（最大值最小值）：</span><span class="sc">{</span>band<span class="sc">.</span>ComputeRasterMinMax()<span class="sc">}</span><span class="ss">&#39;</span>)  <span class="co"># 有些数据本身就存储了统计信息，有些数据没有需要计算</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a></span>
+<span id="cb1-26"><a href="#cb1-26"></a><span class="co"># 关闭数据集</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a>ds <span class="op">=</span> <span class="va">None</span></span></code></pre></div>
 <p>输出如下：</p>
 <pre><code>投影信息：PROJCS[&quot;WGS 84 / UTM zone 49N&quot;,GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;WGS_1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],PRIMEM[&quot;Greenwich&quot;,0,AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]],PROJECTION[&quot;Transverse_Mercator&quot;],PARAMETER[&quot;latitude_of_origin&quot;,0],PARAMETER[&quot;central_meridian&quot;,111],PARAMETER[&quot;scale_factor&quot;,0.9996],PARAMETER[&quot;false_easting&quot;,500000],PARAMETER[&quot;false_northing&quot;,0],UNIT[&quot;metre&quot;,1,AUTHORITY[&quot;EPSG&quot;,&quot;9001&quot;]],AXIS[&quot;Easting&quot;,EAST],AXIS[&quot;Northing&quot;,NORTH],AUTHORITY[&quot;EPSG&quot;,&quot;32649&quot;]]
 栅格波段数：3
@@ -573,52 +573,52 @@ NoData值：-28672.0
 <li>在<code>Band</code>级别进行转换，转换的结果是一个二维数据</li>
 <li>使用<code>gdal_array</code>模块中的<code>LoadFile()</code>函数直接进行（相当于第一种转换）</li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="im">import</span> gdal</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co"># 打开栅格数据集</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co"># 在数据集层面转换</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">image <span class="op">=</span> ds.ReadAsArray()</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="bu">print</span>(<span class="ss">f&#39;数据的尺寸：</span><span class="sc">{</span>image<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co"># 输出结果为：数据的尺寸：(3, 4800, 4800)</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co"># 这说明ReadAsArray方法将每个波段都转换为了一个二维数组</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co"># 获得第一个波段的数据</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">band1 <span class="op">=</span> image[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co"># 在波段层面的转换</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="cf">for</span> b <span class="kw">in</span> <span class="bu">range</span>(ds.RasterCount):</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">    <span class="co"># 注意GDAL中的band计数是从1开始的</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">    band <span class="op">=</span> ds.GetRasterBand(b <span class="op">+</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">    band <span class="op">=</span> band.ReadAsArray()</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">    <span class="bu">print</span>(<span class="ss">f&#39;波段大小：</span><span class="sc">{</span>band<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co"># 关闭数据集</span></a>
-<a class="sourceLine" id="cb3-23" data-line-number="23">ds <span class="op">=</span> <span class="va">None</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> gdal</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># 打开栅格数据集</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># 在数据集层面转换</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>image <span class="op">=</span> ds.ReadAsArray()</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="bu">print</span>(<span class="ss">f&#39;数据的尺寸：</span><span class="sc">{</span>image<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co"># 输出结果为：数据的尺寸：(3, 4800, 4800)</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># 这说明ReadAsArray方法将每个波段都转换为了一个二维数组</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co"># 获得第一个波段的数据</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>band1 <span class="op">=</span> image[<span class="dv">0</span>]</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co"># 在波段层面的转换</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="cf">for</span> b <span class="kw">in</span> <span class="bu">range</span>(ds.RasterCount):</span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="co"># 注意GDAL中的band计数是从1开始的</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>    band <span class="op">=</span> ds.GetRasterBand(b <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb3-19"><a href="#cb3-19"></a>    band <span class="op">=</span> band.ReadAsArray()</span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="bu">print</span>(<span class="ss">f&#39;波段大小：</span><span class="sc">{</span>band<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb3-21"><a href="#cb3-21"></a></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co"># 关闭数据集</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>ds <span class="op">=</span> <span class="va">None</span></span></code></pre></div>
 <p>输出结果：</p>
 <pre><code>数据的尺寸：(3, 4800, 4800)
 波段大小：(4800, 4800)
 波段大小：(4800, 4800)
 波段大小：(4800, 4800)</code></pre>
 <p>使用<code>gdal_array</code>模块</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="im">from</span> osgeo <span class="im">import</span> gdal_array</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co"># gdal_array模块</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">image <span class="op">=</span> gdal_array.LoadFile(<span class="st">&#39;example.tif&#39;</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="bu">print</span>(<span class="ss">f&#39;数据的尺寸：</span><span class="sc">{</span>image<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">from</span> osgeo <span class="im">import</span> gdal_array</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># gdal_array模块</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>image <span class="op">=</span> gdal_array.LoadFile(<span class="st">&#39;example.tif&#39;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="bu">print</span>(<span class="ss">f&#39;数据的尺寸：</span><span class="sc">{</span>image<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
 <h2 id="在gdal中使用python的异常对象">在GDAL中使用Python的异常对象</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="im">import</span> gdal</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="im">import</span> sys</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># 允许GDAL跑出Python异常</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">gdal.UseExceptions()</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="cf">try</span>:</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">    ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="cf">except</span> (<span class="pp">FileNotFoundError</span>, <span class="pp">RuntimeError</span>) <span class="im">as</span> e:</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">    <span class="bu">print</span>(<span class="st">&#39;文件打开失败！&#39;</span>)</a>
-<a class="sourceLine" id="cb6-11" data-line-number="11">    <span class="bu">print</span>(e)</a>
-<a class="sourceLine" id="cb6-12" data-line-number="12">    sys.exit(<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> gdal</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="im">import</span> sys</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co"># 允许GDAL跑出Python异常</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>gdal.UseExceptions()</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="cf">try</span>:</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="cf">except</span> (<span class="pp">FileNotFoundError</span>, <span class="pp">RuntimeError</span>) <span class="im">as</span> e:</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    <span class="bu">print</span>(<span class="st">&#39;文件打开失败！&#39;</span>)</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    <span class="bu">print</span>(e)</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    sys.exit(<span class="dv">1</span>)</span></code></pre></div>
 
         
     
@@ -745,7 +745,7 @@ NoData值：-28672.0
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -763,7 +763,7 @@ NoData值：-28672.0
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -863,7 +863,7 @@ NoData值：-28672.0
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

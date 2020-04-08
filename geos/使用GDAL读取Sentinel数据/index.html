@@ -522,41 +522,41 @@
 <h2 id="使用gdal命令行读取sentinel数据的元数据信息">使用GDAL命令行读取Sentinel数据的元数据信息</h2>
 <p>直接使用<code>gdalinfo [文件名]</code>可以查看Sentinel文件的元信息，如下图所示：</p>
 <figure>
-<img src="/images/geos/gdal-sentinel-1.png" alt="使用GDAL命令行读取Sentinel数据"><figcaption>使用GDAL命令行读取Sentinel数据</figcaption>
+<img src="/images/geos/gdal-sentinel-1.png" alt=""><figcaption>使用GDAL命令行读取Sentinel数据</figcaption>
 </figure>
 <p>从上面的图中我们可以看到所有的<code>Subdatasets</code>的文件全名，这样我们可以继续使用<code>gdalinfo [子数据集全路径]</code>的方式查看具体的子数据集的元数据信息</p>
 <p>下图显示的数据子集中包含四个波段的数据（红，绿，蓝，近红外）</p>
 <figure>
-<img src="/images/geos/gdal-sentinel-2.png" alt="使用GDAL命令行读取Sentinel数据的元数据信息"><figcaption>使用GDAL命令行读取Sentinel数据的元数据信息</figcaption>
+<img src="/images/geos/gdal-sentinel-2.png" alt=""><figcaption>使用GDAL命令行读取Sentinel数据的元数据信息</figcaption>
 </figure>
 <h2 id="使用gdal命令行工具将sentinel数据转为geotiff格式">使用GDAL命令行工具将Sentinel数据转为GeoTIFF格式</h2>
 <p>转换是针对具体的子数据集而言的，所以使用<code>gdal_translate [sentinel subdataset full name] [output filename]</code>命令进行</p>
 <p>下面的例子将包含红绿蓝近红外波段的数据子集转为GeoTIFF影像</p>
 <p><code>gdal_translate SENTINEL2_L1C:/vsizip/S2A_MSIL1C_20180504T173911_N0206_R098_T13TGF_20180504T212111.zip/S2A_MSIL1C_20180504T173911_N0206_R098_T13TGF_20180504T212111.SAFE/MTD_MSIL1C.xml:10m:EPSG_32613 B2-3-4-8.tif</code></p>
 <h2 id="使用python脚本读取sentinel数据">使用Python脚本读取Sentinel数据</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">from</span> osgeo <span class="im">import</span> gdal</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="im">import</span> os</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">os.environ[<span class="st">&#39;CPL_ZIP_ENCODING&#39;</span>] <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">filename <span class="op">=</span> (<span class="st">&#39;/Users/tanzhenyu/Desktop/&#39;</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">            <span class="st">&#39;S2A_MSIL1C_20180504T173911_N0206_R098_T13TGF_20180504T212111.zip&#39;</span>)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># 打开栅格数据集</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">root_ds <span class="op">=</span> gdal.Open(filename)</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co"># 返回结果是一个list，list中的每个元素是一个tuple，每个tuple中包含了对数据集的路径，元数据等的描述信息</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co"># tuple中的第一个元素描述的是数据子集的全路径</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">ds_list <span class="op">=</span> root_ds.GetSubDatasets()</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">visual_ds <span class="op">=</span> gdal.Open(ds_list[<span class="dv">0</span>][<span class="dv">0</span>])  <span class="co"># 取出第12个数据子集（MODIS反射率产品的第一个波段）</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">visual_arr <span class="op">=</span> visual_ds.ReadAsArray()  <span class="co"># 将数据集中的数据转为ndarray</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="kw">del</span> visual_arr</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co"># 获得栅格数据的一些重要信息</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="bu">print</span>(<span class="ss">f&#39;打开数据为：</span><span class="sc">{</span>ds_list[<span class="dv">0</span>][<span class="dv">1</span>]<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="bu">print</span>(<span class="ss">f&#39;投影信息：</span><span class="sc">{</span>visual_ds<span class="sc">.</span>GetProjection()<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="bu">print</span>(<span class="ss">f&#39;栅格波段数：</span><span class="sc">{</span>visual_ds<span class="sc">.</span>RasterCount<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="bu">print</span>(<span class="ss">f&#39;栅格列数（宽度）：</span><span class="sc">{</span>visual_ds<span class="sc">.</span>RasterXSize<span class="sc">}</span><span class="ss">&#39;</span>)</a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="bu">print</span>(<span class="ss">f&#39;栅格行数（高度）：</span><span class="sc">{</span>visual_ds<span class="sc">.</span>RasterYSize<span class="sc">}</span><span class="ss">&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> osgeo <span class="im">import</span> gdal</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> os</span>
+<span id="cb1-4"><a href="#cb1-4"></a>os.environ[<span class="st">&#39;CPL_ZIP_ENCODING&#39;</span>] <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>filename <span class="op">=</span> (<span class="st">&#39;/Users/tanzhenyu/Desktop/&#39;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>            <span class="st">&#39;S2A_MSIL1C_20180504T173911_N0206_R098_T13TGF_20180504T212111.zip&#39;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># 打开栅格数据集</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>root_ds <span class="op">=</span> gdal.Open(filename)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># 返回结果是一个list，list中的每个元素是一个tuple，每个tuple中包含了对数据集的路径，元数据等的描述信息</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># tuple中的第一个元素描述的是数据子集的全路径</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>ds_list <span class="op">=</span> root_ds.GetSubDatasets()</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>visual_ds <span class="op">=</span> gdal.Open(ds_list[<span class="dv">0</span>][<span class="dv">0</span>])  <span class="co"># 取出第12个数据子集（MODIS反射率产品的第一个波段）</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>visual_arr <span class="op">=</span> visual_ds.ReadAsArray()  <span class="co"># 将数据集中的数据转为ndarray</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="kw">del</span> visual_arr</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co"># 获得栅格数据的一些重要信息</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="bu">print</span>(<span class="ss">f&#39;打开数据为：</span><span class="sc">{</span>ds_list[<span class="dv">0</span>][<span class="dv">1</span>]<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="bu">print</span>(<span class="ss">f&#39;投影信息：</span><span class="sc">{</span>visual_ds<span class="sc">.</span>GetProjection()<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="bu">print</span>(<span class="ss">f&#39;栅格波段数：</span><span class="sc">{</span>visual_ds<span class="sc">.</span>RasterCount<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="bu">print</span>(<span class="ss">f&#39;栅格列数（宽度）：</span><span class="sc">{</span>visual_ds<span class="sc">.</span>RasterXSize<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="bu">print</span>(<span class="ss">f&#39;栅格行数（高度）：</span><span class="sc">{</span>visual_ds<span class="sc">.</span>RasterYSize<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
 <p>程序输出如下：</p>
 <pre><code>打开数据为：Bands B2, B3, B4, B8 with 10m resolution, UTM 13N
 投影信息：PROJCS[&quot;WGS 84 / UTM zone 13N&quot;,GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;WGS_1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],PRIMEM[&quot;Greenwich&quot;,0,AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]],PROJECTION[&quot;Transverse_Mercator&quot;],PARAMETER[&quot;latitude_of_origin&quot;,0],PARAMETER[&quot;central_meridian&quot;,-105],PARAMETER[&quot;scale_factor&quot;,0.9996],PARAMETER[&quot;false_easting&quot;,500000],PARAMETER[&quot;false_northing&quot;,0],UNIT[&quot;metre&quot;,1,AUTHORITY[&quot;EPSG&quot;,&quot;9001&quot;]],AXIS[&quot;Easting&quot;,EAST],AXIS[&quot;Northing&quot;,NORTH],AUTHORITY[&quot;EPSG&quot;,&quot;32613&quot;]]
@@ -689,7 +689,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -707,7 +707,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -807,7 +807,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

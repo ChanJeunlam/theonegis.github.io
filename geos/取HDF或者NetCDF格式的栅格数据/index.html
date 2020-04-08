@@ -548,26 +548,26 @@
 <p>对于MODIS数据，<code>tuple</code>的第一个元素是子数据集的完整路径，所以我们取出该路径，然后使用<code>gdal.Open()</code>函数读取该子数据集.</p>
 <p>最后我们使用<code>CreateCopy()</code>方法将该子数据集存储为GeoTIFF格式的数据。</p>
 <p>所以，总结一下，我们读取HDF或者NetCDF数据子集的时候，最主要的是取出想要处理的子数据集的完整路径。然后就像读取普通GeoTIFF影像那样对子数据集进行读取就OK了.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">from</span> osgeo <span class="im">import</span> gdal</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">root_ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.hdf&#39;</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># 返回结果是一个list，list中的每个元素是一个tuple，每个tuple中包含了对数据集的路径，元数据等的描述信息</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># tuple中的第一个元素描述的是数据子集的全路径</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">ds_list <span class="op">=</span> root_ds.GetSubDatasets()</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">band_1 <span class="op">=</span> gdal.Open(ds_list[<span class="dv">11</span>][<span class="dv">0</span>])  <span class="co"># 取出第12个数据子集（MODIS反射率产品的第一个波段）</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">arr_bnd1 <span class="op">=</span> band_1.ReadAsArray()  <span class="co"># 将数据集中的数据转为ndarray</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co"># 创建输出数据集，转为GeoTIFF进行写入</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">out_file <span class="op">=</span> <span class="st">&#39;sr_band1.tif&#39;</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">driver <span class="op">=</span> gdal.GetDriverByName(<span class="st">&#39;GTiff&#39;</span>)</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">out_ds <span class="op">=</span> driver.CreateCopy(out_file, band_1)</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">out_ds.GetRasterBand(<span class="dv">1</span>).WriteArray(arr_bnd1)</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">out_ds.FlushCache()</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co"># 关闭数据集</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">out_ds <span class="op">=</span> <span class="va">None</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">root_ds <span class="op">=</span> <span class="va">None</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> osgeo <span class="im">import</span> gdal</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>root_ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.hdf&#39;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># 返回结果是一个list，list中的每个元素是一个tuple，每个tuple中包含了对数据集的路径，元数据等的描述信息</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># tuple中的第一个元素描述的是数据子集的全路径</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>ds_list <span class="op">=</span> root_ds.GetSubDatasets()</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>band_1 <span class="op">=</span> gdal.Open(ds_list[<span class="dv">11</span>][<span class="dv">0</span>])  <span class="co"># 取出第12个数据子集（MODIS反射率产品的第一个波段）</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>arr_bnd1 <span class="op">=</span> band_1.ReadAsArray()  <span class="co"># 将数据集中的数据转为ndarray</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># 创建输出数据集，转为GeoTIFF进行写入</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>out_file <span class="op">=</span> <span class="st">&#39;sr_band1.tif&#39;</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>driver <span class="op">=</span> gdal.GetDriverByName(<span class="st">&#39;GTiff&#39;</span>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a>out_ds <span class="op">=</span> driver.CreateCopy(out_file, band_1)</span>
+<span id="cb1-15"><a href="#cb1-15"></a>out_ds.GetRasterBand(<span class="dv">1</span>).WriteArray(arr_bnd1)</span>
+<span id="cb1-16"><a href="#cb1-16"></a>out_ds.FlushCache()</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co"># 关闭数据集</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>out_ds <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>root_ds <span class="op">=</span> <span class="va">None</span></span></code></pre></div>
 
         
     
@@ -694,7 +694,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -712,7 +712,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -812,7 +812,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

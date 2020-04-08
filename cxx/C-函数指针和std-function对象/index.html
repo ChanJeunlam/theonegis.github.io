@@ -525,64 +525,64 @@
 <p>头文件实现中我们使用了<code>typedef</code>定义了一个函数指针类型，当然我们也可以使用<code>using</code>关键字进行定义，两者类似。</p>
 <p><code>String::map</code>函数用于对字符串进行遍历操作，然后通过传进来的函数指针对每个字符进行操作。</p>
 <p>注意我们定义的<code>transform</code>函数指针的返回值是<code>int</code>，函数参数也是<code>int</code>，这是因为<code>cctype</code>头文件中的<code>std::toupper</code>和<code>std::tolower</code>函数的签名也是这样的。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">class</span> String {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">private</span>:</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="dt">char</span>* _buffer;</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="dt">size_t</span> _length;</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="co">// 使用using和typedef都可以: typedef int (*transform)(int);</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="kw">using</span> transform = <span class="dt">int</span> (*)(<span class="dt">int</span>);</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">void</span> init(<span class="at">const</span> <span class="dt">char</span>* str);</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">    String map(transform fun);</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">    String(<span class="at">const</span> <span class="dt">char</span>* str= <span class="kw">nullptr</span>);       <span class="co">// 默认构造函数</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">    String(<span class="at">const</span> String&amp; other);            <span class="co">// 拷贝构造函数</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">    String(String&amp;&amp; other) <span class="kw">noexcept</span>;        <span class="co">// 移动构造函数</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">    ~String();                              <span class="co">// 析构函数</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">    <span class="dt">size_t</span> length();</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">    <span class="at">const</span> <span class="dt">char</span>* data();</a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">    <span class="dt">char</span>&amp; <span class="kw">operator</span>[](<span class="dt">size_t</span> index);</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">    String&amp; <span class="kw">operator</span>=(<span class="at">const</span> String&amp; other);</a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">    String&amp; <span class="kw">operator</span>=(String&amp;&amp; other) <span class="kw">noexcept</span>;</a>
-<a class="sourceLine" id="cb1-22" data-line-number="22">    String <span class="kw">operator</span>+(<span class="at">const</span> String&amp; other);</a>
-<a class="sourceLine" id="cb1-23" data-line-number="23">    <span class="dt">bool</span> <span class="kw">operator</span>==(<span class="at">const</span> String&amp; other);</a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25">    String toUpperCase();</a>
-<a class="sourceLine" id="cb1-26" data-line-number="26">    String toLowerCase();</a>
-<a class="sourceLine" id="cb1-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb1-28" data-line-number="28">    <span class="kw">friend</span> <span class="bu">std::</span>ostream&amp; <span class="kw">operator</span>&lt;&lt;(<span class="bu">std::</span>ostream&amp; output, <span class="at">const</span> String&amp; str);</a>
-<a class="sourceLine" id="cb1-29" data-line-number="29">    <span class="kw">friend</span> <span class="bu">std::</span>istream&amp; <span class="kw">operator</span>&gt;&gt;(<span class="bu">std::</span>istream&amp; input, String&amp; str);</a>
-<a class="sourceLine" id="cb1-30" data-line-number="30">};</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> String {</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">private</span>:</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="dt">char</span>* _buffer;</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="dt">size_t</span> _length;</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="co">// 使用using和typedef都可以: typedef int (*transform)(int);</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="kw">using</span> transform = <span class="dt">int</span> (*)(<span class="dt">int</span>);</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="dt">void</span> init(<span class="at">const</span> <span class="dt">char</span>* str);</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    String map(transform fun);</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">public</span>:</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    String(<span class="at">const</span> <span class="dt">char</span>* str= <span class="kw">nullptr</span>);       <span class="co">// 默认构造函数</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>    String(<span class="at">const</span> String&amp; other);            <span class="co">// 拷贝构造函数</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>    String(String&amp;&amp; other) <span class="kw">noexcept</span>;        <span class="co">// 移动构造函数</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    ~String();                              <span class="co">// 析构函数</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a>    <span class="dt">size_t</span> length();</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="at">const</span> <span class="dt">char</span>* data();</span>
+<span id="cb1-18"><a href="#cb1-18"></a></span>
+<span id="cb1-19"><a href="#cb1-19"></a>    <span class="dt">char</span>&amp; <span class="kw">operator</span>[](<span class="dt">size_t</span> index);</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    String&amp; <span class="kw">operator</span>=(<span class="at">const</span> String&amp; other);</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    String&amp; <span class="kw">operator</span>=(String&amp;&amp; other) <span class="kw">noexcept</span>;</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    String <span class="kw">operator</span>+(<span class="at">const</span> String&amp; other);</span>
+<span id="cb1-23"><a href="#cb1-23"></a>    <span class="dt">bool</span> <span class="kw">operator</span>==(<span class="at">const</span> String&amp; other);</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>    String toUpperCase();</span>
+<span id="cb1-26"><a href="#cb1-26"></a>    String toLowerCase();</span>
+<span id="cb1-27"><a href="#cb1-27"></a></span>
+<span id="cb1-28"><a href="#cb1-28"></a>    <span class="kw">friend</span> <span class="bu">std::</span>ostream&amp; <span class="kw">operator</span>&lt;&lt;(<span class="bu">std::</span>ostream&amp; output, <span class="at">const</span> String&amp; str);</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    <span class="kw">friend</span> <span class="bu">std::</span>istream&amp; <span class="kw">operator</span>&gt;&gt;(<span class="bu">std::</span>istream&amp; input, String&amp; str);</span>
+<span id="cb1-30"><a href="#cb1-30"></a>};</span></code></pre></div>
 <p>具体实现：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1">String String::map(String::transform fun) {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="dt">char</span>* transformed = <span class="kw">new</span> <span class="dt">char</span>[_length];</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; _length; ++i) {</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">        transformed[i] = <span class="kw">static_cast</span>&lt;<span class="dt">char</span>&gt;(fun(<span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(_buffer[i])));</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    }</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="cf">return</span> String(transformed);</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">String String::toUpperCase() {</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">    <span class="cf">return</span> map(<span class="bu">std::</span>toupper);</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">String String::toLowerCase() {</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">    <span class="cf">return</span> map(<span class="bu">std::</span>tolower);</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a>String String::map(String::transform fun) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="dt">char</span>* transformed = <span class="kw">new</span> <span class="dt">char</span>[_length];</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; _length; ++i) {</span>
+<span id="cb2-4"><a href="#cb2-4"></a>        transformed[i] = <span class="kw">static_cast</span>&lt;<span class="dt">char</span>&gt;(fun(<span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(_buffer[i])));</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    }</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="cf">return</span> String(transformed);</span>
+<span id="cb2-7"><a href="#cb2-7"></a>}</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a>String String::toUpperCase() {</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="cf">return</span> map(<span class="bu">std::</span>toupper);</span>
+<span id="cb2-11"><a href="#cb2-11"></a>}</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a>String String::toLowerCase() {</span>
+<span id="cb2-14"><a href="#cb2-14"></a>    <span class="cf">return</span> map(<span class="bu">std::</span>tolower);</span>
+<span id="cb2-15"><a href="#cb2-15"></a>}</span></code></pre></div>
 <p>测试文件：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="pp">#include </span><span class="im">&quot;strings.h&quot;</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">using</span> <span class="bu">std::</span>cout;</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="dt">int</span> main() {</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">    String str1(<span class="st">&quot;Hello World&quot;</span>);</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">    String str2 = str1.toUpperCase();</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">    cout &lt;&lt; str2 &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">    <span class="cf">return</span> <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="pp">#include </span><span class="im">&quot;strings.h&quot;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">using</span> <span class="bu">std::</span>cout;</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="dt">int</span> main() {</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    String str1(<span class="st">&quot;Hello World&quot;</span>);</span>
+<span id="cb3-8"><a href="#cb3-8"></a>    String str2 = str1.toUpperCase();</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    cout &lt;&lt; str2 &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-11"><a href="#cb3-11"></a>}</span></code></pre></div>
 <p>输出结果：</p>
 <pre><code>默认构造函数(Hello World)
 默认构造函数(HELLO WORLD)
@@ -594,51 +594,51 @@ HELLO WORLD
 <p>可以看到我们这里使用了<code>std::function</code>类型作为<code>String::map</code>函数的参数类型，<code>std::function</code>是一个模板类，尖括号中标识了返回值，圆括号中标识了参数列表（可以是多个）。</p>
 <p>这里我们的<code>std::function</code>对象类型的返回值和参数列表都是<code>char</code>。</p>
 <p>（为什么不跟前面一样都用<code>int</code>呢？不感兴趣的可以忽略这一段。我做了测试：如果用<code>int</code>的话，会跟<code>locale</code>中定义的<code>toupper</code>和<code>tolower</code>函数定义冲突。<code>locale</code>头文件中的这两个函数的返回值和参数是<code>char_type</code>类型，编译不通过。所以我将<code>std::function</code>对象类型的返回值和参数列表定义为<code>char</code>，然后在<code>String::toUpperCase</code>和<code>String::toLowerCase</code>函数中使用匿名函数（Lambda）将<code>cctype</code>中的<code>std::toupper</code>和<code>std::tolower</code>函数的返回值和参数类型由<code>int</code>强制转换为<code>char</code>即可。）</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">class</span> String {</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">private</span>:</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="dt">char</span>* _buffer;</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">    <span class="dt">size_t</span> _length;</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">void</span> init(<span class="at">const</span> <span class="dt">char</span>* str);</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">    String map(<span class="bu">std::</span>function&lt;<span class="dt">char</span>(<span class="dt">char</span>)&gt; fun);</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">    String(<span class="at">const</span> <span class="dt">char</span>* str= <span class="kw">nullptr</span>);       <span class="co">// 默认构造函数</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">    String(<span class="at">const</span> String&amp; other);            <span class="co">// 拷贝构造函数</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">    String(String&amp;&amp; other) <span class="kw">noexcept</span>;        <span class="co">// 移动构造函数</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">    ~String();                              <span class="co">// 析构函数</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">    <span class="dt">size_t</span> length();</a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">    <span class="at">const</span> <span class="dt">char</span>* data();</a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17">    <span class="dt">char</span>&amp; <span class="kw">operator</span>[](<span class="dt">size_t</span> index);</a>
-<a class="sourceLine" id="cb5-18" data-line-number="18">    String&amp; <span class="kw">operator</span>=(<span class="at">const</span> String&amp; other);</a>
-<a class="sourceLine" id="cb5-19" data-line-number="19">    String&amp; <span class="kw">operator</span>=(String&amp;&amp; other) <span class="kw">noexcept</span>;</a>
-<a class="sourceLine" id="cb5-20" data-line-number="20">    String <span class="kw">operator</span>+(<span class="at">const</span> String&amp; other);</a>
-<a class="sourceLine" id="cb5-21" data-line-number="21">    <span class="dt">bool</span> <span class="kw">operator</span>==(<span class="at">const</span> String&amp; other);</a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23">    String toUpperCase();</a>
-<a class="sourceLine" id="cb5-24" data-line-number="24">    String toLowerCase();</a>
-<a class="sourceLine" id="cb5-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb5-26" data-line-number="26">    <span class="kw">friend</span> <span class="bu">std::</span>ostream&amp; <span class="kw">operator</span>&lt;&lt;(<span class="bu">std::</span>ostream&amp; output, <span class="at">const</span> String&amp; str);</a>
-<a class="sourceLine" id="cb5-27" data-line-number="27">    <span class="kw">friend</span> <span class="bu">std::</span>istream&amp; <span class="kw">operator</span>&gt;&gt;(<span class="bu">std::</span>istream&amp; input, String&amp; str);</a>
-<a class="sourceLine" id="cb5-28" data-line-number="28">};</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">class</span> String {</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">private</span>:</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="dt">char</span>* _buffer;</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="dt">size_t</span> _length;</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="dt">void</span> init(<span class="at">const</span> <span class="dt">char</span>* str);</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    String map(<span class="bu">std::</span>function&lt;<span class="dt">char</span>(<span class="dt">char</span>)&gt; fun);</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="kw">public</span>:</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    String(<span class="at">const</span> <span class="dt">char</span>* str= <span class="kw">nullptr</span>);       <span class="co">// 默认构造函数</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>    String(<span class="at">const</span> String&amp; other);            <span class="co">// 拷贝构造函数</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>    String(String&amp;&amp; other) <span class="kw">noexcept</span>;        <span class="co">// 移动构造函数</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>    ~String();                              <span class="co">// 析构函数</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a></span>
+<span id="cb5-14"><a href="#cb5-14"></a>    <span class="dt">size_t</span> length();</span>
+<span id="cb5-15"><a href="#cb5-15"></a>    <span class="at">const</span> <span class="dt">char</span>* data();</span>
+<span id="cb5-16"><a href="#cb5-16"></a></span>
+<span id="cb5-17"><a href="#cb5-17"></a>    <span class="dt">char</span>&amp; <span class="kw">operator</span>[](<span class="dt">size_t</span> index);</span>
+<span id="cb5-18"><a href="#cb5-18"></a>    String&amp; <span class="kw">operator</span>=(<span class="at">const</span> String&amp; other);</span>
+<span id="cb5-19"><a href="#cb5-19"></a>    String&amp; <span class="kw">operator</span>=(String&amp;&amp; other) <span class="kw">noexcept</span>;</span>
+<span id="cb5-20"><a href="#cb5-20"></a>    String <span class="kw">operator</span>+(<span class="at">const</span> String&amp; other);</span>
+<span id="cb5-21"><a href="#cb5-21"></a>    <span class="dt">bool</span> <span class="kw">operator</span>==(<span class="at">const</span> String&amp; other);</span>
+<span id="cb5-22"><a href="#cb5-22"></a></span>
+<span id="cb5-23"><a href="#cb5-23"></a>    String toUpperCase();</span>
+<span id="cb5-24"><a href="#cb5-24"></a>    String toLowerCase();</span>
+<span id="cb5-25"><a href="#cb5-25"></a></span>
+<span id="cb5-26"><a href="#cb5-26"></a>    <span class="kw">friend</span> <span class="bu">std::</span>ostream&amp; <span class="kw">operator</span>&lt;&lt;(<span class="bu">std::</span>ostream&amp; output, <span class="at">const</span> String&amp; str);</span>
+<span id="cb5-27"><a href="#cb5-27"></a>    <span class="kw">friend</span> <span class="bu">std::</span>istream&amp; <span class="kw">operator</span>&gt;&gt;(<span class="bu">std::</span>istream&amp; input, String&amp; str);</span>
+<span id="cb5-28"><a href="#cb5-28"></a>};</span></code></pre></div>
 <p>实现代码：</p>
 <p>在在<code>String::toUpperCase</code>和<code>String::toLowerCase</code>函数中使用可匿名函数（Lambda）对<code>std::toupper</code>和<code>std::tolower</code>函数的返回值和参数类型<code>int</code>进行了强制转换，这样才可以跟定义的<code>std::function</code>类型的函数签名相符。</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1">String String::map(function&lt;<span class="dt">char</span>(<span class="dt">char</span>)&gt; fun) {</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">    <span class="dt">char</span>* transformed = <span class="kw">new</span> <span class="dt">char</span>[_length];</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; _length; ++i) {</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">        transformed[i] = (fun(_buffer[i]));</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">    }</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="cf">return</span> String(transformed);</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">String String::toUpperCase() {</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">    <span class="cf">return</span> map([](<span class="dt">char</span> c){<span class="cf">return</span> <span class="kw">static_cast</span>&lt;<span class="dt">char</span>&gt;(toupper(<span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(c)));});</a>
-<a class="sourceLine" id="cb6-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13">String String::toLowerCase() {</a>
-<a class="sourceLine" id="cb6-14" data-line-number="14">    <span class="cf">return</span> map([](<span class="dt">char</span> c){<span class="cf">return</span> <span class="kw">static_cast</span>&lt;<span class="dt">char</span>&gt;(toupper(<span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(c)));});</a>
-<a class="sourceLine" id="cb6-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1"></a>String String::map(function&lt;<span class="dt">char</span>(<span class="dt">char</span>)&gt; fun) {</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="dt">char</span>* transformed = <span class="kw">new</span> <span class="dt">char</span>[_length];</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; _length; ++i) {</span>
+<span id="cb6-4"><a href="#cb6-4"></a>        transformed[i] = (fun(_buffer[i]));</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    }</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="cf">return</span> String(transformed);</span>
+<span id="cb6-7"><a href="#cb6-7"></a>}</span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a>String String::toUpperCase() {</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    <span class="cf">return</span> map([](<span class="dt">char</span> c){<span class="cf">return</span> <span class="kw">static_cast</span>&lt;<span class="dt">char</span>&gt;(toupper(<span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(c)));});</span>
+<span id="cb6-11"><a href="#cb6-11"></a>}</span>
+<span id="cb6-12"><a href="#cb6-12"></a></span>
+<span id="cb6-13"><a href="#cb6-13"></a>String String::toLowerCase() {</span>
+<span id="cb6-14"><a href="#cb6-14"></a>    <span class="cf">return</span> map([](<span class="dt">char</span> c){<span class="cf">return</span> <span class="kw">static_cast</span>&lt;<span class="dt">char</span>&gt;(toupper(<span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(c)));});</span>
+<span id="cb6-15"><a href="#cb6-15"></a>}</span></code></pre></div>
 <p>主函数跟上面函数指针的一样，输出结果也完全一样。</p>
 <p>这个案例虽然不能体现出使用<code>std::function</code>类型的优势，但是对于它的简单使用可以有一个参考。</p>
 
@@ -767,7 +767,7 @@ HELLO WORLD
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -785,7 +785,7 @@ HELLO WORLD
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -885,7 +885,7 @@ HELLO WORLD
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

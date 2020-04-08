@@ -535,48 +535,48 @@
 <li>dp[j] = min(dp[j-1] + costs[0], dp[j-7] + costs[1], dp[j-30] + costs[2]) （第j天需要旅行）</li>
 </ol>
 <h2 id="c实现">C++实现</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">class</span> Solution {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="dt">int</span> mincostTickets(vector&lt;<span class="dt">int</span>&gt; &amp;days, vector&lt;<span class="dt">int</span>&gt; &amp;costs) {</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">        <span class="cf">if</span> (days.size() == <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">        assert(costs.size() == <span class="dv">3</span>);</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">        <span class="co">// dp[i]代表着我们旅行到i天需要的最少旅行价格, dp[0]为0，没实际含义</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">        array&lt;<span class="dt">int</span>, <span class="dv">366</span>&gt; dp = {<span class="dv">0</span>};</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt; dp.size(); ++i) {</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">            <span class="co">// 如果这一天不旅行</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">            <span class="cf">if</span> (find(days.begin(), days.end(), i) == days.end()) dp[i] = dp[i - <span class="dv">1</span>];</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">            <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">                dp[i] = min({</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">                   dp[i - <span class="dv">1</span>] + costs[<span class="dv">0</span>],</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">                   dp[max(<span class="dv">0</span>, i - <span class="dv">7</span>)] + costs[<span class="dv">1</span>],</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">                   dp[max(<span class="dv">0</span>, i - <span class="dv">30</span>)] + costs[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">                });</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">            }</a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">        }</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">        <span class="cf">return</span> dp[<span class="dv">365</span>];</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">    }</a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">};</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> Solution {</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">public</span>:</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="dt">int</span> mincostTickets(vector&lt;<span class="dt">int</span>&gt; &amp;days, vector&lt;<span class="dt">int</span>&gt; &amp;costs) {</span>
+<span id="cb1-4"><a href="#cb1-4"></a>        <span class="cf">if</span> (days.size() == <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-5"><a href="#cb1-5"></a>        <span class="ot">assert</span>(costs.size() == <span class="dv">3</span>);</span>
+<span id="cb1-6"><a href="#cb1-6"></a>        <span class="co">// dp[i]代表着我们旅行到i天需要的最少旅行价格, dp[0]为0，没实际含义</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>        array&lt;<span class="dt">int</span>, <span class="dv">366</span>&gt; dp = {<span class="dv">0</span>};</span>
+<span id="cb1-8"><a href="#cb1-8"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt; dp.size(); ++i) {</span>
+<span id="cb1-9"><a href="#cb1-9"></a>            <span class="co">// 如果这一天不旅行</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>            <span class="cf">if</span> (find(days.begin(), days.end(), i) == days.end()) dp[i] = dp[i - <span class="dv">1</span>];</span>
+<span id="cb1-11"><a href="#cb1-11"></a>            <span class="cf">else</span> {</span>
+<span id="cb1-12"><a href="#cb1-12"></a>                dp[i] = min({</span>
+<span id="cb1-13"><a href="#cb1-13"></a>                   dp[i - <span class="dv">1</span>] + costs[<span class="dv">0</span>],</span>
+<span id="cb1-14"><a href="#cb1-14"></a>                   dp[max(<span class="dv">0</span>, i - <span class="dv">7</span>)] + costs[<span class="dv">1</span>],</span>
+<span id="cb1-15"><a href="#cb1-15"></a>                   dp[max(<span class="dv">0</span>, i - <span class="dv">30</span>)] + costs[<span class="dv">2</span>]</span>
+<span id="cb1-16"><a href="#cb1-16"></a>                });</span>
+<span id="cb1-17"><a href="#cb1-17"></a>            }</span>
+<span id="cb1-18"><a href="#cb1-18"></a>        }</span>
+<span id="cb1-19"><a href="#cb1-19"></a>        <span class="cf">return</span> dp[<span class="dv">365</span>];</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    }</span>
+<span id="cb1-21"><a href="#cb1-21"></a>};</span></code></pre></div>
 <h2 id="scala实现">Scala实现</h2>
 <p>注：如果有童鞋有纯函数的实现，希望分享出来！共享！</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode scala"><code class="sourceCode scala"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">object</span> Solution {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw">def</span> <span class="fu">mincostTickets</span>(days: Array[Int], costs: Array[Int]): Int = {</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="kw">if</span> (days.<span class="fu">length</span> == <span class="dv">0</span>) <span class="kw">return</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="fu">assert</span>(costs.<span class="fu">length</span> == <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">val</span> travels = days.<span class="fu">toSet</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="kw">val</span> dp = Array.<span class="fu">fill</span>[Int](<span class="dv">366</span>)(<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="kw">for</span> (i &lt;- <span class="dv">1</span> until <span class="dv">366</span>) {</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">      <span class="kw">if</span> (!travels.<span class="fu">contains</span>(i)) <span class="fu">dp</span>(i) = <span class="fu">dp</span>(i - <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">      <span class="kw">else</span> <span class="fu">dp</span>(i) = List(</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">        <span class="fu">dp</span>(i - <span class="dv">1</span>) + <span class="fu">costs</span>(<span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">        <span class="fu">dp</span>(math.<span class="fu">max</span>(<span class="dv">0</span>, i - <span class="dv">7</span>)) + <span class="fu">costs</span>(<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">        <span class="fu">dp</span>(math.<span class="fu">max</span>(<span class="dv">0</span>, i - <span class="dv">30</span>)) + <span class="fu">costs</span>(<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">      ).<span class="fu">min</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">    }</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">    <span class="fu">dp</span>(<span class="dv">365</span>)</a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">  }</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">object</span> Solution {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="kw">def</span> <span class="fu">mincostTickets</span>(days: Array[Int], costs: Array[Int]): Int = {</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="kw">if</span> (days.<span class="fu">length</span> == <span class="dv">0</span>) <span class="kw">return</span> <span class="dv">0</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="fu">assert</span>(costs.<span class="fu">length</span> == <span class="dv">3</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="kw">val</span> travels = days.<span class="fu">toSet</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="kw">val</span> dp = Array.<span class="fu">fill</span>[Int](<span class="dv">366</span>)(<span class="dv">0</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="kw">for</span> (i &lt;- <span class="dv">1</span> until <span class="dv">366</span>) {</span>
+<span id="cb2-9"><a href="#cb2-9"></a>      <span class="kw">if</span> (!travels.<span class="fu">contains</span>(i)) <span class="fu">dp</span>(i) = <span class="fu">dp</span>(i - <span class="dv">1</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>      <span class="kw">else</span> <span class="fu">dp</span>(i) = List(</span>
+<span id="cb2-11"><a href="#cb2-11"></a>        <span class="fu">dp</span>(i - <span class="dv">1</span>) + <span class="fu">costs</span>(<span class="dv">0</span>),</span>
+<span id="cb2-12"><a href="#cb2-12"></a>        <span class="fu">dp</span>(math.<span class="fu">max</span>(<span class="dv">0</span>, i - <span class="dv">7</span>)) + <span class="fu">costs</span>(<span class="dv">1</span>),</span>
+<span id="cb2-13"><a href="#cb2-13"></a>        <span class="fu">dp</span>(math.<span class="fu">max</span>(<span class="dv">0</span>, i - <span class="dv">30</span>)) + <span class="fu">costs</span>(<span class="dv">2</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>      ).<span class="fu">min</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>    }</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a>    <span class="fu">dp</span>(<span class="dv">365</span>)</span>
+<span id="cb2-18"><a href="#cb2-18"></a>  }</span>
+<span id="cb2-19"><a href="#cb2-19"></a>}</span></code></pre></div>
 
         
     
@@ -703,7 +703,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -721,7 +721,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -821,7 +821,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

@@ -520,41 +520,41 @@
 <p>在使用面向对象的编程接口时候，我们需要自己创建画布（FigureCanvas），自己创建图对象（Figure），自己创建Axes（一个Figure可以包含一个或者多个Axes，一个Axes可以理解为一个子图，使用一次<code>plot()</code>绘图函数便会创建一个Axes），所有对象一起才能完成一次完整的绘图。使用面向对象编程接口有利于我们对于图形绘制的完整控制，但是相对于Pyplot接口可能需要书写更多的代码。</p>
 <p>在Matplotlib官方文档中，虽然说推荐大家使用面向对象接口进行绘图，但是其中提供的例子大部分都是基于Pyplot接口的。下面我们以一个简单例子（绘制一条直线）体验一下使用两种编程接口编程的异同。</p>
 <h2 id="pyplot接口">PyPlot接口</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">plt.plot([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">plt.title(<span class="st">&#39;Title&#39;</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">plt.grid(<span class="va">True</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">plt.xlabel(<span class="st">&#39;X Axis&#39;</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">plt.ylabel(<span class="st">&#39;Y Axis&#39;</span>)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">plt.show()</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2"></a>plt.plot([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])</span>
+<span id="cb1-3"><a href="#cb1-3"></a>plt.title(<span class="st">&#39;Title&#39;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>plt.xlabel(<span class="st">&#39;X Axis&#39;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>plt.ylabel(<span class="st">&#39;Y Axis&#39;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a>plt.show()</span></code></pre></div>
 <p>输出结果如下：</p>
 <figure>
-<img src="/images/tools/Simple-Matplotlib-Example.png" alt="Matplotlib绘制直线"><figcaption>Matplotlib绘制直线</figcaption>
+<img src="/images/tools/Simple-Matplotlib-Example.png" alt=""><figcaption>Matplotlib绘制直线</figcaption>
 </figure>
 <h2 id="面向对象接口">面向对象接口</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="im">from</span> matplotlib.backends.backend_agg <span class="im">import</span> FigureCanvasAgg <span class="im">as</span> FigureCanvas</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="im">from</span> matplotlib.figure <span class="im">import</span> Figure</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">fig <span class="op">=</span> Figure()</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">FigureCanvas(fig)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>)  <span class="co"># add_subplot()方法中的111表示的是1×1格网，第1个子图</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">ax.plot([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">ax.set_title(<span class="st">&#39;Title&#39;</span>)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">ax.grid(<span class="va">True</span>)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">ax.set_xlabel(<span class="st">&#39;X Axis&#39;</span>)</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">ax.set_ylabel(<span class="st">&#39;Y Axis&#39;</span>)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">fig.savefig(<span class="st">&#39;test.png&#39;</span>, dpi<span class="op">=</span><span class="dv">120</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> matplotlib.backends.backend_agg <span class="im">import</span> FigureCanvasAgg <span class="im">as</span> FigureCanvas</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">from</span> matplotlib.figure <span class="im">import</span> Figure</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a>fig <span class="op">=</span> Figure()</span>
+<span id="cb2-5"><a href="#cb2-5"></a>FigureCanvas(fig)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>)  <span class="co"># add_subplot()方法中的111表示的是1×1格网，第1个子图</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>ax.plot([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb2-8"><a href="#cb2-8"></a>ax.set_title(<span class="st">&#39;Title&#39;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>ax.grid(<span class="va">True</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>ax.set_xlabel(<span class="st">&#39;X Axis&#39;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11"></a>ax.set_ylabel(<span class="st">&#39;Y Axis&#39;</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>fig.savefig(<span class="st">&#39;test.png&#39;</span>, dpi<span class="op">=</span><span class="dv">120</span>)</span></code></pre></div>
 <p>同样的例子，我们使用面向对象接口用了更多代码，但是其绘制过程也更加明了。另外，提一点，使用面向对象接口不能使用交互式的<code>show()</code>方法对图像直接进行显示。</p>
 <p>面向对象的接口需要我们对绘图的backends也有所了解，提供对应的FigureCanvas，这是很不方便的，不利于代码的跨平台移植。所以，我在编程过程中，进程使用两个接口折中的一种方案：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">ax <span class="op">=</span> plt.subplot(<span class="dv">111</span>)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">ax.plot([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">ax.set_title(<span class="st">&#39;Title&#39;</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">ax.grid(<span class="va">True</span>)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">ax.set_xlabel(<span class="st">&#39;X Axis&#39;</span>)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">ax.set_ylabel(<span class="st">&#39;Y Axis&#39;</span>)</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">plt.show()</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">111</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>ax.plot([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb3-5"><a href="#cb3-5"></a>ax.set_title(<span class="st">&#39;Title&#39;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>ax.grid(<span class="va">True</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>ax.set_xlabel(<span class="st">&#39;X Axis&#39;</span>)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>ax.set_ylabel(<span class="st">&#39;Y Axis&#39;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>plt.show()</span></code></pre></div>
 <p>我推荐大家平时也多多使用这种方案，自己创建<code>Axes</code>对象，然后使用面向对象接口做图形绘制。</p>
 
         
@@ -682,7 +682,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -700,7 +700,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -800,7 +800,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

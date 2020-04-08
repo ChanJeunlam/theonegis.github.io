@@ -522,29 +522,29 @@
 <li>使用STL中的<code>std::distance</code>计算最小值跟迭代器的头部的距离；</li>
 </ol>
 <h2 id="实现代码">实现代码</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">template</span>&lt;<span class="kw">class</span> ForwardIterator&gt;</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">inline</span> <span class="dt">size_t</span> argmin(ForwardIterator first, ForwardIterator last)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">{</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="cf">return</span> <span class="bu">std::</span>distance(first, <span class="bu">std::</span>min_element(first, last));</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">template</span>&lt;<span class="kw">class</span> ForwardIterator&gt;</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw">inline</span> <span class="dt">size_t</span> argmax(ForwardIterator first, ForwardIterator last)</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">{</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">    <span class="cf">return</span> <span class="bu">std::</span>distance(first, <span class="bu">std::</span>max_element(first, last));</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">template</span>&lt;<span class="kw">class</span> ForwardIterator&gt;</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">inline</span> <span class="dt">size_t</span> argmin(ForwardIterator first, ForwardIterator last)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>{</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="cf">return</span> <span class="bu">std::</span>distance(first, <span class="bu">std::</span>min_element(first, last));</span>
+<span id="cb1-7"><a href="#cb1-7"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">template</span>&lt;<span class="kw">class</span> ForwardIterator&gt;</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">inline</span> <span class="dt">size_t</span> argmax(ForwardIterator first, ForwardIterator last)</span>
+<span id="cb1-11"><a href="#cb1-11"></a>{</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="cf">return</span> <span class="bu">std::</span>distance(first, <span class="bu">std::</span>max_element(first, last));</span>
+<span id="cb1-13"><a href="#cb1-13"></a>}</span></code></pre></div>
 <h2 id="测试代码">测试代码</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="dt">int</span> main() {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">    array&lt;<span class="dt">int</span>, <span class="dv">7</span>&gt; numbers{<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">-1</span>, <span class="dv">3</span>};</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="dt">size_t</span> minIndex =  argmin(numbers.begin(), numbers.end());</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    cout &lt;&lt; minIndex &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    vector&lt;<span class="dt">float</span>&gt; prices = {<span class="fl">12.5</span>, <span class="fl">8.9</span>, <span class="dv">100</span>, <span class="fl">24.5</span>, <span class="fl">30.0</span>};</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="dt">size_t</span> maxIndex = argmax(prices.begin(), prices.end());</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    cout &lt;&lt; maxIndex &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="cf">return</span> <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="dt">int</span> main() {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    array&lt;<span class="dt">int</span>, <span class="dv">7</span>&gt; numbers{<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">6</span>, -<span class="dv">1</span>, <span class="dv">3</span>};</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="dt">size_t</span> minIndex =  argmin(numbers.begin(), numbers.end());</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    cout &lt;&lt; minIndex &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    vector&lt;<span class="dt">float</span>&gt; prices = {<span class="fl">12.5</span>, <span class="fl">8.9</span>, <span class="dv">100</span>, <span class="fl">24.5</span>, <span class="fl">30.0</span>};</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="dt">size_t</span> maxIndex = argmax(prices.begin(), prices.end());</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    cout &lt;&lt; maxIndex &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb2-9"><a href="#cb2-9"></a>}</span></code></pre></div>
 <p>输出结果：</p>
 <pre><code>5
 2</code></pre>
@@ -674,7 +674,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -692,7 +692,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -792,7 +792,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

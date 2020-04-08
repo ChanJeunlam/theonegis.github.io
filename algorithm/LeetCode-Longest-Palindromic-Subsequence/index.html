@@ -538,38 +538,38 @@
 <li>当<code>s[i] != s[j]</code>时，<code>dp[i][j] = max(dp[i+1][j], dp[i][j-1])</code></li>
 </ol>
 <h2 id="c实现">C++实现</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">class</span> Solution {</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="dt">int</span> longestPalindromeSubseq(string s) {</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">        <span class="at">const</span> <span class="dt">int</span> length = s.length();</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">        vector&lt;vector&lt;<span class="dt">int</span>&gt;&gt; dp(length, vector&lt;<span class="dt">int</span>&gt;(length));</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">        <span class="cf">for</span> (<span class="kw">auto</span> i = length - <span class="dv">1</span>; i &gt;= <span class="dv">0</span>; --i) {</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">            dp[i][i] = <span class="dv">1</span>;</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">            <span class="cf">for</span> (<span class="kw">auto</span> j = i + <span class="dv">1</span>; j &lt; length; ++j) {</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">                dp[i][j] = s[i] == s[j] ?</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">                        dp[i + <span class="dv">1</span>][j - <span class="dv">1</span>] + <span class="dv">2</span> :</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">                        max(dp[i + <span class="dv">1</span>][j], dp[i][j - <span class="dv">1</span>]);</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">            }</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">        }</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">        <span class="cf">return</span> dp[<span class="dv">0</span>][length - <span class="dv">1</span>];</a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">    }</a>
-<a class="sourceLine" id="cb5-16" data-line-number="16">};</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">class</span> Solution {</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">public</span>:</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="dt">int</span> longestPalindromeSubseq(string s) {</span>
+<span id="cb5-4"><a href="#cb5-4"></a>        <span class="at">const</span> <span class="dt">int</span> length = s.length();</span>
+<span id="cb5-5"><a href="#cb5-5"></a>        vector&lt;vector&lt;<span class="dt">int</span>&gt;&gt; dp(length, vector&lt;<span class="dt">int</span>&gt;(length));</span>
+<span id="cb5-6"><a href="#cb5-6"></a>        <span class="cf">for</span> (<span class="kw">auto</span> i = length - <span class="dv">1</span>; i &gt;= <span class="dv">0</span>; --i) {</span>
+<span id="cb5-7"><a href="#cb5-7"></a>            dp[i][i] = <span class="dv">1</span>;</span>
+<span id="cb5-8"><a href="#cb5-8"></a>            <span class="cf">for</span> (<span class="kw">auto</span> j = i + <span class="dv">1</span>; j &lt; length; ++j) {</span>
+<span id="cb5-9"><a href="#cb5-9"></a>                dp[i][j] = s[i] == s[j] ?</span>
+<span id="cb5-10"><a href="#cb5-10"></a>                        dp[i + <span class="dv">1</span>][j - <span class="dv">1</span>] + <span class="dv">2</span> :</span>
+<span id="cb5-11"><a href="#cb5-11"></a>                        max(dp[i + <span class="dv">1</span>][j], dp[i][j - <span class="dv">1</span>]);</span>
+<span id="cb5-12"><a href="#cb5-12"></a>            }</span>
+<span id="cb5-13"><a href="#cb5-13"></a>        }</span>
+<span id="cb5-14"><a href="#cb5-14"></a>        <span class="cf">return</span> dp[<span class="dv">0</span>][length - <span class="dv">1</span>];</span>
+<span id="cb5-15"><a href="#cb5-15"></a>    }</span>
+<span id="cb5-16"><a href="#cb5-16"></a>};</span></code></pre></div>
 <h2 id="scala实现">Scala实现</h2>
 <p>Scala版本是对C++版本的翻译</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode scala"><code class="sourceCode scala"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">object</span> Solution {</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="kw">def</span> <span class="fu">longestPalindromeSubseq</span>(s: String): Int = {</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="kw">val</span> length = s.<span class="fu">length</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="kw">val</span> dp = Array.<span class="fu">ofDim</span>[Int](length, length)</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="kw">for</span> (i &lt;- length - <span class="dv">1</span> to <span class="dv">0</span> by <span class="dv">-1</span>) {</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">      <span class="fu">dp</span>(i)(i) = <span class="dv">1</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">      <span class="kw">for</span> (j &lt;- i + <span class="dv">1</span> until length) {</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">        <span class="fu">dp</span>(i)(j) = <span class="kw">if</span> (<span class="fu">s</span>(i) == <span class="fu">s</span>(j)) <span class="fu">dp</span>(i + <span class="dv">1</span>)(j - <span class="dv">1</span>) + <span class="dv">2</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">        <span class="kw">else</span> math.<span class="fu">max</span>(<span class="fu">dp</span>(i + <span class="dv">1</span>)(j), <span class="fu">dp</span>(i)(j - <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">      }</a>
-<a class="sourceLine" id="cb6-11" data-line-number="11">    }</a>
-<a class="sourceLine" id="cb6-12" data-line-number="12">    <span class="kw">return</span> <span class="fu">dp</span>(<span class="dv">0</span>)(length - <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb6-13" data-line-number="13">  }</a>
-<a class="sourceLine" id="cb6-14" data-line-number="14">}</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">object</span> Solution {</span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="kw">def</span> <span class="fu">longestPalindromeSubseq</span>(s: String): Int = {</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="kw">val</span> length = s.<span class="fu">length</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="kw">val</span> dp = Array.<span class="fu">ofDim</span>[Int](length, length)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="kw">for</span> (i &lt;- length - <span class="dv">1</span> to <span class="dv">0</span> by <span class="dv">-1</span>) {</span>
+<span id="cb6-6"><a href="#cb6-6"></a>      <span class="fu">dp</span>(i)(i) = <span class="dv">1</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>      <span class="kw">for</span> (j &lt;- i + <span class="dv">1</span> until length) {</span>
+<span id="cb6-8"><a href="#cb6-8"></a>        <span class="fu">dp</span>(i)(j) = <span class="kw">if</span> (<span class="fu">s</span>(i) == <span class="fu">s</span>(j)) <span class="fu">dp</span>(i + <span class="dv">1</span>)(j - <span class="dv">1</span>) + <span class="dv">2</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>        <span class="kw">else</span> math.<span class="fu">max</span>(<span class="fu">dp</span>(i + <span class="dv">1</span>)(j), <span class="fu">dp</span>(i)(j - <span class="dv">1</span>))</span>
+<span id="cb6-10"><a href="#cb6-10"></a>      }</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    }</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    <span class="kw">return</span> <span class="fu">dp</span>(<span class="dv">0</span>)(length - <span class="dv">1</span>)</span>
+<span id="cb6-13"><a href="#cb6-13"></a>  }</span>
+<span id="cb6-14"><a href="#cb6-14"></a>}</span></code></pre></div>
 
         
     
@@ -696,7 +696,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -714,7 +714,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -814,7 +814,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

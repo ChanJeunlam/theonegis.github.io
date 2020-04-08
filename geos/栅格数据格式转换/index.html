@@ -668,27 +668,27 @@
 <p>下面介绍两种进行转换的方式：</p>
 <ol type="1">
 <li><p>GDAL 2.1版本之后提供了，从代码中调用命令行的API接口，所以我们可以在Python代码中直接调用<code>Translate()</code>函数进行转换</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="im">from</span> osgeo <span class="im">import</span> gdal</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">ds <span class="op">=</span> gdal.Translate(<span class="st">&#39;example.img&#39;</span>, ds, <span class="bu">format</span><span class="op">=</span><span class="st">&#39;HFA&#39;</span>)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">ds <span class="op">=</span> <span class="va">None</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> osgeo <span class="im">import</span> gdal</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>ds <span class="op">=</span> gdal.Translate(<span class="st">&#39;example.img&#39;</span>, ds, <span class="bu">format</span><span class="op">=</span><span class="st">&#39;HFA&#39;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>ds <span class="op">=</span> <span class="va">None</span></span></code></pre></div>
 <p><code>Translate()</code>函数的第一个参数是输出数据路径，第二参数是输入数据路径或者输入数据的Dataset对象，后面都是可选参数，具体<code>Translate()</code>函数的参数可以参见：<a href="http://gdal.org/python/" target="_blank" rel="noopener">GDAL/OGR Python API</a></p></li>
 <li><p>使用<code>CreateCopy()</code>方法进行数据的复制及格式转换</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="im">from</span> osgeo <span class="im">import</span> gdal</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co"># 打开数据文件</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">src_ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># 获得数据驱动对象</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">driver <span class="op">=</span> gdal.GetDriverByName(<span class="st">&#39;HFA&#39;</span>)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co"># 进行数据格式转换</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">dst_ds <span class="op">=</span> driver.CreateCopy(<span class="st">&#39;example.img&#39;</span>, src_ds)</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co"># 关闭数据集对象</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">dst_ds <span class="op">=</span> <span class="va">None</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">src_ds <span class="op">=</span> <span class="va">None</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> osgeo <span class="im">import</span> gdal</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># 打开数据文件</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>src_ds <span class="op">=</span> gdal.Open(<span class="st">&#39;example.tif&#39;</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># 获得数据驱动对象</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>driver <span class="op">=</span> gdal.GetDriverByName(<span class="st">&#39;HFA&#39;</span>)</span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co"># 进行数据格式转换</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>dst_ds <span class="op">=</span> driver.CreateCopy(<span class="st">&#39;example.img&#39;</span>, src_ds)</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co"># 关闭数据集对象</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>dst_ds <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>src_ds <span class="op">=</span> <span class="va">None</span></span></code></pre></div></li>
 </ol>
 
         
@@ -816,7 +816,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -834,7 +834,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -934,7 +934,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

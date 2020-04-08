@@ -520,7 +520,7 @@
 <h1 id="morton码的计算">Morton码的计算</h1>
 <p>Morton码是对栅格格网进行编码的一种算法，在Google中搜索Morton，搜索结果第一位是Wikipedia的Z-order Curve，这是因为Morton码编码结果展现为一种Z形的填充曲线。下面简要说一下如何计算四进制和十进制的Morton码。</p>
 <figure>
-<img src="/images/geos/z-curve.png" alt="Morton码二进制"><figcaption>Morton码二进制</figcaption>
+<img src="/images/geos/z-curve.png" alt=""><figcaption>Morton码二进制</figcaption>
 </figure>
 <h2 id="四进制morton码计算">四进制Morton码计算</h2>
 <p>四进制编码对左上，右上，左下，右下的顺序对四个格网单元分布编码为0，1，2，3。</p>
@@ -529,21 +529,21 @@
 <p>十进制的编码规则：首先，行列号转为二进制（从第0行0列开始）；然后行列号交叉排列；最后将二进制结果转为十进制。十进制Morton编码是按左上，右上，左下，右下的顺序从0开始对每个格网进行自然编码的。</p>
 <p>对于第5行（101）第7列（111），交叉排列得到110111，然后转为十进制就是55。和四进制的编码结果是一样的。</p>
 <p>下面给出十进制Morton码的C++实现：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">using</span> <span class="bu">std::</span>cout;</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="dt">int</span> main() {</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">uint32_t</span> row = <span class="dv">5</span>;</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">uint32_t</span> col = <span class="dv">7</span>;</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="dt">uint64_t</span> morton = <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="kw">sizeof</span>(row) * <span class="dv">8</span>; i++) {</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">        morton |= (row &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; i | (col &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; (i + <span class="dv">1</span>);</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">    }</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">    cout &lt;&lt; morton &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">    <span class="cf">return</span> <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">using</span> <span class="bu">std::</span>cout;</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="dt">uint32_t</span> row = <span class="dv">5</span>;</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="dt">uint32_t</span> col = <span class="dv">7</span>;</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    <span class="dt">uint64_t</span> morton = <span class="dv">0</span>;</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="kw">sizeof</span>(row) * <span class="dv">8</span>; i++) {</span>
+<span id="cb1-11"><a href="#cb1-11"></a>        morton |= (row &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; i | (col &amp; (<span class="dt">uint64_t</span>)<span class="dv">1</span> &lt;&lt; i) &lt;&lt; (i + <span class="dv">1</span>);</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    }</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    cout &lt;&lt; morton &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-15"><a href="#cb1-15"></a>}</span></code></pre></div>
 
         
     
@@ -670,7 +670,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -688,7 +688,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -788,7 +788,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

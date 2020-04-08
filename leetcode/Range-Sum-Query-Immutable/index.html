@@ -534,50 +534,50 @@ sumRange(0, 5) -&gt; -3</code></pre>
 <p>注意：我们的和元素组成的数组中第一个元素是0。</p>
 <p>其实，我觉得这道题并不完全能算得上一道动态规划的题目。但是LeetCode把这道题归类到动态规划中也说得过去吧。</p>
 <h2 id="c示例">C++示例</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">class</span> NumArray {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">private</span>:</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    vector&lt;<span class="dt">int</span>&gt; sums;</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    NumArray(vector&lt;<span class="dt">int</span>&gt; nums) {</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">        sums.push_back(<span class="dv">0</span>);</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; nums.size(); ++i) {</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">            sums.push_back(nums[i] + sums[i]);</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">        }</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">    }</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">    <span class="dt">int</span> sumRange(<span class="dt">int</span> i, <span class="dt">int</span> j) {</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">        <span class="cf">return</span> sums[j + <span class="dv">1</span>] - sums[i];</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">    }</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">};</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="dt">int</span> main() {</a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">    vector&lt;<span class="dt">int</span>&gt; nums{<span class="dv">-2</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">-5</span>, <span class="dv">2</span>, <span class="dv">-1</span>};</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">    NumArray obj(nums);</a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">    <span class="dt">int</span> result = obj.sumRange(<span class="dv">2</span>, <span class="dv">5</span>);</a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">    cout &lt;&lt; result &lt;&lt; endl;</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">    <span class="cf">return</span> <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> NumArray {</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">private</span>:</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    vector&lt;<span class="dt">int</span>&gt; sums;</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">public</span>:</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    NumArray(vector&lt;<span class="dt">int</span>&gt; nums) {</span>
+<span id="cb2-6"><a href="#cb2-6"></a>        sums.push_back(<span class="dv">0</span>);</span>
+<span id="cb2-7"><a href="#cb2-7"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; nums.size(); ++i) {</span>
+<span id="cb2-8"><a href="#cb2-8"></a>            sums.push_back(nums[i] + sums[i]);</span>
+<span id="cb2-9"><a href="#cb2-9"></a>        }</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    }</span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="dt">int</span> sumRange(<span class="dt">int</span> i, <span class="dt">int</span> j) {</span>
+<span id="cb2-13"><a href="#cb2-13"></a>        <span class="cf">return</span> sums[j + <span class="dv">1</span>] - sums[i];</span>
+<span id="cb2-14"><a href="#cb2-14"></a>    }</span>
+<span id="cb2-15"><a href="#cb2-15"></a>};</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="dt">int</span> main() {</span>
+<span id="cb2-18"><a href="#cb2-18"></a>    vector&lt;<span class="dt">int</span>&gt; nums{-<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">3</span>, -<span class="dv">5</span>, <span class="dv">2</span>, -<span class="dv">1</span>};</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    NumArray obj(nums);</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    <span class="dt">int</span> result = obj.sumRange(<span class="dv">2</span>, <span class="dv">5</span>);</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    cout &lt;&lt; result &lt;&lt; endl;</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb2-23"><a href="#cb2-23"></a>}</span></code></pre></div>
 <h2 id="scala示例">Scala示例</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode scala"><code class="sourceCode scala"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">object</span> RangeSumQuery {</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="kw">class</span> <span class="fu">NumArray</span>(nums: Array[Int]) {</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="kw">private</span> <span class="kw">val</span> sums = <span class="kw">new</span> Array[Int](nums.<span class="fu">length</span> + <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="kw">for</span> (i &lt;- nums.<span class="fu">indices</span>)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">      <span class="fu">sums</span>(i + <span class="dv">1</span>) = <span class="fu">sums</span>(i) + <span class="fu">nums</span>(i)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="kw">def</span> <span class="fu">sumRange</span>(i: Int, j: Int): Int = {</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">      <span class="fu">sums</span>(j + <span class="dv">1</span>) - <span class="fu">sums</span>(i)</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">    }</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">  }</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">  <span class="kw">def</span> <span class="fu">main</span>(args: Array[String]): Unit = {</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">    <span class="kw">val</span> nums = Array(-<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">-5</span>, <span class="dv">2</span>, <span class="dv">-1</span>)</a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">    <span class="kw">val</span> obj = <span class="kw">new</span> <span class="fu">NumArray</span>(nums)</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">    <span class="kw">val</span> result = obj.<span class="fu">sumRange</span>(<span class="dv">2</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">    <span class="fu">println</span>(result)</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">  }</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">object</span> RangeSumQuery {</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="kw">class</span> <span class="fu">NumArray</span>(nums: Array[Int]) {</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="kw">private</span> <span class="kw">val</span> sums = <span class="kw">new</span> Array[Int](nums.<span class="fu">length</span> + <span class="dv">1</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="kw">for</span> (i &lt;- nums.<span class="fu">indices</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>      <span class="fu">sums</span>(i + <span class="dv">1</span>) = <span class="fu">sums</span>(i) + <span class="fu">nums</span>(i)</span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="kw">def</span> <span class="fu">sumRange</span>(i: Int, j: Int): Int = {</span>
+<span id="cb3-10"><a href="#cb3-10"></a>      <span class="fu">sums</span>(j + <span class="dv">1</span>) - <span class="fu">sums</span>(i)</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    }</span>
+<span id="cb3-12"><a href="#cb3-12"></a>  }</span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="kw">def</span> <span class="fu">main</span>(args: Array[String]): Unit = {</span>
+<span id="cb3-15"><a href="#cb3-15"></a>    <span class="kw">val</span> nums = Array(-<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">-5</span>, <span class="dv">2</span>, <span class="dv">-1</span>)</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    <span class="kw">val</span> obj = <span class="kw">new</span> <span class="fu">NumArray</span>(nums)</span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="kw">val</span> result = obj.<span class="fu">sumRange</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    <span class="fu">println</span>(result)</span>
+<span id="cb3-19"><a href="#cb3-19"></a>  }</span>
+<span id="cb3-20"><a href="#cb3-20"></a>}</span></code></pre></div>
 
         
     
@@ -704,7 +704,7 @@ sumRange(0, 5) -&gt; -3</code></pre>
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -722,7 +722,7 @@ sumRange(0, 5) -&gt; -3</code></pre>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -822,7 +822,7 @@ sumRange(0, 5) -&gt; -3</code></pre>
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

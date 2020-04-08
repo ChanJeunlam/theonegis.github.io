@@ -530,19 +530,19 @@
 <p>移动语义和拷贝语义是相对于的，移动类似于计算机中对文件操作的剪切，而拷贝类似于文件的复制。</p>
 <p>我们可以定义拷贝构造函数和赋值函数进行对象的复制，如果没有定义，编译器会帮我们生产默认的实现。要实现转移语义，需要定义转移构造函数，当然还可以定义转移赋值操作符。对于右值的拷贝和赋值会调用转移构造函数和转移赋值操作符。如果转移构造函数和转移拷贝操作符没有定义，那么拷贝构造函数和赋值操作符会被调用。</p>
 <p>移动构造函数和移动赋值函数都是形参（Parameter）为右值引用的函数，下面看一个例子。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">struct</span> Foo {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  Foo() { cout &lt;&lt; <span class="st">&quot;Constructed&quot;</span> &lt;&lt; endl; }</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  Foo(<span class="at">const</span> Foo &amp;) { cout &lt;&lt; <span class="st">&quot;Copy-constructed&quot;</span> &lt;&lt; endl; }</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  Foo(Foo &amp;&amp;) { cout &lt;&lt; <span class="st">&quot;Move-constructed&quot;</span> &lt;&lt; endl; }</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  ~Foo() { cout &lt;&lt; <span class="st">&quot;Destructed&quot;</span> &lt;&lt; endl; }</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">};</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">struct</span> Foo {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  Foo() { cout &lt;&lt; <span class="st">&quot;Constructed&quot;</span> &lt;&lt; endl; }</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  Foo(<span class="at">const</span> Foo &amp;) { cout &lt;&lt; <span class="st">&quot;Copy-constructed&quot;</span> &lt;&lt; endl; }</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  Foo(Foo &amp;&amp;) { cout &lt;&lt; <span class="st">&quot;Move-constructed&quot;</span> &lt;&lt; endl; }</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  ~Foo() { cout &lt;&lt; <span class="st">&quot;Destructed&quot;</span> &lt;&lt; endl; }</span>
+<span id="cb1-6"><a href="#cb1-6"></a>};</span></code></pre></div>
 <p>可以看到第4行的移动构造函数就是一个形参为右值引用的构造器。</p>
 <p>我们通过一个示例观察其输出：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="dt">int</span> main() { </a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">    vector&lt;Foo&gt; vec;</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    vec.push_back(Foo());</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="cf">return</span> <span class="dv">0</span>; </a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="dt">int</span> main() { </span>
+<span id="cb2-2"><a href="#cb2-2"></a>    vector&lt;Foo&gt; vec;</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    vec.push_back(Foo());</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="cf">return</span> <span class="dv">0</span>; </span>
+<span id="cb2-5"><a href="#cb2-5"></a>}</span></code></pre></div>
 <p>这里使用<code>g++</code>或者<code>clang++</code>编译器进行编译运行：<code>g++-8 foo.cpp -std=c++11 &amp;&amp; ./a.out</code></p>
 <p>我们首先注释掉<code>Foo</code>定义中的第4行的移动构造函数，结果如下：</p>
 <pre><code>Constructed
@@ -567,21 +567,21 @@ Destructed</code></pre>
 <h3 id="返回值的优化">返回值的优化</h3>
 <p>返回值的优化分为Named Return Value Optimization (NRVO)和Regular Return Value Optimization (RVO)</p>
 <p>还是以<code>Foo</code>为例，我们定义如下两个函数：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">// Named Return Value Optimization (NRVO)</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">Foo f1() {</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">  Foo foo;</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="cf">return</span> foo;</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">// Return Value Optimization (RVO)</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">Foo f2() {</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="cf">return</span> Foo();</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="dt">int</span> main() { </a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">    f1();</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">    <span class="cf">return</span> <span class="dv">0</span>; </a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">// Named Return Value Optimization (NRVO)</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>Foo f1() {</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  Foo foo;</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="cf">return</span> foo;</span>
+<span id="cb5-5"><a href="#cb5-5"></a>}</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">// Return Value Optimization (RVO)</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>Foo f2() {</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="cf">return</span> Foo();</span>
+<span id="cb5-10"><a href="#cb5-10"></a>}</span>
+<span id="cb5-11"><a href="#cb5-11"></a></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="dt">int</span> main() { </span>
+<span id="cb5-13"><a href="#cb5-13"></a>    f1();</span>
+<span id="cb5-14"><a href="#cb5-14"></a>    <span class="cf">return</span> <span class="dv">0</span>; </span>
+<span id="cb5-15"><a href="#cb5-15"></a>}</span></code></pre></div>
 <p>运行结果如下：</p>
 <pre><code>Constructed
 Destructed</code></pre>
@@ -594,10 +594,10 @@ Destructed
 Destructed</code></pre>
 <p><code>f1()</code>和<code>f2()</code>会有相同的运行结果</p>
 <p>我们再来修改一下<code>main()</code>函数：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dt">int</span> main() { </a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">    Foo foo = f1();</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="cf">return</span> <span class="dv">0</span>; </a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">int</span> main() { </span>
+<span id="cb8-2"><a href="#cb8-2"></a>    Foo foo = f1();</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="cf">return</span> <span class="dv">0</span>; </span>
+<span id="cb8-4"><a href="#cb8-4"></a>}</span></code></pre></div>
 <p>猜一下，在有拷贝优化和没有拷贝优化的情况下会发生什么？</p>
 <p>如果没有拷贝优化的结果如下：</p>
 <pre><code>Constructed
@@ -613,15 +613,15 @@ Destructed</code></pre>
 <p>一次移动构造或者拷贝构造都没有，是不是很爽。</p>
 <h3 id="传递临时对象的优化">传递临时对象的优化</h3>
 <p>对于函数参数传递的优化，示例如下：</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">// Passing a Temporary by Value</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="dt">void</span> f3(Foo f) {</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">    cout &lt;&lt; <span class="st">&quot;F3 called&quot;</span> &lt;&lt; endl;</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="dt">int</span> main() { </a>
-<a class="sourceLine" id="cb11-7" data-line-number="7">    f3(Foo());</a>
-<a class="sourceLine" id="cb11-8" data-line-number="8">    <span class="cf">return</span> <span class="dv">0</span>; </a>
-<a class="sourceLine" id="cb11-9" data-line-number="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">// Passing a Temporary by Value</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="dt">void</span> f3(Foo f) {</span>
+<span id="cb11-3"><a href="#cb11-3"></a>    cout &lt;&lt; <span class="st">&quot;F3 called&quot;</span> &lt;&lt; endl;</span>
+<span id="cb11-4"><a href="#cb11-4"></a>}</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="dt">int</span> main() { </span>
+<span id="cb11-7"><a href="#cb11-7"></a>    f3(Foo());</span>
+<span id="cb11-8"><a href="#cb11-8"></a>    <span class="cf">return</span> <span class="dv">0</span>; </span>
+<span id="cb11-9"><a href="#cb11-9"></a>}</span></code></pre></div>
 <p>没有拷贝优化的结果如下：</p>
 <pre><code>Constructed
 Move-constructed
@@ -634,33 +634,33 @@ F3 called
 Destructed</code></pre>
 <p>There is always a but…</p>
 <p>拷贝优化不总是生效的，就是有时候拷贝优化不能成功实施。下面举一个例子：</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">// Copy Elision does not always work</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">Foo f4(<span class="dt">int</span> i) {</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">    Foo x, y;</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4">    <span class="cf">if</span> (i &gt; <span class="dv">0</span>) <span class="cf">return</span> x;</a>
-<a class="sourceLine" id="cb14-5" data-line-number="5">    <span class="cf">else</span> <span class="cf">return</span> y;</a>
-<a class="sourceLine" id="cb14-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="dt">int</span> main() { </a>
-<a class="sourceLine" id="cb14-9" data-line-number="9">    Foo foo = f4(<span class="dv">0</span>);</a>
-<a class="sourceLine" id="cb14-10" data-line-number="10">    <span class="cf">return</span> <span class="dv">0</span>; </a>
-<a class="sourceLine" id="cb14-11" data-line-number="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">// Copy Elision does not always work</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>Foo f4(<span class="dt">int</span> i) {</span>
+<span id="cb14-3"><a href="#cb14-3"></a>    Foo x, y;</span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="cf">if</span> (i &gt; <span class="dv">0</span>) <span class="cf">return</span> x;</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    <span class="cf">else</span> <span class="cf">return</span> y;</span>
+<span id="cb14-6"><a href="#cb14-6"></a>}</span>
+<span id="cb14-7"><a href="#cb14-7"></a></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="dt">int</span> main() { </span>
+<span id="cb14-9"><a href="#cb14-9"></a>    Foo foo = f4(<span class="dv">0</span>);</span>
+<span id="cb14-10"><a href="#cb14-10"></a>    <span class="cf">return</span> <span class="dv">0</span>; </span>
+<span id="cb14-11"><a href="#cb14-11"></a>}</span></code></pre></div>
 <p>有拷贝优化的结果：</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb15-1" data-line-number="1">Constructed</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">Constructed</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">Move-constructed</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4">Destructed</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5">Destructed</a>
-<a class="sourceLine" id="cb15-6" data-line-number="6">Destructed</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1"></a>Constructed</span>
+<span id="cb15-2"><a href="#cb15-2"></a>Constructed</span>
+<span id="cb15-3"><a href="#cb15-3"></a>Move-constructed</span>
+<span id="cb15-4"><a href="#cb15-4"></a>Destructed</span>
+<span id="cb15-5"><a href="#cb15-5"></a>Destructed</span>
+<span id="cb15-6"><a href="#cb15-6"></a>Destructed</span></code></pre></div>
 <p>没有拷贝优化的结果：</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb16-1" data-line-number="1">Constructed</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2">Constructed</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3">Move-constructed</a>
-<a class="sourceLine" id="cb16-4" data-line-number="4">Destructed</a>
-<a class="sourceLine" id="cb16-5" data-line-number="5">Destructed</a>
-<a class="sourceLine" id="cb16-6" data-line-number="6">Move-constructed</a>
-<a class="sourceLine" id="cb16-7" data-line-number="7">Destructed</a>
-<a class="sourceLine" id="cb16-8" data-line-number="8">Destructed</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1"></a>Constructed</span>
+<span id="cb16-2"><a href="#cb16-2"></a>Constructed</span>
+<span id="cb16-3"><a href="#cb16-3"></a>Move-constructed</span>
+<span id="cb16-4"><a href="#cb16-4"></a>Destructed</span>
+<span id="cb16-5"><a href="#cb16-5"></a>Destructed</span>
+<span id="cb16-6"><a href="#cb16-6"></a>Move-constructed</span>
+<span id="cb16-7"><a href="#cb16-7"></a>Destructed</span>
+<span id="cb16-8"><a href="#cb16-8"></a>Destructed</span></code></pre></div>
 <p>可以看到，编译器的拷贝优化只是把在<code>foo</code>变量初始化过程中的移动构造函数给优化掉了，而<code>f4()</code>函数的返回值并没有得到优化。这是因为由于<code>if...else…</code>分支结构的存在，编译器不确定<code>f()</code>函数具体的返回对象，无法实施优化。</p>
 <h2 id="结论">结论</h2>
 <p>C++移动语义即提出了一个右值引用，使用<code>std::move</code>可以强制将左值引用转为右值引用。而对于右值引用，程序可以调用移动构造函数进行对象的构造，减少了原来调用拷贝构造函数的时候很大的开销。移动构造函数和移动赋值运算符的实现即是对象所有权的转让，让那些左值对象（临时对象）变成右值对象的过程。</p>
@@ -799,7 +799,7 @@ Destructed</code></pre>
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -817,7 +817,7 @@ Destructed</code></pre>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -917,7 +917,7 @@ Destructed</code></pre>
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

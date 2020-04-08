@@ -528,7 +528,7 @@
 <p>为什么不推荐<code>gdalwarp</code>命令呢？这是因为<code>gdalwarp</code>命令只提供了根据坐标系的范围进行裁剪，而不支持根据行列号的裁剪。这时候我们可以求助于<code>gdal_translate</code>命令。</p>
 <p><code>gdal_transalte</code>命令即支持使用<code>-srcwin</code>参数指定行列号范围<code>xoff yoff xsize ysize</code>，也支持使用<code>-projwin</code>参数指定原数据坐标系下的范围<code>ulx uly lrx lry</code>。同时提供参数<code>-projwin_srs</code>可以用于指定<code>-projwin</code>参数所在的坐标系，即跟<code>gdalwarp</code>命令中的<code>-te_srs</code>参数类似。</p>
 <p>下面给出一个示例：</p>
-<p><code>gdal_translate -of &quot;GTiff&quot; -srcwin 10 10 256 256 -a_scale 1 HDF4_EOS:EOS_GRID:&quot;MOD09GA.A2018349.h26v05.006.2018351030314.hdf&quot;:MODIS_Grid_500m_2D:sur_refl_b01_1 sr_1.tif</code></p>
+<p><code>gdal_translate -of "GTiff" -srcwin 10 10 256 256 -a_scale 1 HDF4_EOS:EOS_GRID:"MOD09GA.A2018349.h26v05.006.2018351030314.hdf":MODIS_Grid_500m_2D:sur_refl_b01_1 sr_1.tif</code></p>
 <p>这行命令将MODIS数据中的反射率的第一波段进行裁剪，起点为第10行第10列，输出大小为256$$255，输出格式为TIFF。</p>
 <p>注意这行命令有一个<code>-a_scale 1</code>参数，这个参数指定了裁剪过程不要对DN值进行缩放。如果不加这个值得话，输出图像的DN值会被根据原数据的<code>Scale=10000</code>放大10000倍。</p>
 <h2 id="使用python代码">使用Python代码</h2>
@@ -539,39 +539,39 @@
 </ul>
 <p>我们知道<a href="https://blog.csdn.net/theonegis/article/details/80304873" target="_blank" rel="noopener">GDAL中使用了六参数模型存储GeoTransform参数</a>，如果进行矩形裁剪的话，只有<code>GT(0)</code>和<code>GT(3)</code>参数会有变化，即需要重新计算裁剪以后的左上角坐标即可。</p>
 <p>下面给出使用Python对MODIS反射率的第一波段进行裁剪的代码：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">from</span> osgeo <span class="im">import</span> gdal</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="im">import</span> numpy <span class="im">as</span> np</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># API参考：https://gdal.org/python/</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># GDAL命令行参考：https://www.gdal.org/gdal_translate.html</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">image_name <span class="op">=</span> (<span class="st">&#39;HDF4_EOS:EOS_GRID:&#39;</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">              <span class="st">&#39;&quot;MOD09GA.A2018349.h26v05.006.2018351030314.hdf&quot;:&#39;</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">              <span class="st">&#39;MODIS_Grid_500m_2D:sur_refl_b01_1&#39;</span>)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co"># 第一种方式，也是最简单的方法：直接使用GDAL命令行对应的Python方法</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">src: gdal.Dataset <span class="op">=</span> gdal.Open(image_name)</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">src <span class="op">=</span> gdal.Translate(<span class="st">&#39;cropped_with_translate.tif&#39;</span>, src, srcWin<span class="op">=</span>[<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">256</span>, <span class="dv">256</span>],</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">                     options<span class="op">=</span>[<span class="st">&#39;-a_scale&#39;</span>, <span class="st">&#39;1&#39;</span>])</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw">del</span> src</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co"># 第二种方式，自己选择出需要的像素，然后自己确定裁剪以后的空间参考关系，并写入到输出文件</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">src: gdal.Dataset <span class="op">=</span> gdal.Open(image_name)</a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">band: gdal.Band <span class="op">=</span> src.GetRasterBand(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">subset: np.ndarray <span class="op">=</span> band.ReadAsArray(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">256</span>, <span class="dv">256</span>)</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">driver: gdal.Driver <span class="op">=</span> gdal.GetDriverByName(<span class="st">&#39;GTiff&#39;</span>)</a>
-<a class="sourceLine" id="cb1-22" data-line-number="22">dst: gdal.Dataset <span class="op">=</span> driver.Create(<span class="st">&#39;cropped_from_scratch.tif&#39;</span>, <span class="dv">256</span>, <span class="dv">256</span>, <span class="dv">1</span>, gdal.GDT_Int16)</a>
-<a class="sourceLine" id="cb1-23" data-line-number="23">dst.SetProjection(src.GetProjection())</a>
-<a class="sourceLine" id="cb1-24" data-line-number="24">trans <span class="op">=</span> <span class="bu">list</span>(src.GetGeoTransform())</a>
-<a class="sourceLine" id="cb1-25" data-line-number="25">trans[<span class="dv">0</span>] <span class="op">-=</span> <span class="dv">-10</span> <span class="op">*</span> trans[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb1-26" data-line-number="26">trans[<span class="dv">3</span>] <span class="op">-=</span> <span class="dv">-10</span> <span class="op">*</span> trans[<span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb1-27" data-line-number="27">dst.SetGeoTransform(<span class="bu">tuple</span>(trans))</a>
-<a class="sourceLine" id="cb1-28" data-line-number="28"></a>
-<a class="sourceLine" id="cb1-29" data-line-number="29">band: gdal.Band <span class="op">=</span> dst.GetRasterBand(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-30" data-line-number="30">band.WriteArray(subset)</a>
-<a class="sourceLine" id="cb1-31" data-line-number="31">band.FlushCache()</a>
-<a class="sourceLine" id="cb1-32" data-line-number="32"><span class="kw">del</span> src</a>
-<a class="sourceLine" id="cb1-33" data-line-number="33"><span class="kw">del</span> dst</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> osgeo <span class="im">import</span> gdal</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># API参考：https://gdal.org/python/</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># GDAL命令行参考：https://www.gdal.org/gdal_translate.html</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>image_name <span class="op">=</span> (<span class="st">&#39;HDF4_EOS:EOS_GRID:&#39;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>              <span class="st">&#39;&quot;MOD09GA.A2018349.h26v05.006.2018351030314.hdf&quot;:&#39;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>              <span class="st">&#39;MODIS_Grid_500m_2D:sur_refl_b01_1&#39;</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># 第一种方式，也是最简单的方法：直接使用GDAL命令行对应的Python方法</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>src: gdal.Dataset <span class="op">=</span> gdal.Open(image_name)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>src <span class="op">=</span> gdal.Translate(<span class="st">&#39;cropped_with_translate.tif&#39;</span>, src, srcWin<span class="op">=</span>[<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">256</span>, <span class="dv">256</span>],</span>
+<span id="cb1-13"><a href="#cb1-13"></a>                     options<span class="op">=</span>[<span class="st">&#39;-a_scale&#39;</span>, <span class="st">&#39;1&#39;</span>])</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="kw">del</span> src</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># 第二种方式，自己选择出需要的像素，然后自己确定裁剪以后的空间参考关系，并写入到输出文件</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>src: gdal.Dataset <span class="op">=</span> gdal.Open(image_name)</span>
+<span id="cb1-18"><a href="#cb1-18"></a>band: gdal.Band <span class="op">=</span> src.GetRasterBand(<span class="dv">1</span>)</span>
+<span id="cb1-19"><a href="#cb1-19"></a>subset: np.ndarray <span class="op">=</span> band.ReadAsArray(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">256</span>, <span class="dv">256</span>)</span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a>driver: gdal.Driver <span class="op">=</span> gdal.GetDriverByName(<span class="st">&#39;GTiff&#39;</span>)</span>
+<span id="cb1-22"><a href="#cb1-22"></a>dst: gdal.Dataset <span class="op">=</span> driver.Create(<span class="st">&#39;cropped_from_scratch.tif&#39;</span>, <span class="dv">256</span>, <span class="dv">256</span>, <span class="dv">1</span>, gdal.GDT_Int16)</span>
+<span id="cb1-23"><a href="#cb1-23"></a>dst.SetProjection(src.GetProjection())</span>
+<span id="cb1-24"><a href="#cb1-24"></a>trans <span class="op">=</span> <span class="bu">list</span>(src.GetGeoTransform())</span>
+<span id="cb1-25"><a href="#cb1-25"></a>trans[<span class="dv">0</span>] <span class="op">-=</span> <span class="op">-</span><span class="dv">10</span> <span class="op">*</span> trans[<span class="dv">1</span>]</span>
+<span id="cb1-26"><a href="#cb1-26"></a>trans[<span class="dv">3</span>] <span class="op">-=</span> <span class="op">-</span><span class="dv">10</span> <span class="op">*</span> trans[<span class="dv">5</span>]</span>
+<span id="cb1-27"><a href="#cb1-27"></a>dst.SetGeoTransform(<span class="bu">tuple</span>(trans))</span>
+<span id="cb1-28"><a href="#cb1-28"></a></span>
+<span id="cb1-29"><a href="#cb1-29"></a>band: gdal.Band <span class="op">=</span> dst.GetRasterBand(<span class="dv">1</span>)</span>
+<span id="cb1-30"><a href="#cb1-30"></a>band.WriteArray(subset)</span>
+<span id="cb1-31"><a href="#cb1-31"></a>band.FlushCache()</span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="kw">del</span> src</span>
+<span id="cb1-33"><a href="#cb1-33"></a><span class="kw">del</span> dst</span></code></pre></div>
 
         
     
@@ -698,7 +698,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -716,7 +716,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -816,7 +816,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

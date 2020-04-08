@@ -522,24 +522,24 @@
 <h2 id="案例一简单情况">案例一（简单情况）</h2>
 <p>第一种简单情况就是一对一，给定一个值，返回一个值，这是C++和Java中的<code>switch</code>语句支持的情况。</p>
 <p>下面的案例是将英文日期翻译为中文日期：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1">dates <span class="op">=</span> {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="st">&#39;Sun&#39;</span>: <span class="st">&#39;星期天&#39;</span>, <span class="st">&#39;Mon&#39;</span>: <span class="st">&#39;星期一&#39;</span>, <span class="st">&#39;Tues&#39;</span>: <span class="st">&#39;星期二&#39;</span>, <span class="st">&#39;Wed&#39;</span>: <span class="st">&#39;星期三&#39;</span>,</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="st">&#39;Thurs&#39;</span>: <span class="st">&#39;星期四&#39;</span>, <span class="st">&#39;Fri&#39;</span>: <span class="st">&#39;星期五&#39;</span>, <span class="st">&#39;Sat&#39;</span>: <span class="st">&#39;星期六&#39;</span>}</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">day <span class="op">=</span> dates.get(<span class="st">&#39;Fri&#39;</span>, <span class="st">&#39;未知&#39;</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="bu">print</span>(day)  <span class="co"># 输出结果为星期五</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>dates <span class="op">=</span> {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="st">&#39;Sun&#39;</span>: <span class="st">&#39;星期天&#39;</span>, <span class="st">&#39;Mon&#39;</span>: <span class="st">&#39;星期一&#39;</span>, <span class="st">&#39;Tues&#39;</span>: <span class="st">&#39;星期二&#39;</span>, <span class="st">&#39;Wed&#39;</span>: <span class="st">&#39;星期三&#39;</span>,</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="st">&#39;Thurs&#39;</span>: <span class="st">&#39;星期四&#39;</span>, <span class="st">&#39;Fri&#39;</span>: <span class="st">&#39;星期五&#39;</span>, <span class="st">&#39;Sat&#39;</span>: <span class="st">&#39;星期六&#39;</span>}</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>day <span class="op">=</span> dates.get(<span class="st">&#39;Fri&#39;</span>, <span class="st">&#39;未知&#39;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="bu">print</span>(day)  <span class="co"># 输出结果为星期五</span></span></code></pre></div>
 <h2 id="案例二带条件判断">案例二（带条件判断）</h2>
 <p>第二种情况是多对一，反映在编程上就是<code>case</code>语句中带条件判断，这个是诸如Scala中的<code>switch</code>和Kotlin中的<code>when</code>支持的情况。</p>
 <p>下面给出的案例是给定一个数字，如果该数字在某个范围之类，则返回一个指定的数字。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># 这里的conditions是一个函数</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">conditions <span class="op">=</span> <span class="kw">lambda</span> x: {</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    x <span class="op">&lt;</span> <span class="dv">-1</span>: <span class="dv">0</span>, <span class="dv">-1</span> <span class="op">&lt;=</span> x <span class="op">&lt;=</span> <span class="dv">1</span>: <span class="fl">0.5</span>, x <span class="op">&gt;</span> <span class="dv">1</span>: <span class="dv">1</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">num <span class="op">=</span> conditions(<span class="fl">0.25</span>)[<span class="va">True</span>]</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="bu">print</span>(num)</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">num <span class="op">=</span> conditions(<span class="dv">10</span>)[<span class="va">True</span>]</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="bu">print</span>(num)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># 这里的conditions是一个函数</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>conditions <span class="op">=</span> <span class="kw">lambda</span> x: {</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    x <span class="op">&lt;</span> <span class="op">-</span><span class="dv">1</span>: <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span> <span class="op">&lt;=</span> x <span class="op">&lt;=</span> <span class="dv">1</span>: <span class="fl">0.5</span>, x <span class="op">&gt;</span> <span class="dv">1</span>: <span class="dv">1</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>}</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>num <span class="op">=</span> conditions(<span class="fl">0.25</span>)[<span class="va">True</span>]</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="bu">print</span>(num)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>num <span class="op">=</span> conditions(<span class="dv">10</span>)[<span class="va">True</span>]</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="bu">print</span>(num)</span></code></pre></div>
 <p>这里我们的<code>dict</code>不是一个普通的字典，其<code>key</code>是一个<code>lambda</code>表达式（一个函数）。如果我们调用该函数，则会返回一个字典，该字典中有两个元素：一个元素的键是<code>True</code>，另一个是<code>False</code>。<code>True</code>元素包含的值是对应<code>lambda</code>函数中满足条件的给定值，<code>False</code>元素包含的值是对应<code>lambda</code>函数中最后一个不满足条件的给定值（这句话写得比较拗口，不好理解。动手实践一下，可以加深理解）。</p>
 <p>经过上面的介绍，我们以后可以大大减少对<code>if...else</code>语句的使用了，让我们的代码更加干净一些！</p>
 
@@ -668,7 +668,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -686,7 +686,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -786,7 +786,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

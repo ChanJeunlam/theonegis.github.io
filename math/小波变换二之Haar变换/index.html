@@ -522,7 +522,7 @@
 <p>如何进行二维的哈尔变换呢？</p>
 <p>步骤是这样的：（1）首先，沿着矩阵的每一行做一维的Haar变换；（2）然后，沿着矩阵的每一列做一维的哈尔变换；（3）对于每个低频分量矩阵（近似信息）重复步骤（1）和（2）直到完成指定的等级划分。下图给出了两级划分的示意图：</p>
 <figure>
-<img src="/images/math/Haar2D.png" alt="二维Haar变换示意图"><figcaption>二维Haar变换示意图</figcaption>
+<img src="/images/math/Haar2D.png" alt=""><figcaption>二维Haar变换示意图</figcaption>
 </figure>
 <p>这里的A表示近似信息（approximation coefficients），H表示水平细节信息（horizontal detail coefficients），V表示垂直细节信息（vertical detail coefficients），D表示对角线细节信息（diagonal detail coefficients）。很多数学软件中是这样称呼的，了解了这个可以帮助我们快速上手软件进行实际操作。</p>
 <p>行分解和列分解的顺序是可以互换的，保持一致即可。</p>
@@ -538,42 +538,42 @@
 <p>这里我们通过对一张图片做Haar变换，然后我们去掉其高频信息部分，实现对图像的压缩。</p>
 <p>下面是进行了三次分解，然后分别过了到第一层的高频信息和第一层兼第二层的高频信息的效果！过滤掉第一层的高频信息，图像压缩为原来的四分之一，可以看到图像还是基本清晰的。过滤掉第二层和第二层的高频信息以后，可以看到图片稍微有点模糊了。</p>
 <figure>
-<img src="/images/math/Haar-Compress.jpg" alt="Haar变换实现图像压缩"><figcaption>Haar变换实现图像压缩</figcaption>
+<img src="/images/math/Haar-Compress.jpg" alt=""><figcaption>Haar变换实现图像压缩</figcaption>
 </figure>
 <h2 id="matlab实现">MATLAB实现</h2>
 <p>下面是使用MATLAB实现上面变换的代码，有兴趣的童鞋可以参考一下。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode matlab"><code class="sourceCode matlab"><a class="sourceLine" id="cb1-1" data-line-number="1">clear, clc;</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">% 读取原始图像</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">X = rgb2gray(imread(<span class="st">&#39;http://www.lenna.org/lena_std.tif&#39;</span>));</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">% 进行小波分解</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">[C, S] = wavedec2(X, <span class="fl">3</span>, <span class="st">&#39;haar&#39;</span>);</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">% 获得分解以后的低频近似信息</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">L = appcoef2(C, S, <span class="st">&#39;haar&#39;</span>, <span class="fl">3</span>);</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">% 分别获得各层级的高频细节信息</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">[H3, V3, D3] = detcoef2(<span class="st">&#39;all&#39;</span>, C, S, <span class="fl">3</span>);</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">[H2, V2, D2] = detcoef2(<span class="st">&#39;all&#39;</span>, C, S, <span class="fl">2</span>);</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">[H1, V1, D1] = detcoef2(<span class="st">&#39;all&#39;</span>, C, S, <span class="fl">1</span>);</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">% 去掉第一层的高频信息（替换成0），然后进行小波重建</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">% 注意这里乘以3是有HVD三种高频信息</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">D = [C(<span class="fl">1</span>: end - <span class="fl">3</span>*size(H1, <span class="fl">1</span>)*size(H1, <span class="fl">2</span>)), zeros(<span class="fl">1</span>, <span class="fl">3</span>*size(H1, <span class="fl">1</span>)*size(H1, <span class="fl">2</span>))];</a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">CD1 = waverec2(D, S, <span class="st">&#39;haar&#39;</span>);</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">% 去掉第一和第二层的高频信息，然后进行小波重建</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">D = [C(<span class="fl">1</span>: end - <span class="fl">3</span>*size(H1, <span class="fl">1</span>)*size(H1, <span class="fl">2</span>) - <span class="fl">3</span>*size(H2, <span class="fl">1</span>)*size(H2, <span class="fl">2</span>)), ...</a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">    zeros(<span class="fl">1</span>, <span class="fl">3</span>*size(H1, <span class="fl">1</span>)*size(H1, <span class="fl">2</span>) + <span class="fl">3</span>*size(H2, <span class="fl">1</span>)*size(H2, <span class="fl">2</span>))];</a>
-<a class="sourceLine" id="cb1-22" data-line-number="22">CD2 = waverec2(D, S, <span class="st">&#39;haar&#39;</span>);</a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">%按照分解层级将分解系数排列拼接为一副图像</span></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25">DD1 = [L, H3; V3, D3];</a>
-<a class="sourceLine" id="cb1-26" data-line-number="26">DD2 = [DD1, H2; V2, D2];</a>
-<a class="sourceLine" id="cb1-27" data-line-number="27">DD3 = [DD2, H1; V1, D1];</a>
-<a class="sourceLine" id="cb1-28" data-line-number="28"><span class="co">% 结果显示</span></a>
-<a class="sourceLine" id="cb1-29" data-line-number="29">subplot(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>), imshow(X, []), title(<span class="st">&#39;原始图像&#39;</span>);</a>
-<a class="sourceLine" id="cb1-30" data-line-number="30">subplot(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>), imshow(DD3, []), title(<span class="st">&#39;小波分解系数&#39;</span>);</a>
-<a class="sourceLine" id="cb1-31" data-line-number="31">subplot(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>), imshow(CD1, []), title(<span class="st">&#39;压缩一（去掉第一层高频信息）&#39;</span>);</a>
-<a class="sourceLine" id="cb1-32" data-line-number="32">subplot(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">4</span>), imshow(CD2, []), title(<span class="st">&#39;压缩二（去掉第二层高频信息）&#39;</span>);</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1"></a><span class="va">clear</span><span class="op">,</span> <span class="va">clc</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">% 读取原始图像</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="va">X</span> <span class="op">=</span> <span class="va">rgb2gray</span>(<span class="va">imread</span>(<span class="ss">&#39;http://www.lenna.org/lena_std.tif&#39;</span>))<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">% 进行小波分解</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>[<span class="va">C</span><span class="op">,</span> <span class="va">S</span>] <span class="op">=</span> <span class="va">wavedec2</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">3</span><span class="op">,</span> <span class="ss">&#39;haar&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">% 获得分解以后的低频近似信息</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="va">L</span> <span class="op">=</span> <span class="va">appcoef2</span>(<span class="va">C</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="ss">&#39;haar&#39;</span><span class="op">,</span> <span class="fl">3</span>)<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">% 分别获得各层级的高频细节信息</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>[<span class="va">H3</span><span class="op">,</span> <span class="va">V3</span><span class="op">,</span> <span class="va">D3</span>] <span class="op">=</span> <span class="va">detcoef2</span>(<span class="ss">&#39;all&#39;</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="fl">3</span>)<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>[<span class="va">H2</span><span class="op">,</span> <span class="va">V2</span><span class="op">,</span> <span class="va">D2</span>] <span class="op">=</span> <span class="va">detcoef2</span>(<span class="ss">&#39;all&#39;</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>[<span class="va">H1</span><span class="op">,</span> <span class="va">V1</span><span class="op">,</span> <span class="va">D1</span>] <span class="op">=</span> <span class="va">detcoef2</span>(<span class="ss">&#39;all&#39;</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">% 去掉第一层的高频信息（替换成0），然后进行小波重建</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">% 注意这里乘以3是有HVD三种高频信息</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="va">D</span> <span class="op">=</span> [<span class="va">C</span>(<span class="fl">1</span><span class="op">:</span> <span class="kw">end</span> <span class="op">-</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">2</span>))<span class="op">,</span> <span class="va">zeros</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">2</span>))]<span class="op">;</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="va">CD1</span> <span class="op">=</span> <span class="va">waverec2</span>(<span class="va">D</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="ss">&#39;haar&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">% 去掉第一和第二层的高频信息，然后进行小波重建</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="va">D</span> <span class="op">=</span> [<span class="va">C</span>(<span class="fl">1</span><span class="op">:</span> <span class="kw">end</span> <span class="op">-</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">2</span>) <span class="op">-</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H2</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H2</span><span class="op">,</span> <span class="fl">2</span>))<span class="op">,</span> <span class="op">...</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a>    <span class="va">zeros</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">2</span>) <span class="op">+</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H2</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H2</span><span class="op">,</span> <span class="fl">2</span>))]<span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="va">CD2</span> <span class="op">=</span> <span class="va">waverec2</span>(<span class="va">D</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="ss">&#39;haar&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a></span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="co">%按照分解层级将分解系数排列拼接为一副图像</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="va">DD1</span> <span class="op">=</span> [<span class="va">L</span><span class="op">,</span> <span class="va">H3</span><span class="op">;</span> <span class="va">V3</span><span class="op">,</span> <span class="va">D3</span>]<span class="op">;</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a><span class="va">DD2</span> <span class="op">=</span> [<span class="va">DD1</span><span class="op">,</span> <span class="va">H2</span><span class="op">;</span> <span class="va">V2</span><span class="op">,</span> <span class="va">D2</span>]<span class="op">;</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="va">DD3</span> <span class="op">=</span> [<span class="va">DD2</span><span class="op">,</span> <span class="va">H1</span><span class="op">;</span> <span class="va">V1</span><span class="op">,</span> <span class="va">D1</span>]<span class="op">;</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="co">% 结果显示</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">,</span> <span class="va">imshow</span>(<span class="va">X</span><span class="op">,</span> [])<span class="op">,</span> <span class="va">title</span>(<span class="ss">&#39;原始图像&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">,</span> <span class="va">imshow</span>(<span class="va">DD3</span><span class="op">,</span> [])<span class="op">,</span> <span class="va">title</span>(<span class="ss">&#39;小波分解系数&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">3</span>)<span class="op">,</span> <span class="va">imshow</span>(<span class="va">CD1</span><span class="op">,</span> [])<span class="op">,</span> <span class="va">title</span>(<span class="ss">&#39;压缩一（去掉第一层高频信息）&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">4</span>)<span class="op">,</span> <span class="va">imshow</span>(<span class="va">CD2</span><span class="op">,</span> [])<span class="op">,</span> <span class="va">title</span>(<span class="ss">&#39;压缩二（去掉第二层高频信息）&#39;</span>)<span class="op">;</span></span></code></pre></div>
 
         
     
@@ -700,7 +700,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -718,7 +718,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -818,7 +818,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         

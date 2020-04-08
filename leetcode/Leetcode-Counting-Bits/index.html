@@ -629,39 +629,39 @@ Output: [0,1,1,2,1,2]</code></pre>
 <p>i&amp;{i-1}去掉了一个1，我们再给加上，则可以得到i中包含的1的总个数</p>
 <h2 id="c实现">C++实现</h2>
 <h3 id="思路一-1">思路一</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">class</span> Solution {</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    vector&lt;<span class="dt">int</span>&gt; countBits(<span class="dt">int</span> num) {</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">        vector&lt;<span class="dt">int</span>&gt; bits(num + <span class="dv">1</span>, <span class="dv">0</span>);</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">        <span class="dt">int</span> offset = <span class="dv">1</span>;</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= num; ++i) {</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">            offset = i == offset * <span class="dv">2</span> ?  i : offset;</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">            bits[i] = bits[i - offset] +  <span class="dv">1</span>;</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">        }</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">        <span class="cf">return</span> bits;</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">    }</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">};</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> Solution {</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">public</span>:</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    vector&lt;<span class="dt">int</span>&gt; countBits(<span class="dt">int</span> num) {</span>
+<span id="cb3-4"><a href="#cb3-4"></a>        vector&lt;<span class="dt">int</span>&gt; bits(num + <span class="dv">1</span>, <span class="dv">0</span>);</span>
+<span id="cb3-5"><a href="#cb3-5"></a>        <span class="dt">int</span> offset = <span class="dv">1</span>;</span>
+<span id="cb3-6"><a href="#cb3-6"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= num; ++i) {</span>
+<span id="cb3-7"><a href="#cb3-7"></a>            offset = i == offset * <span class="dv">2</span> ?  i : offset;</span>
+<span id="cb3-8"><a href="#cb3-8"></a>            bits[i] = bits[i - offset] +  <span class="dv">1</span>;</span>
+<span id="cb3-9"><a href="#cb3-9"></a>        }</span>
+<span id="cb3-10"><a href="#cb3-10"></a>        <span class="cf">return</span> bits;</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    }</span>
+<span id="cb3-12"><a href="#cb3-12"></a>};</span></code></pre></div>
 <h3 id="思路二-1">思路二</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">class</span> Solution {</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">    vector&lt;<span class="dt">int</span>&gt; countBits(<span class="dt">int</span> num) {</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">        vector&lt;<span class="dt">int</span>&gt; bits(num + <span class="dv">1</span>, <span class="dv">0</span>);</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= num; ++i) {</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">            bits[i] = bits[i &amp; (i - <span class="dv">1</span>)] + <span class="dv">1</span>;</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">        }</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">        <span class="cf">return</span> bits;</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">    }</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">};</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">class</span> Solution {</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">public</span>:</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    vector&lt;<span class="dt">int</span>&gt; countBits(<span class="dt">int</span> num) {</span>
+<span id="cb4-4"><a href="#cb4-4"></a>        vector&lt;<span class="dt">int</span>&gt; bits(num + <span class="dv">1</span>, <span class="dv">0</span>);</span>
+<span id="cb4-5"><a href="#cb4-5"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= num; ++i) {</span>
+<span id="cb4-6"><a href="#cb4-6"></a>            bits[i] = bits[i &amp; (i - <span class="dv">1</span>)] + <span class="dv">1</span>;</span>
+<span id="cb4-7"><a href="#cb4-7"></a>        }</span>
+<span id="cb4-8"><a href="#cb4-8"></a>        <span class="cf">return</span> bits;</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    }</span>
+<span id="cb4-10"><a href="#cb4-10"></a>};</span></code></pre></div>
 <h2 id="scala实现">Scala实现</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode scala"><code class="sourceCode scala"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">object</span> CountingBits {</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw">def</span> <span class="fu">countBits</span>(num: Int): Array[Int] = {</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="kw">val</span> bits = Array.<span class="fu">ofDim</span>[Int](num + <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">    <span class="kw">for</span> (i &lt;- <span class="dv">1</span> to num) {</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">      <span class="fu">bits</span>(i) = <span class="fu">bits</span>(i &amp; (i - <span class="dv">1</span>)) + <span class="dv">1</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">    }</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">    bits</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">object</span> CountingBits {</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="kw">def</span> <span class="fu">countBits</span>(num: Int): Array[Int] = {</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="kw">val</span> bits = Array.<span class="fu">ofDim</span>[Int](num + <span class="dv">1</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="kw">for</span> (i &lt;- <span class="dv">1</span> to num) {</span>
+<span id="cb5-5"><a href="#cb5-5"></a>      <span class="fu">bits</span>(i) = <span class="fu">bits</span>(i &amp; (i - <span class="dv">1</span>)) + <span class="dv">1</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>    }</span>
+<span id="cb5-7"><a href="#cb5-7"></a>    bits</span>
+<span id="cb5-8"><a href="#cb5-8"></a>  }</span>
+<span id="cb5-9"><a href="#cb5-9"></a>}</span></code></pre></div>
 <p>注意：使用Scala版本在LeetCode提交会报Time Limit Exceeded错误，而使用Java相同的代码就不会。我觉得是Scala中使用Java原生数组实现的，而且还有装箱拆箱的操作，所以效率比较低，就导致了超时了。</p>
 
         
@@ -789,7 +789,7 @@ Output: [0,1,1,2,1,2]</code></pre>
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -807,7 +807,7 @@ Output: [0,1,1,2,1,2]</code></pre>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">6</span></a>
             </ul>
         </li>
         
@@ -907,7 +907,7 @@ Output: [0,1,1,2,1,2]</code></pre>
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">56</span>
+                <span class="sidebar-badge">57</span>
             </a>
         </li>
         
