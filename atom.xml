@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://theonegis.github.io/"/>
-  <updated>2020-04-07T14:12:27.355Z</updated>
+  <updated>2020-04-08T13:33:43.279Z</updated>
   <id>http://theonegis.github.io/</id>
   
   <author>
@@ -15,6 +15,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>UNIX系统下删除老旧Maven依赖包的方法</title>
+    <link href="http://theonegis.github.io/tools/UNIX%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%88%A0%E9%99%A4%E8%80%81%E6%97%A7Maven%E4%BE%9D%E8%B5%96%E5%8C%85%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <id>http://theonegis.github.io/tools/UNIX系统下删除老旧Maven依赖包的方法/</id>
+    <published>2020-04-08T13:13:00.000Z</published>
+    <updated>2020-04-08T13:33:43.279Z</updated>
+    
+    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2020年4月8日晚</p><hr><h1 id="unix系统下删除老旧maven依赖包的方法">UNIX系统下删除老旧Maven依赖包的方法</h1><p>笔记本是macOS，磁盘只有256，Maven下载的依赖包，特别是老旧的JAR很占空间，如何使用一行命令删除这些依赖包呢？</p><p>基本思想是使用<code>find</code>命令找出来给定时间段没有使用过的JAR包（通过POM文件的时间戳判断），然后使用<code>rm</code>命令进行删除。</p><p>下面的命令通过遍历<code>~/.m2</code>文件夹下修改时间大于5天的以<code>.pom</code>为扩展名的文件，然后删除该POM文件所在的父文件夹。</p><pre><code>find ~/.m2 -ctime +5d -iname &#39;*.pom&#39; | while read pom; do parent=`dirname &quot;$pom&quot;`; rm -rf &quot;$parent&quot;</code></pre><p>下面稍微看一下<code>find</code>命令，我们可以通过<code>-atime</code>和<code>-ctime</code>分别给出查找文件的最后访问时间获最后修改时间到当前的时间间隔（时间单位可以是s，m，h，d，w，分别代表秒，分钟，小时，天和周）。此外，我们可以直接通过<code>-amin</code>和<code>-cmin</code>分别指定以分钟为单位的时常。具体命令的使用可以使用<code>man find</code>进行查看。</p><p>最后要说的是，在进行正式删除之前建议通过Dry Run查看一下那些文件要删除，不要删错了以后后悔莫及！ 所以在正式删除之前，先试试下面的命令吧！</p><pre><code>find ~/.m2 -ctime +5d -iname &#39;*.pom&#39; | while read pom; do parent=`dirname &quot;$pom&quot;`; echo &quot;$parent&quot;; done &gt; output.txt</code></pre><p>Windows下的删除没有试过，不过应该可以使用对应的BAT批处理相关命令进行操作。如果对于Windows 10，我们可以采用Linux子系统（WSL）进行操作。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
+&lt;p&gt;写作时间：2020年4月8日晚&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;unix系统下删除老旧maven依赖包的方法&quot;&gt;UNIX系统下删除老旧Maven依赖包的方法&lt;/h1&gt;
+&lt;p&gt;笔记本是macOS，磁盘只有25
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="http://theonegis.github.io/categories/tools/"/>
+    
+    
+      <category term="Maven" scheme="http://theonegis.github.io/tags/Maven/"/>
+    
+      <category term="JAR包" scheme="http://theonegis.github.io/tags/JAR%E5%8C%85/"/>
+    
+      <category term="Linux" scheme="http://theonegis.github.io/tags/Linux/"/>
+    
+      <category term="MacOS" scheme="http://theonegis.github.io/tags/MacOS/"/>
+    
+      <category term="find" scheme="http://theonegis.github.io/tags/find/"/>
+    
+  </entry>
   
   <entry>
     <title>手把手教你用QGIS制作地图</title>
@@ -599,36 +636,6 @@
       <category term="小波变换" scheme="http://theonegis.github.io/tags/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/"/>
     
       <category term="Haar变换" scheme="http://theonegis.github.io/tags/Haar%E5%8F%98%E6%8D%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>变分法入门介绍</title>
-    <link href="http://theonegis.github.io/math/%E5%8F%98%E5%88%86%E6%B3%95%E5%85%A5%E9%97%A8%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://theonegis.github.io/math/变分法入门介绍/</id>
-    <published>2019-01-09T08:18:23.000Z</published>
-    <updated>2019-03-22T19:39:53.831Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="变分法入门介绍">变分法入门介绍</h1><p>读完这篇博文你可以了解变分的基本概念，以及使用变分法求解最简泛函的极值。本文没有严密的数学证明，只是感性地对变分法做一个初步了解。</p><h2 id="泛函和变分法">泛函和变分法</h2><p>给定两点<span class="math inline">\(A(x_0, y_0)\)</span>和<span class="math inline">\(B(x_1, y_1)\)</span>，求AB两点之间的最短距离。两点之间直线最短，这还用球吗？可是为什么是直线最短呢，而不是其它曲线？</p><p>设链接AB两点的曲线为<span class="math inline">\(f(x)\)</span>,则AB之间的距离可以表示为在区间<span class="math inline">\([x_0, x_1]\)</span>上求<span class="math inline">\(\Delta{S}=\sqrt{(\Delta{x})^2 + (\Delta{y})^2}\)</span>线段的累积长度（积分的思想）：</p><p><span class="math display">\[S=\int_{x_0}^{x_1}\sqrt{1+f&#39;(x)^2}dx\]</span></p><p>在这里该函数的变量是<span class="math inline">\(f\)</span>，即函数的变量为函数，我们需要求解出合适的<span class="math inline">\(f\)</span>使得<span class="math inline">\(S\)</span>最小。我们把这样的函数<span class="math inline">\(S\)</span>称为泛函数。</p><p>定义：<strong>泛函是以函数为变量的函数。</strong></p><p>那么什么是变分法呢？<strong>求泛函极值的方法称为变分法。</strong></p><h2 id="变分法求泛函极值">变分法求泛函极值</h2><h3 id="变分的定义">变分的定义</h3><p>下面给出变分的定义：对于任意定值<span class="math inline">\(x\in [x_0, x_1]\)</span>，可取函数<span class="math inline">\(y(x)\)</span>与另一可取函数<span class="math inline">\(y_0(x)\)</span>之差<span class="math inline">\(y(x) - y_0(x)\)</span>称为函数<span class="math inline">\(y(x)\)</span>在<span class="math inline">\(y_0(x)\)</span>处的变分或函数的变分，记做<span class="math inline">\(\delta{y}\)</span>，这时有<span class="math inline">\(\delta{y}=y(x) - y_0(x)=\epsilon\eta(x)\)</span>，<span class="math inline">\(\epsilon\)</span>是一个很小的数，<span class="math inline">\(\eta(x)\)</span>是<span class="math inline">\(x\)</span>的任意参数</p><p>对于泛函<span class="math inline">\(J[y(x)]\)</span>的增量<span class="math inline">\(\Delta{J}=J[y(x)+\delta{y}] - J[y(x)] = \delta{J} + \mathcal{o}(\delta{y})\)</span></p><p>泛函的增量<span class="math inline">\(\Delta{J}\)</span>与变分<span class="math inline">\(\delta{J}\)</span>之差是一个比一阶距离更高阶的无穷小，泛函的变分是泛函增量的线性主要部分。</p><p>变分的定义是不是跟微分很像（微分的定义<span class="math inline">\(\Delta{y}=A\Delta{x}+\mathcal{o}(\Delta{x})=dy+\mathcal{o}(\Delta(x)\)</span>，<span class="math inline">\(A\)</span>是该点的导数）。类比一下，我们在高等数学中学习到的函数极值的必要条件是函数导数等于0，而泛函极值的必要条件也是泛函的变分等于0。</p><p>所以有如下定理：若泛函<span class="math inline">\(J[y(x)]\)</span>在<span class="math inline">\(y=y(x)\)</span>上达到极值，则它在<span class="math inline">\(y=y(x)\)</span>上的变分<span class="math inline">\(\delta{J}\)</span>等于零。这就是变分原理。</p><h3 id="拉格朗日函数">拉格朗日函数</h3><p>设<span class="math inline">\(F(x, y(x), y&#39;(x))\)</span>是三个独立变量<span class="math inline">\(x\)</span>，<span class="math inline">\(y(x)\)</span>，<span class="math inline">\(y&#39;(x)\)</span>在区间<span class="math inline">\([x_0, x_1]\)</span>上的已知函数，且二阶连续可微，其中<span class="math inline">\(y(x)\)</span>和<span class="math inline">\(y&#39;(x)\)</span>是<span class="math inline">\(x\)</span>的未知函数，则泛函</p><p><span class="math display">\[J[y(x)]=\int_{x_0}^{x_1}F(x, y(x), y&#39;(x))dx\]</span></p><p>称为最简单的积分形泛函，简称最简泛函，被积函数<span class="math inline">\(F\)</span>称为拉格朗日函数。</p><p>对于拉格朗日函数，其泛函的变分为</p><p><span class="math display">\[\delta{J} = \int_{x_0}^{x_1}(F_y\delta{y} +F_{y&#39;}\delta{y&#39;})dx = \int_{x_0}^{x_1}(F_y\delta{y})dx + (F_{y&#39;}\delta_{y}|_{x_0}^{x_1} - \int_{x_0}^{x_1}(\delta_{y}\frac{d}{dx}F_{y&#39;}d{x})=\int_{x_0}^{x_1}(F_y-\frac{d}{dx}F_{y&#39;})\delta{y}dx\]</span></p><h3 id="欧拉方程">欧拉方程</h3><p>利用变分原理，使最简泛函<span class="math inline">\(J[y(x)]=\int_{x_0}^{x_1}F(x, y(x), y&#39;(x))dx\)</span>取得极值且满足固定边界条件<span class="math inline">\(y(x_0)=y_0\)</span>，<span class="math inline">\(y(x_1)=y_1\)</span>的极值曲线<span class="math inline">\(y=y(x)\)</span>应满足必要条件</p><p><span class="math display">\[F_y-\frac{d}{dx}F_{y&#39;}=0\]</span></p><p>式中<span class="math inline">\(F\)</span>是<span class="math inline">\(x, y, y&#39;\)</span>的已知函数并有二阶连续偏导数。上述必要条件中的方程叫做泛函的欧拉方程，也叫欧拉-拉格朗日方程。而<span class="math inline">\(F_y-\frac{d}{dx}F_{y&#39;}\)</span>称为<span class="math inline">\(F\)</span>关于<span class="math inline">\(y\)</span>的变分导（函）数。</p><h2 id="案例分析两点之间直线最短">案例分析–两点之间直线最短</h2><p>好的，我们利用欧拉方程来证明博文刚开始提出的两点之间直线最短的问题。</p><p>这里的<span class="math inline">\(F=\sqrt{1+f&#39;(x)^2}\)</span>，求得<span class="math inline">\(F_y=0\)</span>，<span class="math inline">\(F_{y&#39;}=\frac{y&#39;}{\sqrt{1+{y&#39;}^2}}\)</span>，再求得<span class="math inline">\(\frac{d}{dx}F_{y&#39;}=y&#39;&#39;(1+{y&#39;}^2)^{-\frac{3}{2}}\)</span></p><p>根据欧拉方程有<span class="math inline">\(-y&#39;&#39;(1+{y&#39;}^2)^{-\frac{3}{2}}=0\)</span>，则<span class="math inline">\(y&#39;&#39;=0 \Rightarrow y&#39;=C \Rightarrow y=C_1x + C_2\)</span></p><p>此时，我们就得到了这条曲线确实就是连接两点的直线。</p><h2 id="在mathematica中使用变分法">在Mathematica中使用变分法</h2><p>鉴于本人计算能力超级差，手动求导对我来说实在太痛苦了，我将上述的计算借助于Mathematica计算了一遍，下面是计算过程。不得不说Mathematica真的太强大了。</p><figure><img src="/images/math/Mathematica-Variational.png" alt=""><figcaption>Mathematica变分法</figcaption></figure><h2 id="参考文献">参考文献</h2><p>老大中. 变分法基础[M]. 北京: 国防工业出版社. 2004.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;变分法入门介绍&quot;&gt;变分法入门介绍&lt;/h1&gt;
-&lt;p&gt;读完这篇博文你可以了解变分的基本概念，以及使用变分法求解最简泛函的极值。本文没有严密的数学证明，只是感性地对变分法做一个初步了解。&lt;/p&gt;
-&lt;h2 id=&quot;泛函和变分法&quot;&gt;泛函和变分法&lt;/h2&gt;
-&lt;p&gt;给定两点&lt;s
-      
-    
-    </summary>
-    
-      <category term="数学" scheme="http://theonegis.github.io/categories/math/"/>
-    
-    
-      <category term="变分法" scheme="http://theonegis.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/"/>
-    
-      <category term="泛函" scheme="http://theonegis.github.io/tags/%E6%B3%9B%E5%87%BD/"/>
     
   </entry>
   
