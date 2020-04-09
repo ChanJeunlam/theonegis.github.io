@@ -3,6 +3,33 @@
   
     
     <entry>
+      <title>macOS下GDAL Java开发环境搭建</title>
+      <link href="/geos/macOS%E4%B8%8BGDAL-Java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+      <url>/geos/macOS%E4%B8%8BGDAL-Java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+      <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2020年4月9日下午</p><hr><h1 id="macos下gdal-java开发环境搭建">macOS下GDAL Java开发环境搭建</h1><p>今天在笔记本（macOS平台）上折腾了一下如何搭建GDAL的Java开发环境。虽然GDAL的Python接口更好用，但是有时候需要协同使用一些Java库的时候，也必须使用Java版本的GDAL。</p><p>在macOS上安装GDAL一般有三种方式：</p><ol type="1"><li>使用HomeBrew</li><li>使用<a href="https://www.kyngchaos.com/software/frameworks/" target="_blank" rel="noopener">Kyng-Chaos</a>提供的编译好的二进制包（Framework）</li><li>从源码编译</li></ol><p>由于前两种方式不自带有Java相关的接口，所以这里选择从源码编译。</p><h2 id="gdal源码编译安装">GDAL源码编译安装</h2><p>首先，下载GDAL源码，可以从<a href="https://github.com/OSGeo/gdal" target="_blank" rel="noopener">GitHub</a>上下载，也可以从<a href="https://gdal.org/download.html" target="_blank" rel="noopener">GDAL</a>官网下载。</p><p>我这里从官网下载了最新的2.4.4版本（3.X版本也发布了，但是还是先用稳定一点的吧）的源码进行编译安装。GDAL依赖的库都可以使用HomeBrew安装，我的方法是直接使用Brew安装GDAL，然后再卸载掉GDAL，这样GDAL依赖的第三方库都就自动安装了。</p><p>此外，还需要系统中安装了Java JDK和SWIG以及Ant编译工具。</p><p>下面进行GDAL源码编译并安装到<code>/usr/local</code>目录中。注意配置系统中Java的路径，我这里使用的是JDK11。</p><pre><code>cd gdal-2.4.4./configure --with-threads --disable-static --without-grass --with-jasper=/usr/local/lib --with-libtiff=/usr/local/lib --with-jpeg=/usr/local/lib --with-gif=/usr/local/lib --with-png=/usr/local/lib --with-geotiff=/usr/local/lib --with-pcraster=internal --with-geos=/usr/local/lib --with-static-proj4=/usr/local/lib --with-expat=/usr/local/lib --with-curl=/usr/local/lib --with-netcdf=/usr/local/lib --with-hdf5=/usr/local/lib --with-opencl --with-libz=internal --without-python --with-java --with-jvm-lib=/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home makesudo make install</code></pre><p>然后接下来我们编译Java接口需要的相关文件。<code>make install</code>命令会将动态链接库<code>libgdalalljni.20.dylib</code>和<code>libgdalalljni.dylib</code>拷贝到<code>/usr/local/lib</code>目录中。</p><pre><code>cd swig/javamake CFLAGS=&quot;-I/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home/include -I//Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home/include/darwin&quot;sudo make install</code></pre><p><code>make</code>命令会生成我们需要的<code>gdal.jar</code>包，是我们做Java开发需要的依赖包，必须添加到工程中。</p><p>我以为这样就可以了，但是当我在工程中调用GDAL的时候，提示找不到Native Library，然后我就把<code>libgdalalljni.20.dylib</code>和<code>libgdalalljni.dylib</code>又拷贝到了<code>/Library/Java/Extensions</code>目录中，问题才得以解决。</p><h2 id="maven安装本地jar">Maven安装本地JAR</h2><p>我习惯使用Maven管理依赖，但是Maven中央仓库中没有提供GDAL 2.4.4版本的JAR包。所以需要把刚才生成的<code>gdal.jar</code>文件安装到本地Maven仓库中，这样才能在Maven工程中使用。</p><p>使用如下命令进行安装以后，我们就可以在工程中开心的使用了！</p><pre><code>mvn install:install-file -Dfile=/Users/TheOneGIS/Development/gdal-2.4.4/swig/java/gdal.jar -DgroupId=org.gdal -DartifactId=gdal -Dversion=2.4.4 -Dpackaging=jar</code></pre><h2 id="使用java版gdal示例">使用Java版GDAL示例</h2><p>这里使用Better Java（Kotlin）语言进行一个简单的Shapefile文件读取的示例。首先，新建Maven Kotlin工程；然后在POM文件中添加GDAL依赖，最后书写我们的HelloWorld示例。</p><div class="sourceCode" id="cb4"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">&lt;dependency&gt;</span></span><span id="cb4-2"><a href="#cb4-2"></a>  <span class="kw">&lt;groupId&gt;</span>org.gdal<span class="kw">&lt;/groupId&gt;</span></span><span id="cb4-3"><a href="#cb4-3"></a>  <span class="kw">&lt;artifactId&gt;</span>gdal<span class="kw">&lt;/artifactId&gt;</span></span><span id="cb4-4"><a href="#cb4-4"></a>  <span class="kw">&lt;version&gt;</span>2.4.4<span class="kw">&lt;/version&gt;</span></span><span id="cb4-5"><a href="#cb4-5"></a><span class="kw">&lt;/dependency&gt;</span></span></code></pre></div><p>示例代码如下：</p><div class="sourceCode" id="cb5"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">package</span> <span class="im">cn.demo</span></span><span id="cb5-2"><a href="#cb5-2"></a></span><span id="cb5-3"><a href="#cb5-3"></a><span class="kw">import</span> <span class="im">org.gdal.gdal.*</span></span><span id="cb5-4"><a href="#cb5-4"></a></span><span id="cb5-5"><a href="#cb5-5"></a><span class="kw">fun</span> <span class="fu">main</span>(<span class="va">args</span>: <span class="dt">Array</span>&lt;<span class="va">String</span>&gt;) {</span><span id="cb5-6"><a href="#cb5-6"></a>    <span class="co">// 初始化GDAL环境</span></span><span id="cb5-7"><a href="#cb5-7"></a>    gdal.UseExceptions()</span><span id="cb5-8"><a href="#cb5-8"></a>    gdal.AllRegister()</span><span id="cb5-9"><a href="#cb5-9"></a>    </span><span id="cb5-10"><a href="#cb5-10"></a>        <span class="co">// 读取数据，输出数据信息</span></span><span id="cb5-11"><a href="#cb5-11"></a>    <span class="kw">val</span> <span class="va">path</span> = <span class="st">&quot;China.shp&quot;</span></span><span id="cb5-12"><a href="#cb5-12"></a>    <span class="kw">val</span> <span class="va">ds</span> = gdal.OpenEx(path)</span><span id="cb5-13"><a href="#cb5-13"></a>    <span class="kw">val</span> <span class="va">layer</span> = ds.GetLayer(<span class="dv">0</span>)</span><span id="cb5-14"><a href="#cb5-14"></a>    println(layer.GetName())</span><span id="cb5-15"><a href="#cb5-15"></a>    <span class="cf">for</span> (i <span class="kw">in</span> <span class="dv">0</span> until layer.GetFeatureCount()) {</span><span id="cb5-16"><a href="#cb5-16"></a>        print(layer.GetNextFeature().GetFieldAsString(<span class="st">&quot;NAME&quot;</span>))</span><span id="cb5-17"><a href="#cb5-17"></a>    }</span><span id="cb5-18"><a href="#cb5-18"></a>    ds.delete()</span><span id="cb5-19"><a href="#cb5-19"></a>}</span></code></pre></div>]]></content>
+      
+      <categories>
+          
+          <category> 空间数据处理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> GDAL </tag>
+            
+            <tag> Java </tag>
+            
+            <tag> macOS </tag>
+            
+            <tag> Maven </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>UNIX系统下删除老旧Maven依赖包的方法</title>
       <link href="/tools/UNIX%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%88%A0%E9%99%A4%E8%80%81%E6%97%A7Maven%E4%BE%9D%E8%B5%96%E5%8C%85%E7%9A%84%E6%96%B9%E6%B3%95/"/>
       <url>/tools/UNIX%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%88%A0%E9%99%A4%E8%80%81%E6%97%A7Maven%E4%BE%9D%E8%B5%96%E5%8C%85%E7%9A%84%E6%96%B9%E6%B3%95/</url>

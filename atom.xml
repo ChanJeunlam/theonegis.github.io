@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://theonegis.github.io/"/>
-  <updated>2020-04-08T13:33:43.279Z</updated>
+  <updated>2020-04-09T09:35:52.672Z</updated>
   <id>http://theonegis.github.io/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>macOS下GDAL Java开发环境搭建</title>
+    <link href="http://theonegis.github.io/geos/macOS%E4%B8%8BGDAL-Java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>http://theonegis.github.io/geos/macOS下GDAL-Java开发环境搭建/</id>
+    <published>2020-04-09T08:58:09.000Z</published>
+    <updated>2020-04-09T09:35:52.672Z</updated>
+    
+    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2020年4月9日下午</p><hr><h1 id="macos下gdal-java开发环境搭建">macOS下GDAL Java开发环境搭建</h1><p>今天在笔记本（macOS平台）上折腾了一下如何搭建GDAL的Java开发环境。虽然GDAL的Python接口更好用，但是有时候需要协同使用一些Java库的时候，也必须使用Java版本的GDAL。</p><p>在macOS上安装GDAL一般有三种方式：</p><ol type="1"><li>使用HomeBrew</li><li>使用<a href="https://www.kyngchaos.com/software/frameworks/" target="_blank" rel="noopener">Kyng-Chaos</a>提供的编译好的二进制包（Framework）</li><li>从源码编译</li></ol><p>由于前两种方式不自带有Java相关的接口，所以这里选择从源码编译。</p><h2 id="gdal源码编译安装">GDAL源码编译安装</h2><p>首先，下载GDAL源码，可以从<a href="https://github.com/OSGeo/gdal" target="_blank" rel="noopener">GitHub</a>上下载，也可以从<a href="https://gdal.org/download.html" target="_blank" rel="noopener">GDAL</a>官网下载。</p><p>我这里从官网下载了最新的2.4.4版本（3.X版本也发布了，但是还是先用稳定一点的吧）的源码进行编译安装。GDAL依赖的库都可以使用HomeBrew安装，我的方法是直接使用Brew安装GDAL，然后再卸载掉GDAL，这样GDAL依赖的第三方库都就自动安装了。</p><p>此外，还需要系统中安装了Java JDK和SWIG以及Ant编译工具。</p><p>下面进行GDAL源码编译并安装到<code>/usr/local</code>目录中。注意配置系统中Java的路径，我这里使用的是JDK11。</p><pre><code>cd gdal-2.4.4./configure --with-threads --disable-static --without-grass --with-jasper=/usr/local/lib --with-libtiff=/usr/local/lib --with-jpeg=/usr/local/lib --with-gif=/usr/local/lib --with-png=/usr/local/lib --with-geotiff=/usr/local/lib --with-pcraster=internal --with-geos=/usr/local/lib --with-static-proj4=/usr/local/lib --with-expat=/usr/local/lib --with-curl=/usr/local/lib --with-netcdf=/usr/local/lib --with-hdf5=/usr/local/lib --with-opencl --with-libz=internal --without-python --with-java --with-jvm-lib=/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home makesudo make install</code></pre><p>然后接下来我们编译Java接口需要的相关文件。<code>make install</code>命令会将动态链接库<code>libgdalalljni.20.dylib</code>和<code>libgdalalljni.dylib</code>拷贝到<code>/usr/local/lib</code>目录中。</p><pre><code>cd swig/javamake CFLAGS=&quot;-I/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home/include -I//Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home/include/darwin&quot;sudo make install</code></pre><p><code>make</code>命令会生成我们需要的<code>gdal.jar</code>包，是我们做Java开发需要的依赖包，必须添加到工程中。</p><p>我以为这样就可以了，但是当我在工程中调用GDAL的时候，提示找不到Native Library，然后我就把<code>libgdalalljni.20.dylib</code>和<code>libgdalalljni.dylib</code>又拷贝到了<code>/Library/Java/Extensions</code>目录中，问题才得以解决。</p><h2 id="maven安装本地jar">Maven安装本地JAR</h2><p>我习惯使用Maven管理依赖，但是Maven中央仓库中没有提供GDAL 2.4.4版本的JAR包。所以需要把刚才生成的<code>gdal.jar</code>文件安装到本地Maven仓库中，这样才能在Maven工程中使用。</p><p>使用如下命令进行安装以后，我们就可以在工程中开心的使用了！</p><pre><code>mvn install:install-file -Dfile=/Users/TheOneGIS/Development/gdal-2.4.4/swig/java/gdal.jar -DgroupId=org.gdal -DartifactId=gdal -Dversion=2.4.4 -Dpackaging=jar</code></pre><h2 id="使用java版gdal示例">使用Java版GDAL示例</h2><p>这里使用Better Java（Kotlin）语言进行一个简单的Shapefile文件读取的示例。首先，新建Maven Kotlin工程；然后在POM文件中添加GDAL依赖，最后书写我们的HelloWorld示例。</p><div class="sourceCode" id="cb4"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">&lt;dependency&gt;</span></span><span id="cb4-2"><a href="#cb4-2"></a>  <span class="kw">&lt;groupId&gt;</span>org.gdal<span class="kw">&lt;/groupId&gt;</span></span><span id="cb4-3"><a href="#cb4-3"></a>  <span class="kw">&lt;artifactId&gt;</span>gdal<span class="kw">&lt;/artifactId&gt;</span></span><span id="cb4-4"><a href="#cb4-4"></a>  <span class="kw">&lt;version&gt;</span>2.4.4<span class="kw">&lt;/version&gt;</span></span><span id="cb4-5"><a href="#cb4-5"></a><span class="kw">&lt;/dependency&gt;</span></span></code></pre></div><p>示例代码如下：</p><div class="sourceCode" id="cb5"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">package</span> <span class="im">cn.demo</span></span><span id="cb5-2"><a href="#cb5-2"></a></span><span id="cb5-3"><a href="#cb5-3"></a><span class="kw">import</span> <span class="im">org.gdal.gdal.*</span></span><span id="cb5-4"><a href="#cb5-4"></a></span><span id="cb5-5"><a href="#cb5-5"></a><span class="kw">fun</span> <span class="fu">main</span>(<span class="va">args</span>: <span class="dt">Array</span>&lt;<span class="va">String</span>&gt;) {</span><span id="cb5-6"><a href="#cb5-6"></a>    <span class="co">// 初始化GDAL环境</span></span><span id="cb5-7"><a href="#cb5-7"></a>    gdal.UseExceptions()</span><span id="cb5-8"><a href="#cb5-8"></a>    gdal.AllRegister()</span><span id="cb5-9"><a href="#cb5-9"></a>    </span><span id="cb5-10"><a href="#cb5-10"></a>        <span class="co">// 读取数据，输出数据信息</span></span><span id="cb5-11"><a href="#cb5-11"></a>    <span class="kw">val</span> <span class="va">path</span> = <span class="st">&quot;China.shp&quot;</span></span><span id="cb5-12"><a href="#cb5-12"></a>    <span class="kw">val</span> <span class="va">ds</span> = gdal.OpenEx(path)</span><span id="cb5-13"><a href="#cb5-13"></a>    <span class="kw">val</span> <span class="va">layer</span> = ds.GetLayer(<span class="dv">0</span>)</span><span id="cb5-14"><a href="#cb5-14"></a>    println(layer.GetName())</span><span id="cb5-15"><a href="#cb5-15"></a>    <span class="cf">for</span> (i <span class="kw">in</span> <span class="dv">0</span> until layer.GetFeatureCount()) {</span><span id="cb5-16"><a href="#cb5-16"></a>        print(layer.GetNextFeature().GetFieldAsString(<span class="st">&quot;NAME&quot;</span>))</span><span id="cb5-17"><a href="#cb5-17"></a>    }</span><span id="cb5-18"><a href="#cb5-18"></a>    ds.delete()</span><span id="cb5-19"><a href="#cb5-19"></a>}</span></code></pre></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
+&lt;p&gt;写作时间：2020年4月9日下午&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;macos下gdal-java开发环境搭建&quot;&gt;macOS下GDAL Java开发环境搭建&lt;/h1&gt;
+&lt;p&gt;今天在笔记本（macOS平台）上折
+      
+    
+    </summary>
+    
+      <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
+    
+    
+      <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
+    
+      <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
+    
+      <category term="macOS" scheme="http://theonegis.github.io/tags/macOS/"/>
+    
+      <category term="Maven" scheme="http://theonegis.github.io/tags/Maven/"/>
+    
+  </entry>
   
   <entry>
     <title>UNIX系统下删除老旧Maven依赖包的方法</title>
@@ -606,36 +641,6 @@
       <category term="Haar变换" scheme="http://theonegis.github.io/tags/Haar%E5%8F%98%E6%8D%A2/"/>
     
       <category term="图像压缩" scheme="http://theonegis.github.io/tags/%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>小波变换一之Haar变换</title>
-    <link href="http://theonegis.github.io/math/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2%E4%B8%80%E4%B9%8BHaar%E5%8F%98%E6%8D%A2/"/>
-    <id>http://theonegis.github.io/math/小波变换一之Haar变换/</id>
-    <published>2019-01-16T06:17:30.000Z</published>
-    <updated>2019-03-22T19:39:53.832Z</updated>
-    
-    <content type="html"><![CDATA[<p>注：</p><ul><li>小波变换系列博文打算记录自己学习小波变换的心路历程，每篇博文尽量简短，宗旨是用最少的数学公式说明白如何使用小波变换</li><li>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1roiym8d609t1" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1roiym8d609t1</a></li></ul><h1 id="haar变换">Haar变换</h1><h2 id="案例一简单一维信号变换">案例一简单一维信号变换</h2><p>下面是一个一维信号（一组数）：<span class="math inline">\(f = \{2, 2, 2, 4, 4, 4\}\)</span></p><p>我对这个信号进行如下处理：</p><p><span class="math inline">\(a_m = \sqrt{2}\frac{f_{2m-1}+f_{2m}}{2} = \frac{f_{2m-1}+f_{2m}}{\sqrt{2}}\)</span>（相邻两个数相加，求平均，然后乘以<span class="math inline">\(\sqrt{2}\)</span>）</p><p><span class="math inline">\(d_m = \sqrt{2}\frac{f_{2m-1}-f_{2m}}{2} = \frac{f_{2m-1}-f_{2m}}{\sqrt{2}}\)</span>（相邻两个数相减，求平均，然后乘以<span class="math inline">\(\sqrt{2}\)</span>）</p><p>注：至于为什么要乘以<span class="math inline">\(\sqrt{2}\)</span>呢？我们这里先不解释，放到后面再说。</p><p>然后按照先<span class="math inline">\(a\)</span>后<span class="math inline">\(d\)</span>的顺序排列<span class="math inline">\({a_1,a_2,...,a_{N/2}, d_1, d_2, ..., d_{N/2}}\)</span>（<span class="math inline">\(N\)</span>是离散信号中的值的个数）</p><p>则，<span class="math inline">\(a = \{2\sqrt{2}, 3\sqrt{2}, 4\sqrt{2}\}\)</span>，<span class="math inline">\(d=\{0, -\sqrt{2}, 0\}\)</span></p><p>我们可以得到结果：<span class="math inline">\(tf = \{2\sqrt{2}, 3\sqrt{2}, 4\sqrt{2}, 0, -\sqrt{2}, 0\}\)</span></p><p>这就是传说中的Haar变换了……</p><p><span class="math inline">\(a\)</span>表示的是信号的趋势（trend），近似（approximation），是低频信息；而<span class="math inline">\(d\)</span>表示的是信号的细节（detail），是高频信息。</p><p>那么我们怎么变回去呢？我们对变换以后的信号进行如下处理：</p><p><span class="math inline">\(f_{2m-1} = \sqrt{2}\frac{a_m +d_m}{2} = \frac{a_m +d_m}{\sqrt{2}}\)</span>（第<span class="math inline">\(m\)</span>个<span class="math inline">\(a\)</span>和<span class="math inline">\(d\)</span>相加，求平均，然后乘以<span class="math inline">\(\sqrt{2}\)</span>）</p><p><span class="math inline">\(f_{2m} = \sqrt{2}\frac{a_m -d_m}{2} = \frac{a_m -d_m}{\sqrt{2}}\)</span> （第<span class="math inline">\(m\)</span>个<span class="math inline">\(a\)</span>和<span class="math inline">\(d\)</span>相减，求平均，然后乘以<span class="math inline">\(\sqrt{2}\)</span>）</p><p>我们可以得到结果<span class="math inline">\(if = \{2, 2, 2, 4, 4, 4\}\)</span></p><p>这样就是Haar变换的逆变换。</p><p>通过观察，我们可以发现：</p><ul><li><span class="math inline">\(d\)</span>中的数字绝大部分都很小（这是做信息压缩很重要的依据）</li><li>变换前后信号的能量保持不变，即<span class="math inline">\(\sum{f_i^2} = \sum{a_m^2} + \sum{d_i^2}\)</span>（有兴趣的同学可以算一下对于<span class="math inline">\(f\)</span>和<span class="math inline">\(tf\)</span>的能量都是60，刚好相等）</li></ul><h2 id="案例二多分辨率一维信号变换">案例二多分辨率一维信号变换</h2><p>我们可以按照上面的思路将信号对得到的低频信号（<span class="math inline">\(a\)</span>）一直一直划分下去，直到<span class="math inline">\(\mathrm{log}_2N\)</span>（离散信号的值的数目不是偶数的，可以在后面补0）</p><p>给定如下的一个信号：<span class="math inline">\(f(t) = 20x^2(1-x)^4\cos(12\pi x)\)</span></p><p>我们通过在[0, 1]之间取样1024个点可以得到信号的振幅，绘制出信号图像如下：</p><figure><img src="/images/math/原始信号.png" alt=""><figcaption>原始信号</figcaption></figure><p>我们可以通过案例一种描述的方法进行Haar变换，我们这里对<span class="math inline">\(f(t)\)</span>信号进行两次Haar变换，如下图所示：</p><figure><img src="/images/math/Haar多分辨率.png" alt=""><figcaption>Haar多分辨率分析</figcaption></figure><p>这是多分辨率分析（Multi-Resolution Analysis，MRA）以及图像压缩（JPEG2000编码）等的基础理念，这里现有一个大概理解，后面我们会继续谈到。</p><p>变换的结果如下（感兴趣的朋友可以使用Mathematica或者MATLAB是一样，这两个数学软件都提供了对Haar变换的直接支持）：</p><figure><img src="/images/math/Haar变换.png" alt=""><figcaption>Haar变换</figcaption></figure><p>好了，这一节先到这里，我们以后有时间慢慢聊！</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;注：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;小波变换系列博文打算记录自己学习小波变换的心路历程，每篇博文尽量简短，宗旨是用最少的数学公式说明白如何使用小波变换&lt;/li&gt;
-&lt;li&gt;我的博客即将同步至腾讯云+社区，邀请大家一同入驻：&lt;a href=&quot;https://cloud.tencen
-      
-    
-    </summary>
-    
-      <category term="数学" scheme="http://theonegis.github.io/categories/math/"/>
-    
-    
-      <category term="小波变换" scheme="http://theonegis.github.io/tags/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/"/>
-    
-      <category term="Haar变换" scheme="http://theonegis.github.io/tags/Haar%E5%8F%98%E6%8D%A2/"/>
     
   </entry>
   
