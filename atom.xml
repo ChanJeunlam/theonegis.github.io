@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://theonegis.github.io/"/>
-  <updated>2020-04-09T09:35:52.672Z</updated>
+  <updated>2020-04-10T14:53:04.798Z</updated>
   <id>http://theonegis.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ESA SNAP工具包Java接口的使用</title>
+    <link href="http://theonegis.github.io/geos/ESA-SNAP%E5%B7%A5%E5%85%B7%E5%8C%85Java%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://theonegis.github.io/geos/ESA-SNAP工具包Java接口的使用/</id>
+    <published>2020-04-10T14:17:34.000Z</published>
+    <updated>2020-04-10T14:53:04.798Z</updated>
+    
+    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2010年4月10日晚</p><hr><p>欧盟的SNAP工具包提供了对Sentinel卫星数据的处理功能。</p><p>SANP使用Java编写，UI界面使用了NetBeans框架。</p><p>如果要进行批处理的话，还提供了基于图的<strong>G</strong>raph <strong>P</strong>rocessing <strong>F</strong>ramework (GPF)处理模式。</p><p>此外，SNAP还贴心的提供了Python接口snappy（对Java API的封装）。</p><p>参考资料：https://senbox.atlassian.net/wiki/spaces/SNAP/overview</p><p>但是我使用官方提供的安装包安装好以后，Python接口用不了，所以我想着还不如就用原生的Java接口。</p><p>首先，从<a href="https://github.com/senbox-org" target="_blank" rel="noopener">GitHub</a>下载SNAP的源码进行编译，主要下载了<a href="https://github.com/senbox-org/snap-engine" target="_blank" rel="noopener">snap-engine</a>，<a href="https://github.com/senbox-org/snap-desktop" target="_blank" rel="noopener">snap-desktop</a>，<a href="https://github.com/senbox-org/s1tbx" target="_blank" rel="noopener">s1tbx</a>和<a href="https://github.com/senbox-org/s2tbx" target="_blank" rel="noopener">s2tbx</a>这四个工程，依次进行编译（最新版本为8.0.0-SNAPSHOT）。</p><p>例如对snap-engine的编译命令如下：</p><pre class="shell"><code>cd snapgit clone https://github.com/senbox-org/snap-engine.gitcd snap-enginemvn clean install -DskipTests=true</code></pre><p>编译中主要问题是一些第三方库下载特别慢或者根本下载不下来，这时候你需要科学上网手动下载需要的依赖包，再次进行编译。</p><p>编译完这四个包以后，我们新建Maven工程进行代码测试。下面代码使用Better Java （Kotlin）进行示范，我把注释加进了代码中方便理解。</p><pre><code>package cn.demoimport java.nio.file.Pathsimport org.esa.snap.core.dataio.ProductIOfun main(args: Array&lt;String&gt;) {    val path = Paths.get(&quot;S2B_MSIL1C_20200304T032629_N0209_R018_T48SYC_20200304T075000.zip&quot;)    // 通过文件获得读取数据的Reader    val reader = ProductIO.getProductReaderForInput(path.toFile())    // 通过这个Reader对象来读取Sentinel数据产品Product    val product = reader.readProductNodes(path.toFile(), null)    // 通过这个Product对象来读取波段中存储的数据    val band = product.getBand(&quot;B1&quot;)    // 数据不是自动加载的，需要手动加载一下    if (!band.hasRasterData()) {        band.loadRasterData()    }    // 获取波段数据，数据是以一维数组的形式存储的，主要使用PixelInterleavedSampleModel这类进行控制像素交替方式存储    // 有兴趣的可以参考java.awt.image.PixelInterleavedSampleModel    val data = band.rasterData    assert(band.rasterHeight * band.rasterWidth == data.numElems)}</code></pre><p>代码运行过程中，提示找不到OpenJPEG的库（Sentinel-2 SAFE格式的文件中是以JPG图像格式保存各个波段的观测数据的），最后我通过代码调试发现，SNAP中对OpenJPEG库的路径定义在<code>~/.snap/auxdata/openjpeg/8.0.0-SNAPSHOT/</code>目录下，而我的本地没有该目录（虽然<code>/usr/local/bin</code> 目录中有OpenJPEG库，但是SNAP不是在这个目录中寻找的），所以程序会报错。</p><p>解决的方案是我由于本来安装的SNAP桌面版（7.0.0），该版本在<code>~/.snap/auxdata/openjpeg/7.0.0/</code>目录下存放了OpenJPEG库，所以拷贝该版本的库修改名称为<code>8.0.0-SNAPSHOT</code>即可，程序正常运行。</p><p>总得来说，SNAP提供的参考资料不多，有问题只能取Forum中提问。所以我觉得还是使用GDAL读取Sentinel数据，然后再进行进一步操作方便些。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
+&lt;p&gt;写作时间：2010年4月10日晚&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;欧盟的SNAP工具包提供了对Sentinel卫星数据的处理功能。&lt;/p&gt;
+&lt;p&gt;SANP使用Java编写，UI界面使用了NetBeans框架。&lt;/p&gt;
+      
+    
+    </summary>
+    
+      <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
+    
+    
+      <category term="SANP" scheme="http://theonegis.github.io/tags/SANP/"/>
+    
+      <category term="Sentinel" scheme="http://theonegis.github.io/tags/Sentinel/"/>
+    
+      <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>macOS下GDAL Java开发环境搭建</title>
@@ -41,13 +74,13 @@
       <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
     
     
-      <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
-    
       <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
     
-      <category term="macOS" scheme="http://theonegis.github.io/tags/macOS/"/>
+      <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
     
       <category term="Maven" scheme="http://theonegis.github.io/tags/Maven/"/>
+    
+      <category term="macOS" scheme="http://theonegis.github.io/tags/macOS/"/>
     
   </entry>
   
@@ -610,37 +643,6 @@
       <category term="万能引用" scheme="http://theonegis.github.io/tags/%E4%B8%87%E8%83%BD%E5%BC%95%E7%94%A8/"/>
     
       <category term="引用折叠" scheme="http://theonegis.github.io/tags/%E5%BC%95%E7%94%A8%E6%8A%98%E5%8F%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>小波变换二之Haar变换</title>
-    <link href="http://theonegis.github.io/math/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2%E4%BA%8C%E4%B9%8BHaar%E5%8F%98%E6%8D%A2/"/>
-    <id>http://theonegis.github.io/math/小波变换二之Haar变换/</id>
-    <published>2019-01-17T06:45:55.000Z</published>
-    <updated>2019-03-22T19:39:53.832Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="haar变换">Haar变换</h1><p>这是小波变换的第二篇，我们继续谈Haar变换。在第一篇中，我们介绍了一位情况下的Haar变换，这篇博文中主要介绍二维Haar变换。最后，通过一个图像压缩的案例说明二维Haar变换的应用。</p><h2 id="原理说明">原理说明</h2><p>给定一个二维信号，我们这里假设是一个<span class="math inline">\(4\times4\)</span>的图片，</p><p><span class="math inline">\(f=\begin{bmatrix}2&amp;1&amp;5&amp;6\\7&amp;6&amp;5&amp;8\\2&amp;1&amp;5&amp;5\\7&amp;7&amp;2&amp;10\end{bmatrix}\)</span></p><p>如何进行二维的哈尔变换呢？</p><p>步骤是这样的：（1）首先，沿着矩阵的每一行做一维的Haar变换；（2）然后，沿着矩阵的每一列做一维的哈尔变换；（3）对于每个低频分量矩阵（近似信息）重复步骤（1）和（2）直到完成指定的等级划分。下图给出了两级划分的示意图：</p><figure><img src="/images/math/Haar2D.png" alt=""><figcaption>二维Haar变换示意图</figcaption></figure><p>这里的A表示近似信息（approximation coefficients），H表示水平细节信息（horizontal detail coefficients），V表示垂直细节信息（vertical detail coefficients），D表示对角线细节信息（diagonal detail coefficients）。很多数学软件中是这样称呼的，了解了这个可以帮助我们快速上手软件进行实际操作。</p><p>行分解和列分解的顺序是可以互换的，保持一致即可。</p><p>明白了基本原理，下面我们来进行实际计算，对于<span class="math inline">\(f\)</span>，（如果不清楚如何做一维高频和低频分解，可参看博文<a href="https://blog.csdn.net/theonegis/article/details/86517377" target="_blank" rel="noopener">《小波变换一之Haar变换》</a>）</p><p>第一次行分解得到低频信息<span class="math inline">\(L=\begin{bmatrix}\frac{3}{\sqrt{2}}&amp;\frac{11}{\sqrt{2}}\\\frac{13}{\sqrt{2}}&amp;\frac{13}{\sqrt{2}}\\\frac{3}{\sqrt{2}}&amp;5\sqrt{2}\\7\sqrt{2}&amp;6\sqrt{2}\end{bmatrix}\)</span></p><p>第一次列分解得到高频信息<span class="math inline">\(H=\begin{bmatrix}\frac{1}{\sqrt{2}}&amp;-\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}}&amp;-\frac{3}{\sqrt{2}}\\\frac{1}{\sqrt{2}}&amp;0\\0&amp;-4\sqrt{2}\end{bmatrix}\)</span></p><p>对<span class="math inline">\(L\)</span>进行列高频分解得到<span class="math inline">\(A_1=\begin{bmatrix}8&amp;12\\8.5&amp;11\end{bmatrix}\)</span></p><p>对<span class="math inline">\(L\)</span>进行列低频分解得到<span class="math inline">\(H_1=\begin{bmatrix}-5&amp;-1\\-5.5&amp;-1\end{bmatrix}\)</span></p><p>对<span class="math inline">\(H\)</span>进行列高频分解得到<span class="math inline">\(V_1=\begin{bmatrix}1&amp;-2\\0.5&amp;-4\end{bmatrix}\)</span></p><p>对<span class="math inline">\(H\)</span>进行列低频分解得到<span class="math inline">\(D_1=\begin{bmatrix}0&amp;1\\0.5&amp;4\end{bmatrix}​\)</span></p><p>我们还可以对<span class="math inline">\(A_1​\)</span>继续进行二层分解，这里就不做演示了。</p><h2 id="实例演示">实例演示</h2><p>这里我们通过对一张图片做Haar变换，然后我们去掉其高频信息部分，实现对图像的压缩。</p><p>下面是进行了三次分解，然后分别过了到第一层的高频信息和第一层兼第二层的高频信息的效果！过滤掉第一层的高频信息，图像压缩为原来的四分之一，可以看到图像还是基本清晰的。过滤掉第二层和第二层的高频信息以后，可以看到图片稍微有点模糊了。</p><figure><img src="/images/math/Haar-Compress.jpg" alt=""><figcaption>Haar变换实现图像压缩</figcaption></figure><h2 id="matlab实现">MATLAB实现</h2><p>下面是使用MATLAB实现上面变换的代码，有兴趣的童鞋可以参考一下。</p><div class="sourceCode" id="cb1"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1"></a><span class="va">clear</span><span class="op">,</span> <span class="va">clc</span><span class="op">;</span></span><span id="cb1-2"><a href="#cb1-2"></a></span><span id="cb1-3"><a href="#cb1-3"></a><span class="co">% 读取原始图像</span></span><span id="cb1-4"><a href="#cb1-4"></a><span class="va">X</span> <span class="op">=</span> <span class="va">rgb2gray</span>(<span class="va">imread</span>(<span class="ss">&#39;http://www.lenna.org/lena_std.tif&#39;</span>))<span class="op">;</span></span><span id="cb1-5"><a href="#cb1-5"></a><span class="co">% 进行小波分解</span></span><span id="cb1-6"><a href="#cb1-6"></a>[<span class="va">C</span><span class="op">,</span> <span class="va">S</span>] <span class="op">=</span> <span class="va">wavedec2</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">3</span><span class="op">,</span> <span class="ss">&#39;haar&#39;</span>)<span class="op">;</span></span><span id="cb1-7"><a href="#cb1-7"></a></span><span id="cb1-8"><a href="#cb1-8"></a><span class="co">% 获得分解以后的低频近似信息</span></span><span id="cb1-9"><a href="#cb1-9"></a><span class="va">L</span> <span class="op">=</span> <span class="va">appcoef2</span>(<span class="va">C</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="ss">&#39;haar&#39;</span><span class="op">,</span> <span class="fl">3</span>)<span class="op">;</span></span><span id="cb1-10"><a href="#cb1-10"></a><span class="co">% 分别获得各层级的高频细节信息</span></span><span id="cb1-11"><a href="#cb1-11"></a>[<span class="va">H3</span><span class="op">,</span> <span class="va">V3</span><span class="op">,</span> <span class="va">D3</span>] <span class="op">=</span> <span class="va">detcoef2</span>(<span class="ss">&#39;all&#39;</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="fl">3</span>)<span class="op">;</span></span><span id="cb1-12"><a href="#cb1-12"></a>[<span class="va">H2</span><span class="op">,</span> <span class="va">V2</span><span class="op">,</span> <span class="va">D2</span>] <span class="op">=</span> <span class="va">detcoef2</span>(<span class="ss">&#39;all&#39;</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">;</span></span><span id="cb1-13"><a href="#cb1-13"></a>[<span class="va">H1</span><span class="op">,</span> <span class="va">V1</span><span class="op">,</span> <span class="va">D1</span>] <span class="op">=</span> <span class="va">detcoef2</span>(<span class="ss">&#39;all&#39;</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span><span id="cb1-14"><a href="#cb1-14"></a></span><span id="cb1-15"><a href="#cb1-15"></a><span class="co">% 去掉第一层的高频信息（替换成0），然后进行小波重建</span></span><span id="cb1-16"><a href="#cb1-16"></a><span class="co">% 注意这里乘以3是有HVD三种高频信息</span></span><span id="cb1-17"><a href="#cb1-17"></a><span class="va">D</span> <span class="op">=</span> [<span class="va">C</span>(<span class="fl">1</span><span class="op">:</span> <span class="kw">end</span> <span class="op">-</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">2</span>))<span class="op">,</span> <span class="va">zeros</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">2</span>))]<span class="op">;</span></span><span id="cb1-18"><a href="#cb1-18"></a><span class="va">CD1</span> <span class="op">=</span> <span class="va">waverec2</span>(<span class="va">D</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="ss">&#39;haar&#39;</span>)<span class="op">;</span></span><span id="cb1-19"><a href="#cb1-19"></a><span class="co">% 去掉第一和第二层的高频信息，然后进行小波重建</span></span><span id="cb1-20"><a href="#cb1-20"></a><span class="va">D</span> <span class="op">=</span> [<span class="va">C</span>(<span class="fl">1</span><span class="op">:</span> <span class="kw">end</span> <span class="op">-</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">2</span>) <span class="op">-</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H2</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H2</span><span class="op">,</span> <span class="fl">2</span>))<span class="op">,</span> <span class="op">...</span></span><span id="cb1-21"><a href="#cb1-21"></a>    <span class="va">zeros</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H1</span><span class="op">,</span> <span class="fl">2</span>) <span class="op">+</span> <span class="fl">3</span><span class="op">*</span><span class="va">size</span>(<span class="va">H2</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">size</span>(<span class="va">H2</span><span class="op">,</span> <span class="fl">2</span>))]<span class="op">;</span></span><span id="cb1-22"><a href="#cb1-22"></a><span class="va">CD2</span> <span class="op">=</span> <span class="va">waverec2</span>(<span class="va">D</span><span class="op">,</span> <span class="va">S</span><span class="op">,</span> <span class="ss">&#39;haar&#39;</span>)<span class="op">;</span></span><span id="cb1-23"><a href="#cb1-23"></a></span><span id="cb1-24"><a href="#cb1-24"></a><span class="co">%按照分解层级将分解系数排列拼接为一副图像</span></span><span id="cb1-25"><a href="#cb1-25"></a><span class="va">DD1</span> <span class="op">=</span> [<span class="va">L</span><span class="op">,</span> <span class="va">H3</span><span class="op">;</span> <span class="va">V3</span><span class="op">,</span> <span class="va">D3</span>]<span class="op">;</span></span><span id="cb1-26"><a href="#cb1-26"></a><span class="va">DD2</span> <span class="op">=</span> [<span class="va">DD1</span><span class="op">,</span> <span class="va">H2</span><span class="op">;</span> <span class="va">V2</span><span class="op">,</span> <span class="va">D2</span>]<span class="op">;</span></span><span id="cb1-27"><a href="#cb1-27"></a><span class="va">DD3</span> <span class="op">=</span> [<span class="va">DD2</span><span class="op">,</span> <span class="va">H1</span><span class="op">;</span> <span class="va">V1</span><span class="op">,</span> <span class="va">D1</span>]<span class="op">;</span></span><span id="cb1-28"><a href="#cb1-28"></a><span class="co">% 结果显示</span></span><span id="cb1-29"><a href="#cb1-29"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">,</span> <span class="va">imshow</span>(<span class="va">X</span><span class="op">,</span> [])<span class="op">,</span> <span class="va">title</span>(<span class="ss">&#39;原始图像&#39;</span>)<span class="op">;</span></span><span id="cb1-30"><a href="#cb1-30"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">,</span> <span class="va">imshow</span>(<span class="va">DD3</span><span class="op">,</span> [])<span class="op">,</span> <span class="va">title</span>(<span class="ss">&#39;小波分解系数&#39;</span>)<span class="op">;</span></span><span id="cb1-31"><a href="#cb1-31"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">3</span>)<span class="op">,</span> <span class="va">imshow</span>(<span class="va">CD1</span><span class="op">,</span> [])<span class="op">,</span> <span class="va">title</span>(<span class="ss">&#39;压缩一（去掉第一层高频信息）&#39;</span>)<span class="op">;</span></span><span id="cb1-32"><a href="#cb1-32"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">4</span>)<span class="op">,</span> <span class="va">imshow</span>(<span class="va">CD2</span><span class="op">,</span> [])<span class="op">,</span> <span class="va">title</span>(<span class="ss">&#39;压缩二（去掉第二层高频信息）&#39;</span>)<span class="op">;</span></span></code></pre></div>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;haar变换&quot;&gt;Haar变换&lt;/h1&gt;
-&lt;p&gt;这是小波变换的第二篇，我们继续谈Haar变换。在第一篇中，我们介绍了一位情况下的Haar变换，这篇博文中主要介绍二维Haar变换。最后，通过一个图像压缩的案例说明二维Haar变换的应用。&lt;/p&gt;
-&lt;h2 id=&quot;原理说
-      
-    
-    </summary>
-    
-      <category term="数学" scheme="http://theonegis.github.io/categories/math/"/>
-    
-    
-      <category term="小波变换" scheme="http://theonegis.github.io/tags/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/"/>
-    
-      <category term="Haar变换" scheme="http://theonegis.github.io/tags/Haar%E5%8F%98%E6%8D%A2/"/>
-    
-      <category term="图像压缩" scheme="http://theonegis.github.io/tags/%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/"/>
     
   </entry>
   

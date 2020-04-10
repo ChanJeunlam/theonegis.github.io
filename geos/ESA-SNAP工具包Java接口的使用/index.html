@@ -47,7 +47,7 @@
     
     <title>
         
-            标签: Morton | 
+            ESA SNAP工具包Java接口的使用 | 
         
         阿振的博客
     </title>
@@ -58,7 +58,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="博学之，审问之，慎思之，明辨之，笃行之">
-    <meta name="keywords" content="TheoneGIS, 空间信息处理">
+    <meta name="keywords" content="TheoneGIS, 空间信息处理,SANP,Sentinel,Java">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -85,6 +85,9 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/atelier-lakeside-light.min.css?vHkP60BXIENHxF6lUdDXhA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
             
         
 
@@ -221,7 +224,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="阿振的博客">
-    <meta name="msapplication-starturl" content="http://theonegis.github.io/tags/Morton/">
+    <meta name="msapplication-starturl" content="http://theonegis.github.io/geos/ESA-SNAP工具包Java接口的使用/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="阿振的博客">
@@ -240,13 +243,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://theonegis.github.io/tags/Morton/">
+    <meta property="og:url" content="http://theonegis.github.io/geos/ESA-SNAP工具包Java接口的使用/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: Morton | 阿振的博客">
+    <meta property="og:title" content="ESA SNAP工具包Java接口的使用 | 阿振的博客">
     <meta property="og:image" content="/img/logo.png">
     <meta property="og:description" content="博学之，审问之，慎思之，明辨之，笃行之">
-    
+    <meta property="og:article:tag" content="SANP"> <meta property="og:article:tag" content="Sentinel"> <meta property="og:article:tag" content="Java"> 
 
+    
+        <meta property="article:published_time" content="Fri Apr 10 2020 22:17:34 GMT+0800">
+        <meta property="article:modified_time" content="Fri Apr 10 2020 22:53:04 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -254,13 +260,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://theonegis.github.io/tags/Morton/index.html" />
+        <link rel="canonical" href="http://theonegis.github.io/geos/ESA-SNAP工具包Java接口的使用/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://theonegis.github.io/geos/ESA-SNAP工具包Java接口的使用/index.html",
+    "headline": "ESA SNAP工具包Java接口的使用",
+    "datePublished": "Fri Apr 10 2020 22:17:34 GMT+0800",
+    "dateModified": "Fri Apr 10 2020 22:53:04 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "阿振",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.gif"
+        },
+        "description": "博学之，审问之，慎思之，明辨之，笃行之"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "阿振的博客",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/logo.png"
+        }
+    },
+    "keywords": ",SANP,Sentinel,JavaTheoneGIS, 空间信息处理",
+    "description": "博学之，审问之，慎思之，明辨之，笃行之",
+}
+</script>
 
 
     
@@ -294,101 +330,264 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/algorithm/Morton码/">Morton码</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            版权声明：本文为博主原创文章，转载请注明原文出处！
-写作时间：2019-07-08 17:11:27
-
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/algorithm/Morton码/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.gif" width="44px" height="44px" alt="阿振's avatar">
-            </div>
-            <div>
-                <strong>阿振</strong>
-                <span>7月 08, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/algorithm/">算法</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                ESA SNAP工具包Java接口的使用
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.gif" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>阿振</strong>
+        <span>4月 10, 2020</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Java/">Java</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/SANP/">SANP</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Sentinel/">Sentinel</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=ESA SNAP工具包Java接口的使用&url=http://theonegis.github.io/geos/ESA-SNAP工具包Java接口的使用/index.html&pic=http://theonegis.github.io/img/logo.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=ESA SNAP工具包Java接口的使用&url=http://theonegis.github.io/geos/ESA-SNAP工具包Java接口的使用/index.html&via=阿振" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://theonegis.github.io/geos/ESA-SNAP工具包Java接口的使用/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=阿振的博客&title=ESA SNAP工具包Java接口的使用&summary=博学之，审问之，慎思之，明辨之，笃行之&pics=http://theonegis.github.io/img/logo.png&url=http://theonegis.github.io/geos/ESA-SNAP工具包Java接口的使用/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>版权声明：本文为博主原创文章，转载请注明原文出处！</p>
+<p>写作时间：2010年4月10日晚</p>
+<hr>
+<p>欧盟的SNAP工具包提供了对Sentinel卫星数据的处理功能。</p>
+<p>SANP使用Java编写，UI界面使用了NetBeans框架。</p>
+<p>如果要进行批处理的话，还提供了基于图的<strong>G</strong>raph <strong>P</strong>rocessing <strong>F</strong>ramework (GPF)处理模式。</p>
+<p>此外，SNAP还贴心的提供了Python接口snappy（对Java API的封装）。</p>
+<p>参考资料：https://senbox.atlassian.net/wiki/spaces/SNAP/overview</p>
+<p>但是我使用官方提供的安装包安装好以后，Python接口用不了，所以我想着还不如就用原生的Java接口。</p>
+<p>首先，从<a href="https://github.com/senbox-org" target="_blank" rel="noopener">GitHub</a>下载SNAP的源码进行编译，主要下载了<a href="https://github.com/senbox-org/snap-engine" target="_blank" rel="noopener">snap-engine</a>，<a href="https://github.com/senbox-org/snap-desktop" target="_blank" rel="noopener">snap-desktop</a>，<a href="https://github.com/senbox-org/s1tbx" target="_blank" rel="noopener">s1tbx</a>和<a href="https://github.com/senbox-org/s2tbx" target="_blank" rel="noopener">s2tbx</a>这四个工程，依次进行编译（最新版本为8.0.0-SNAPSHOT）。</p>
+<p>例如对snap-engine的编译命令如下：</p>
+<pre class="shell"><code>cd snap
+git clone https://github.com/senbox-org/snap-engine.git
+cd snap-engine
+mvn clean install -DskipTests=true</code></pre>
+<p>编译中主要问题是一些第三方库下载特别慢或者根本下载不下来，这时候你需要科学上网手动下载需要的依赖包，再次进行编译。</p>
+<p>编译完这四个包以后，我们新建Maven工程进行代码测试。下面代码使用Better Java （Kotlin）进行示范，我把注释加进了代码中方便理解。</p>
+<pre><code>package cn.demo
+
+import java.nio.file.Paths
+import org.esa.snap.core.dataio.ProductIO
+
+
+fun main(args: Array&lt;String&gt;) {
+    val path = Paths.get(&quot;S2B_MSIL1C_20200304T032629_N0209_R018_T48SYC_20200304T075000.zip&quot;)
+    // 通过文件获得读取数据的Reader
+    val reader = ProductIO.getProductReaderForInput(path.toFile())
+    // 通过这个Reader对象来读取Sentinel数据产品Product
+    val product = reader.readProductNodes(path.toFile(), null)
+    // 通过这个Product对象来读取波段中存储的数据
+    val band = product.getBand(&quot;B1&quot;)
+    // 数据不是自动加载的，需要手动加载一下
+    if (!band.hasRasterData()) {
+        band.loadRasterData()
+    }
+    // 获取波段数据，数据是以一维数组的形式存储的，主要使用PixelInterleavedSampleModel这类进行控制像素交替方式存储
+    // 有兴趣的可以参考java.awt.image.PixelInterleavedSampleModel
+    val data = band.rasterData
+    assert(band.rasterHeight * band.rasterWidth == data.numElems)
+}
+</code></pre>
+<p>代码运行过程中，提示找不到OpenJPEG的库（Sentinel-2 SAFE格式的文件中是以JPG图像格式保存各个波段的观测数据的），最后我通过代码调试发现，SNAP中对OpenJPEG库的路径定义在<code>~/.snap/auxdata/openjpeg/8.0.0-SNAPSHOT/</code>目录下，而我的本地没有该目录（虽然<code>/usr/local/bin</code> 目录中有OpenJPEG库，但是SNAP不是在这个目录中寻找的），所以程序会报错。</p>
+<p>解决的方案是我由于本来安装的SNAP桌面版（7.0.0），该版本在<code>~/.snap/auxdata/openjpeg/7.0.0/</code>目录下存放了OpenJPEG库，所以拷贝该版本的库修改名称为<code>8.0.0-SNAPSHOT</code>即可，程序正常运行。</p>
+<p>总得来说，SNAP提供的参考资料不多，有问题只能取Forum中提问。所以我觉得还是使用GDAL读取Sentinel数据，然后再进行进一步操作方便些。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/geos/macOS下GDAL-Java开发环境搭建/" id="post_nav-older" class="next-content">
+            上一篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -586,6 +785,14 @@ It will not impact the appearance and can give developers a lot of support :)
                     
 
                     
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
 
                     <!--Footer-->
 <footer class="mdl-mini-footer" id="bottom">
@@ -726,6 +933,10 @@ It will not impact the appearance and can give developers a lot of support :)
 <!-- Import prettify js  -->
 
     
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
 
 
 
@@ -738,6 +949,11 @@ It will not impact the appearance and can give developers a lot of support :)
     });
 
     
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
         
     
     
