@@ -108,9 +108,9 @@
       <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
     
     
-      <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
-    
       <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
+    
+      <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
     
       <category term="Maven" scheme="http://theonegis.github.io/tags/Maven/"/>
     
