@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://theonegis.github.io/"/>
-  <updated>2020-04-12T03:39:57.330Z</updated>
+  <updated>2020-04-14T01:55:29.716Z</updated>
   <id>http://theonegis.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SNAP Java API处理Sentinel-1数据</title>
+    <link href="http://theonegis.github.io/geos/SNAP-Java-API%E5%A4%84%E7%90%86Sentinel-1%E6%95%B0%E6%8D%AE/"/>
+    <id>http://theonegis.github.io/geos/SNAP-Java-API处理Sentinel-1数据/</id>
+    <published>2020-04-13T23:52:26.000Z</published>
+    <updated>2020-04-14T01:55:29.716Z</updated>
+    
+    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2020年4月14日 周二</p><hr><h1 id="使用snap-java-api处理sentinel-1数据">使用SNAP JAVA API处理Sentinel-1数据</h1><p>SNAP软件使用Java语言开发，提供了Python接口snappy，官方教程中也多以Python接口进行示范。但是我在使用Python接口过程中，发现并不是很好用，你必须要同时懂Java语言才能很好地使用Python接口，在IDEA中使用Python接口的代码基本上没有提示，报错了也是Java的错误提示。而且，Java本来是运行在虚拟机上的语言，效率不高，再用Python包一层，更加降低了运行效率。</p><p>所以，对于我来说，SNAP的Python接口就是鸡肋，没有使用的必要。直接使用Java接口，方便程序直接进行调试，有问题可以直接去看源代码，解决了官方资料不足的问题。</p><h2 id="snap-gpf的使用范式">SNAP GPF的使用范式</h2><p>SNAP推荐使用GPF（Graph Processing Framework）进行数据处理。GPF的使用也很简单，首先基于Operation创建Product，然后写入Product。在写入过程中会自动执行Operation完成你想要的数据处理流程，处理的算法是封装在Operation中的。</p><p>使用GPF的好处是你可以进行多个Operation的流程处理，前一个处理结果直接进入后一个处理，不需要写入磁盘，可以减少磁盘IO带来的时间消耗。</p><h2 id="对sentinel-1-grd数据的处理案例">对Sentinel-1 GRD数据的处理案例</h2><p>下面以对Sentinel-1 GRD数据进行一系列预处理流程演示SNAP Java接口的使用。</p><p>预处理的流程包括：首先对GRD各个极化波进行段辐射校正输出后向散射系数（Sigma nought），然后进行数据裁剪，最后进行地形校正的。</p><p>下面是使用Better Java （Kotlin）进行entinel-1 GRD数据处理的源码。其中，<code>GPF.createProduct</code>方法需要传入Operation的名称和参数，这些信息都可以通过查看Java源代码的方式找到。</p><p>代码运行过程中需要下载DEM数据，可能会比较耗时。如果不对数据裁剪，由于原始数据太大，可能会造成内存溢出。我的笔记本根本跑不动。</p><div class="sourceCode" id="cb1"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">package</span> <span class="im">cn.demo</span></span><span id="cb1-2"><a href="#cb1-2"></a></span><span id="cb1-3"><a href="#cb1-3"></a><span class="kw">import</span> <span class="im">java.nio.file.Paths</span></span><span id="cb1-4"><a href="#cb1-4"></a><span class="kw">import</span> <span class="im">org.apache.commons.io.FilenameUtils</span></span><span id="cb1-5"><a href="#cb1-5"></a></span><span id="cb1-6"><a href="#cb1-6"></a><span class="kw">import</span> <span class="im">kotlin.collections.HashMap</span></span><span id="cb1-7"><a href="#cb1-7"></a></span><span id="cb1-8"><a href="#cb1-8"></a><span class="kw">import</span> <span class="im">org.esa.snap.core.dataio.ProductIO</span></span><span id="cb1-9"><a href="#cb1-9"></a><span class="kw">import</span> <span class="im">org.esa.snap.core.gpf.GPF</span></span><span id="cb1-10"><a href="#cb1-10"></a><span class="kw">import</span> <span class="im">com.bc.ceres.core.PrintWriterConciseProgressMonitor</span></span><span id="cb1-11"><a href="#cb1-11"></a></span><span id="cb1-12"><a href="#cb1-12"></a><span class="kw">import</span> <span class="im">org.locationtech.jts.io.WKTReader</span></span><span id="cb1-13"><a href="#cb1-13"></a></span><span id="cb1-14"><a href="#cb1-14"></a></span><span id="cb1-15"><a href="#cb1-15"></a><span class="kw">fun</span> <span class="fu">main</span>() {</span><span id="cb1-16"><a href="#cb1-16"></a>    <span class="kw">val</span> <span class="va">srcPath</span> =</span><span id="cb1-17"><a href="#cb1-17"></a>    Paths.<span class="kw">get</span>(<span class="st">&quot;/Users/Demo/Desktop/S1A_IW_GRDH_1SDV_20200301T104455_20200301T104520_031481_03A00B_0A9F.zip&quot;</span>)</span><span id="cb1-18"><a href="#cb1-18"></a>    <span class="kw">val</span> <span class="va">srcProduct</span> = ProductIO.readProduct(srcPath.toFile())</span><span id="cb1-19"><a href="#cb1-19"></a></span><span id="cb1-20"><a href="#cb1-20"></a>    <span class="kw">val</span> <span class="va">outDir</span> = <span class="st">&quot;/Users/Demo/Desktop&quot;</span></span><span id="cb1-21"><a href="#cb1-21"></a>    <span class="kw">val</span> <span class="va">baseName</span> = FilenameUtils.getBaseName(srcPath.toString())</span><span id="cb1-22"><a href="#cb1-22"></a>    GPF.getDefaultInstance().operatorSpiRegistry.loadOperatorSpis()</span><span id="cb1-23"><a href="#cb1-23"></a>    <span class="cf">for</span> (polar <span class="kw">in</span> arrayOf(<span class="st">&quot;VV&quot;</span>, <span class="st">&quot;VH&quot;</span>)) {</span><span id="cb1-24"><a href="#cb1-24"></a>        <span class="co">// 首先进行辐射校正（CALIBRATION）</span></span><span id="cb1-25"><a href="#cb1-25"></a>        <span class="co">// 对应是的org.esa.s1tbx.calibration.gpf.CalibrationOp类</span></span><span id="cb1-26"><a href="#cb1-26"></a>        <span class="kw">var</span> <span class="va">parameters</span> = HashMap&lt;<span class="kw">String</span>, Any&gt;()</span><span id="cb1-27"><a href="#cb1-27"></a>        parameters[<span class="st">&quot;outputSigmaBand&quot;</span>] = <span class="kw">true</span></span><span id="cb1-28"><a href="#cb1-28"></a>        parameters[<span class="st">&quot;selectedPolarisations&quot;</span>] = polar</span><span id="cb1-29"><a href="#cb1-29"></a>        <span class="kw">val</span> <span class="va">caliProduct</span> = GPF.createProduct(<span class="st">&quot;Calibration&quot;</span>, parameters, srcProduct)</span><span id="cb1-30"><a href="#cb1-30"></a></span><span id="cb1-31"><a href="#cb1-31"></a>        <span class="co">// 然后进行裁剪，如果不裁剪，图像太大，容易OutOfMemory</span></span><span id="cb1-32"><a href="#cb1-32"></a>        <span class="co">// 对应的是org.esa.snap.core.gpf.common.SubsetOp类</span></span><span id="cb1-33"><a href="#cb1-33"></a>        <span class="kw">val</span> <span class="va">wktRect</span> = <span class="st">&quot;POLYGON((108.175 33.873,108.782 33.873,108.782 33.129,108.175 33.129,108.175 33.873))&quot;</span></span><span id="cb1-34"><a href="#cb1-34"></a>        parameters[<span class="st">&quot;geoRegion&quot;</span>] = WKTReader().read(wktRect)</span><span id="cb1-35"><a href="#cb1-35"></a>        parameters[<span class="st">&quot;bandNames&quot;</span>] = <span class="st">&quot;Sigma0_${polar}&quot;</span></span><span id="cb1-36"><a href="#cb1-36"></a>        <span class="kw">val</span> <span class="va">subsetProduct</span> = GPF.createProduct(<span class="st">&quot;Subset&quot;</span>, parameters, caliProduct)</span><span id="cb1-37"><a href="#cb1-37"></a></span><span id="cb1-38"><a href="#cb1-38"></a></span><span id="cb1-39"><a href="#cb1-39"></a>        <span class="co">// 然后进行地形校正（TERRAIN CORRECTION）</span></span><span id="cb1-40"><a href="#cb1-40"></a>        <span class="co">// 对应的是org.esa.s1tbx.sar.gpf.geometric.RangeDopplerGeocodingOp</span></span><span id="cb1-41"><a href="#cb1-41"></a>        <span class="kw">val</span> <span class="va">corrPath</span> = <span class="st">&quot;${outDir}/${baseName}_Corrected_${polar}&quot;</span></span><span id="cb1-42"><a href="#cb1-42"></a>        parameters.clear()</span><span id="cb1-43"><a href="#cb1-43"></a>        parameters[<span class="st">&quot;pixelSpacingInMeter&quot;</span>] = <span class="fl">10.0</span></span><span id="cb1-44"><a href="#cb1-44"></a>        parameters[<span class="st">&quot;sourceBands&quot;</span>] = <span class="st">&quot;Sigma0_${polar}&quot;</span></span><span id="cb1-45"><a href="#cb1-45"></a>        <span class="kw">val</span> <span class="va">corrProduct</span> = GPF.createProduct(<span class="st">&quot;Terrain-Correction&quot;</span>, parameters, subsetProduct)</span><span id="cb1-46"><a href="#cb1-46"></a>        ProductIO.writeProduct(</span><span id="cb1-47"><a href="#cb1-47"></a>            corrProduct, corrPath, <span class="st">&quot;GeoTIFF&quot;</span>,</span><span id="cb1-48"><a href="#cb1-48"></a>            PrintWriterConciseProgressMonitor(System.<span class="kw">out</span>)</span><span id="cb1-49"><a href="#cb1-49"></a>        )</span><span id="cb1-50"><a href="#cb1-50"></a>                </span><span id="cb1-51"><a href="#cb1-51"></a>        <span class="co">// 最后进行对象销毁，释放内存空间</span></span><span id="cb1-52"><a href="#cb1-52"></a>        caliProduct.dispose()</span><span id="cb1-53"><a href="#cb1-53"></a>        subsetProduct.dispose()</span><span id="cb1-54"><a href="#cb1-54"></a>        corrProduct.dispose()</span><span id="cb1-55"><a href="#cb1-55"></a>    }</span><span id="cb1-56"><a href="#cb1-56"></a>    srcProduct.dispose()</span><span id="cb1-57"><a href="#cb1-57"></a>}</span></code></pre></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
+&lt;p&gt;写作时间：2020年4月14日 周二&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;使用snap-java-api处理sentinel-1数据&quot;&gt;使用SNAP JAVA API处理Sentinel-1数据&lt;/h1&gt;
+&lt;p
+      
+    
+    </summary>
+    
+      <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
+    
+    
+      <category term="Sentinel" scheme="http://theonegis.github.io/tags/Sentinel/"/>
+    
+      <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
+    
+      <category term="SNAP" scheme="http://theonegis.github.io/tags/SNAP/"/>
+    
+  </entry>
   
   <entry>
     <title>Sentinel数据处理工具包SNAP Python开发环境搭建</title>
@@ -42,9 +75,9 @@
     
       <category term="Python" scheme="http://theonegis.github.io/tags/Python/"/>
     
-      <category term="Sentinel影像" scheme="http://theonegis.github.io/tags/Sentinel%E5%BD%B1%E5%83%8F/"/>
-    
       <category term="SNAP" scheme="http://theonegis.github.io/tags/SNAP/"/>
+    
+      <category term="Sentinel影像" scheme="http://theonegis.github.io/tags/Sentinel%E5%BD%B1%E5%83%8F/"/>
     
       <category term="snappy" scheme="http://theonegis.github.io/tags/snappy/"/>
     
@@ -108,13 +141,13 @@
       <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
     
     
-      <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
-    
       <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
     
-      <category term="Maven" scheme="http://theonegis.github.io/tags/Maven/"/>
+      <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
     
       <category term="macOS" scheme="http://theonegis.github.io/tags/macOS/"/>
+    
+      <category term="Maven" scheme="http://theonegis.github.io/tags/Maven/"/>
     
   </entry>
   
@@ -613,37 +646,6 @@
       <category term="LeetCode" scheme="http://theonegis.github.io/tags/LeetCode/"/>
     
       <category term="动态规划" scheme="http://theonegis.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>小波变换三之Haar变换</title>
-    <link href="http://theonegis.github.io/math/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2%E4%B8%89%E4%B9%8BHaar%E5%8F%98%E6%8D%A2/"/>
-    <id>http://theonegis.github.io/math/小波变换三之Haar变换/</id>
-    <published>2019-01-29T03:27:41.000Z</published>
-    <updated>2019-03-22T19:39:53.832Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="小波变换三之haar变换">小波变换三之Haar变换</h1><h2 id="什么是基basis">什么是基（Basis）</h2><p>数学上有一个常用神秘专有名词“基”，那么什么是“基”呢？举个例子：在平面直角坐标系中的的一个点<span class="math inline">\((x, y)\)</span>的坐标可以表示为<span class="math inline">\(x\cdot{(1, 0)} + y\cdot{(0, 1)}\)</span>，这里的<span class="math inline">\((1, 0)\)</span>和<span class="math inline">\((0, 1)​\)</span>就是二维直角坐标系中的基，因为任意的点都可以通过这两个向量的加权进行表示。</p><p>其实，数学中很多定理或者法则都有这样的表示形式。比如：泰勒公式将任意一个可微函数表示为在该函数在某点的各阶导数的多项式的和；傅里叶级数任何周期函数都可以用正弦函数和余弦函数构成的无穷级数来表示。这些定理都是用无穷项的和来毕竟一个函数，而无穷项中的每一项都是一个系数乘以一个给定的函数，这些函数一起构成了所谓的“基”。</p><h2 id="haar小波基">Haar小波基</h2><p>其实，小波变换也是有“基”的。我们先直观来看，然后给出形式化的定义。</p><p>看例子，对于一个信号<span class="math inline">\(f = \{4, 6, 10, 12, 8, 6, 5, 5\}\)</span>，我们可以通过在《<a href="https://theonegis.github.io/math/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2%E4%B8%80%E4%B9%8BHaar%E5%8F%98%E6%8D%A2/">小波变换一之Haar变换</a>》中讲述的方法计算其第一层的变换结果，我们也可以通过“基”辅助计算。</p><h3 id="第一层的基">第一层的基</h3><p>对于第一层的计算，Haar基是这样的：</p><p>对于近似表示的基，我们有：<span class="math display">\[\begin{matrix}V_1^1 = (\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0, \cdots, 0) \\ V_2^1 = (0, 0, \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, \cdots, 0) \\ V_{N/2}^1 = (0, 0, 0, 0, \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})\end{matrix}​\]</span></p><p>所以，变换以后的近似系数为<span class="math inline">\(a^1 = (fV_1^1, fV_2^1, \cdots, fV_{N/2}^1) = (5\sqrt{2}, 11\sqrt{2}, 7\sqrt{2}, 5\sqrt{2})​\)</span></p><p>类似的，对于细节表示的基，我们有：<span class="math display">\[\begin{matrix}W_1^1 = (\frac{1}{\sqrt{2}}, -\frac{1}{\sqrt{2}}, 0, 0, \cdots, 0) \\ W_2^1 = (0, 0, \frac{1}{\sqrt{2}}, -\frac{1}{\sqrt{2}}, \cdots, 0) \\ W_{N/2}^1 = (0, 0, 0, 0, \frac{1}{\sqrt{2}}, -\frac{1}{\sqrt{2}})\end{matrix}​\]</span></p><p>所以，变换以后的细节系数为<span class="math inline">\(d^1 = (fW_1^1, fW_2^1, \cdots, fW_{N/2}^1) = (-\sqrt{2}, -\sqrt{2}, -\sqrt{2}, 0)\)</span></p><h3 id="第二层的基">第二层的基</h3><p>对于第二层的计算（对<span class="math inline">\(a_1\)</span>进行小波分解），Haar基是这样的：</p><p>对于近似表示的基，我们有：<span class="math display">\[\begin{matrix}V_1^2 = (\frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \frac{1}{2},0, 0, 0, 0, \cdots, 0, 0, 0, 0) \\ V_2^2 = (0, 0, 0, 0, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \cdots, 0, 0, 0, 0) \\ V_{N/4}^2 = (0, 0, 0, 0, 0, 0, 0, 0,  \cdots, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \frac{1}{2})\end{matrix}​\]</span></p><p>变换以后的近似系数为<span class="math inline">\(a^2 = (fV_1^2, fV_2^2, \cdots, fV_{N/4}^2) = (16, 12)\)</span></p><p>对于细节表示的基，我们有：<span class="math display">\[\begin{matrix}W_1^2 = (\frac{1}{2}, \frac{1}{2}, -\frac{1}{2}, -\frac{1}{2},0, 0, 0, 0, \cdots, 0, 0, 0, 0) \\ W_2^2 = (0, 0, 0, 0, \frac{1}{2}, \frac{1}{2}, -\frac{1}{2}, -\frac{1}{2}, \cdots, 0, 0, 0, 0) \\ W_{N/4}^2 = (0, 0, 0, 0, 0, 0, 0, 0,  \cdots, \frac{1}{2}, \frac{1}{2}, -\frac{1}{2}, -\frac{1}{2})\end{matrix}\]</span></p><p>变换以后的细节系数为<span class="math inline">\(d^1 = (fW_1^2, fW_2^2, \cdots, fW_{N/4}^2) = (-6, 2)​\)</span></p><p>后面，如果要继续再分解的话，我们可以找到类似上面的“基”做进一步分解。</p><p>可以看到Haar小波基都是正交的（与除了自己以外的其它基的內积为0），而且都经过了单位化（模为1）。</p><h2 id="母小波和父小波">母小波和父小波</h2><p>在小波变换中有两个重要的术语：母小波（mother wavelet）和父小波（father wavelet），而我们的小波基就是由父小波和母小波经过平移和缩放得到的。母小波也叫做小波函数（wavelet function），对应着细节系数的基，父小波也叫做缩放函数（scaling function），对应着近似系数的基。</p><p>Haar小波的母小波定义为<span class="math display">\[\psi(x) = \begin{cases}1, &amp; 0 \le x \lt \frac{1}{2} \\-1, &amp; \frac{1}{2}\le x \lt 1\\ 0, &amp; \mathrm{其它}\end{cases}​\]</span></p><p>Haar小波的父小波定义为<span class="math display">\[\phi(x) = \begin{cases}1, &amp; 0 \le x \le 1\\ 0, &amp; \mathrm{其它}\end{cases}\]</span></p><p>不止对于Haar小波，任何小波的基都是对其母小波和父小波缩放和平移后的集合。感兴趣的朋友可以在下面的网址中查看一下，如何对小波函数进行缩放和平移：<a href="http://demonstrations.wolfram.com/HaarFunctions/" target="_blank" rel="noopener">Haar Functions</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;小波变换三之haar变换&quot;&gt;小波变换三之Haar变换&lt;/h1&gt;
-&lt;h2 id=&quot;什么是基basis&quot;&gt;什么是基（Basis）&lt;/h2&gt;
-&lt;p&gt;数学上有一个常用神秘专有名词“基”，那么什么是“基”呢？举个例子：在平面直角坐标系中的的一个点&lt;span class=&quot;m
-      
-    
-    </summary>
-    
-      <category term="数学" scheme="http://theonegis.github.io/categories/math/"/>
-    
-    
-      <category term="小波变换" scheme="http://theonegis.github.io/tags/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/"/>
-    
-      <category term="Haar变换" scheme="http://theonegis.github.io/tags/Haar%E5%8F%98%E6%8D%A2/"/>
-    
-      <category term="Wavelet" scheme="http://theonegis.github.io/tags/Wavelet/"/>
     
   </entry>
   
