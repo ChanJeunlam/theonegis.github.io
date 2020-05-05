@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://theonegis.github.io/"/>
-  <updated>2020-04-14T01:55:29.716Z</updated>
+  <updated>2020-05-05T12:17:58.438Z</updated>
   <id>http://theonegis.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Scala和Kotlin脚本编程</title>
+    <link href="http://theonegis.github.io/java/Scala%E5%92%8CKotlin%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/"/>
+    <id>http://theonegis.github.io/java/Scala和Kotlin脚本编程/</id>
+    <published>2020-05-05T10:37:15.000Z</published>
+    <updated>2020-05-05T12:17:58.438Z</updated>
+    
+    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>作者：阿振</p><p>写作时间：2020-05-05 五一假期末</p><hr><h1 id="scala和kotlin脚本编程">Scala和Kotlin脚本编程</h1><p>Scala和Kotlin作为运行在JVM上的编程语言，解决了Java的很多痛点。今天我们来聊聊如何将Scala和Kotlin作为脚本语言使用（Java不支持以脚本形式运行哦）。</p><h2 id="kotlin脚本编程">Kotlin脚本编程</h2><p>Kotlin脚本的扩展名为<code>kts</code>，运行命令为<code>kotlinc -script &lt;脚本文件名.kts&gt;</code></p><h3 id="helloworld示例">HelloWorld示例</h3><p>下面我们来看一个HelloWorld示例：</p><p>新建名称为<code>Main.kts</code>的Kotlin脚本文件，内容如下：</p><div class="sourceCode" id="cb1"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb1-1"><a href="#cb1-1"></a>println(<span class="st">&quot;你好 ${if (args.isNotEmpty()) args[0] else &quot;&quot;}!&quot;</span>)</span></code></pre></div><p>可以看到脚本程序不需要主函数，Kotlin脚本以<code>args</code>参数接收用户输入（args是一个<code>Array&lt;String&gt;</code>类型的数组）</p><p>在命令行执行：<code>kotlinc -script Main.kts 高寒</code></p><p>得到脚本运行结果为：<code>你好 高寒!</code></p><h3 id="调用外部命令">调用外部命令</h3><p>如果我们想在Kotlin脚本中调用外部的命令或者程序需要怎么做呢？</p><p>使用Java API中提供的<code>Runtime.getRuntime().exec()</code>函数或者<code>ProcessBuilder</code>类创建一个<code>Process</code>对象调用外部命令。</p><p>下面以调用系统<code>ls</code>命令作为示例程序进行演示说明。</p><div class="sourceCode" id="cb2"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">import</span> <span class="im">java.lang.Runtime</span></span><span id="cb2-2"><a href="#cb2-2"></a></span><span id="cb2-3"><a href="#cb2-3"></a><span class="kw">val</span> <span class="va">process</span>: Process = Runtime.getRuntime().exec(<span class="st">&quot;ls /Users/TheOneGIS/Desktop&quot;</span>)</span><span id="cb2-4"><a href="#cb2-4"></a>process.waitFor()</span><span id="cb2-5"><a href="#cb2-5"></a></span><span id="cb2-6"><a href="#cb2-6"></a>process.inputStream.reader().use {</span><span id="cb2-7"><a href="#cb2-7"></a>    println(it.readText())</span><span id="cb2-8"><a href="#cb2-8"></a>}</span></code></pre></div><p>或者</p><div class="sourceCode" id="cb3"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">import</span> <span class="im">java.lang.ProcessBuilder</span></span><span id="cb3-2"><a href="#cb3-2"></a></span><span id="cb3-3"><a href="#cb3-3"></a><span class="kw">val</span> <span class="va">process</span>: Process = ProcessBuilder(<span class="st">&quot;ls&quot;</span>, <span class="st">&quot;/Users/TheOneGIS/Desktop&quot;</span>).start()</span><span id="cb3-4"><a href="#cb3-4"></a>process.waitFor()</span><span id="cb3-5"><a href="#cb3-5"></a></span><span id="cb3-6"><a href="#cb3-6"></a>process.inputStream.reader().use {</span><span id="cb3-7"><a href="#cb3-7"></a>    println(it.readText())</span><span id="cb3-8"><a href="#cb3-8"></a>}</span></code></pre></div><p>在命令行中执行<code>kotlinc -script Main.kts</code>，输出结果如下：</p><div class="sourceCode" id="cb4"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb4-1"><a href="#cb4-1"></a><span class="dv">11</span></span><span id="cb4-2"><a href="#cb4-2"></a><span class="kw">data</span></span><span id="cb4-3"><a href="#cb4-3"></a>raw</span><span id="cb4-4"><a href="#cb4-4"></a>[这里有一个空行]</span></code></pre></div><p>注意：</p><ol type="1"><li><code>Runtime.getRuntime().exec()</code>函数中直接输入命令名称加参数组成的字符串</li><li><code>ProcessBuilder</code>使用多个参数进行命令名称和参数进行类的初始化</li><li>命令中的路径名称不能使用<code>~</code>特殊字符，否则会出错。建议使用全路径。</li><li><code>Process.waitFor()</code>等待调用的外部程序执行完毕再接着执行脚本后续代码。</li><li>从输出结果的InputStream中得到文本输出，可以看到最终的文本输出每一行之后都会增加一个换行符。</li></ol><h2 id="scala脚本编程">Scala脚本编程</h2><p>Scala脚本的扩展名仍为<code>scala</code>，运行命令为<code>scala &lt;脚本文件名.scala&gt;</code>，和普通的Scala类一样。</p><h3 id="helloworld示例-1">HelloWorld示例</h3><p>新建名称为<code>Main.scala</code>的Scala脚本文件，内容如下：</p><div class="sourceCode" id="cb5"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">println</span>(s<span class="st">&quot;你好 ${if (args.nonEmpty) args(0) else &quot;&quot;}!&quot;</span>)</span></code></pre></div><p>可以看到和Kotlin脚本程序一样不需要主函数，Scala脚本同样以<code>args</code>参数接收用户输入（args是一个<code>Array[String]</code>类型的数组）</p><p>在命令行执行：<code>scala Main.scala 高寒</code></p><p>得到脚本运行结果为：<code>你好 高寒!</code></p><h3 id="调用外部命令-1">调用外部命令</h3><p>在Scala中可以调用Java方法，我们可以直接使用上面类似Kotlin的方式，但是Scala中为我们提供了更加便捷的方法来调用外部命令或程序，下面我们来看一下吧！</p><ol type="1"><li>使用<code>Process</code>的<code>!</code>方法，得到执行结果的状态码，一般0表示成功</li><li>使用<code>Process</code>的<code>!!</code>方法，得到执行结果的文本输出</li><li>使用<code>Process</code>的<code>lazyLines</code>方法，将得到保存在<code>LazyList[String]</code>结构的输出中（延迟执行）</li></ol><p>注意：这里的<code>Process</code>类是Scala类库中提供的，前面在Kotlin中使用的<code>Process</code>类是Java类库中提供的。</p><p>我们先来看第一种方式：</p><div class="sourceCode" id="cb6"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">import</span> sys.<span class="fu">process</span>._</span><span id="cb6-2"><a href="#cb6-2"></a>Process(<span class="st">&quot;ls /Users/TheOneGIS/Desktop&quot;</span>).!</span></code></pre></div><p>在命令行中运行<code>scala Main.scala</code>，得到执行结果：</p><div class="sourceCode" id="cb7"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb7-1"><a href="#cb7-1"></a><span class="dv">11</span></span><span id="cb7-2"><a href="#cb7-2"></a>data</span><span id="cb7-3"><a href="#cb7-3"></a>raw</span></code></pre></div><p><code>Process</code>的<code>!</code>方法是有返回值的，这里我们直接舍弃了，并不关心<code>ls</code>的返回值，我们只关心<code>ls</code>命令的输出结果。</p><p>再看第二种方式：</p><div class="sourceCode" id="cb8"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">import</span> sys.<span class="fu">process</span>._</span><span id="cb8-2"><a href="#cb8-2"></a><span class="kw">val</span> results = Process(<span class="st">&quot;ls /Users/TheOneGIS/Desktop&quot;</span>).!!</span><span id="cb8-3"><a href="#cb8-3"></a><span class="fu">println</span>(results)</span></code></pre></div><p>在命令行中运行<code>scala Main.scala</code>，得到执行结果：</p><div class="sourceCode" id="cb9"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb9-1"><a href="#cb9-1"></a><span class="dv">11</span></span><span id="cb9-2"><a href="#cb9-2"></a>data</span><span id="cb9-3"><a href="#cb9-3"></a>raw</span><span id="cb9-4"><a href="#cb9-4"></a>[这里有一个空行]</span></code></pre></div><p>可以看到<code>results</code>字符串是给<code>ls</code>命令的每个输出字符后面都加了换行符。</p><p>再看第三种方式：</p><div class="sourceCode" id="cb10"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">import</span> sys.<span class="fu">process</span>._</span><span id="cb10-2"><a href="#cb10-2"></a><span class="kw">val</span> results = Process(<span class="st">&quot;ls /Users/TheOneGIS/Desktop&quot;</span>).<span class="fu">lazyLines</span></span><span id="cb10-3"><a href="#cb10-3"></a>results.<span class="fu">foreach</span>(println)</span></code></pre></div><p>输出结果和第一种方式一样，不过当需要获取最后输出并且需要对输出进行操作的时候我最喜欢使用第三种方式，不需要对输出进行进一步处理的时候我喜欢使用第一种方式。</p><h2 id="scala和kotlin脚本编程的异同">Scala和Kotlin脚本编程的异同</h2><ol type="1"><li>Scala脚本的扩展名和执行方式和普通Scala类一样；Kotlin脚本的扩展名为<code>kts</code>，执行的时候需要加<code>-script</code>参数</li><li>Scala提供了对于外部命令调用的快捷方法；Kotlin主要依靠Java类库进行外部命令调用</li><li>在IntelliJ IDEA中可以直接运行Kotlin脚本，但是不支持直接运行Scala脚本</li><li>IntelliJ IDEA提供了对<a href="https://ammonite.io" target="_blank" rel="noopener">Ammonite</a>项目的支持，可以运行Ammonite Scala脚本</li></ol><p>注：Ammonite项目扩展了Scala的脚本功能，添加了很多额外的特性，甚至提供了一个基于Scala的Shell（类似于Bash Shell）。用Ammonite写的Scala脚本扩展名为<code>sc</code>，使用<code>amm</code>命令进行执行。感兴趣的童鞋可以去围观该项目。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
+&lt;p&gt;作者：阿振&lt;/p&gt;
+&lt;p&gt;写作时间：2020-05-05 五一假期末&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;scala和kotlin脚本编程&quot;&gt;Scala和Kotlin脚本编程&lt;/h1&gt;
+&lt;p&gt;Scala和Kot
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="http://theonegis.github.io/categories/java/"/>
+    
+    
+      <category term="Scala" scheme="http://theonegis.github.io/tags/Scala/"/>
+    
+      <category term="Kotlin" scheme="http://theonegis.github.io/tags/Kotlin/"/>
+    
+      <category term="Script" scheme="http://theonegis.github.io/tags/Script/"/>
+    
+  </entry>
   
   <entry>
     <title>SNAP Java API处理Sentinel-1数据</title>
@@ -141,13 +175,13 @@
       <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
     
     
-      <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
-    
       <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
     
-      <category term="macOS" scheme="http://theonegis.github.io/tags/macOS/"/>
+      <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
     
       <category term="Maven" scheme="http://theonegis.github.io/tags/Maven/"/>
+    
+      <category term="macOS" scheme="http://theonegis.github.io/tags/macOS/"/>
     
   </entry>
   
@@ -607,35 +641,6 @@
         &lt;h1 id=&quot;minimum-falling-path-sum&quot;&gt;Minimum Falling Path Sum&lt;/h1&gt;
 &lt;h2 id=&quot;题目描述&quot;&gt;题目描述&lt;/h2&gt;
 &lt;p&gt;本题目链接：&lt;a href=&quot;https://leetcode.com/problems/mini
-      
-    
-    </summary>
-    
-      <category term="算法" scheme="http://theonegis.github.io/categories/algorithm/"/>
-    
-    
-      <category term="LeetCode" scheme="http://theonegis.github.io/tags/LeetCode/"/>
-    
-      <category term="动态规划" scheme="http://theonegis.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-Minimum Cost For Tickets</title>
-    <link href="http://theonegis.github.io/algorithm/LeetCode-Minimum-Cost-For-Tickets/"/>
-    <id>http://theonegis.github.io/algorithm/LeetCode-Minimum-Cost-For-Tickets/</id>
-    <published>2019-02-04T04:41:11.000Z</published>
-    <updated>2019-03-22T19:39:53.823Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="minimum-cost-for-tickets">Minimum Cost For Tickets</h1><h2 id="题目描述">题目描述</h2><p>LeetCode地址：<a href="https://leetcode.com/problems/minimum-cost-for-tickets/" target="_blank" rel="noopener">983. Minimum Cost For Tickets</a></p><p>In a country popular for train travel, you have planned some train travelling one year in advance. The days of the year that you will travel is given as an array <code>days</code>. Each day is an integer from <code>1</code> to <code>365</code>.</p><p>Train tickets are sold in 3 different ways:</p><ul><li>a 1-day pass is sold for <code>costs[0]</code> dollars;</li><li>a 7-day pass is sold for <code>costs[1]</code> dollars;</li><li>a 30-day pass is sold for <code>costs[2]</code> dollars.</li></ul><p>The passes allow that many days of consecutive travel. For example, if we get a 7-day pass on day 2, then we can travel for 7 days: day 2, 3, 4, 5, 6, 7, and 8.</p><p>Return the minimum number of dollars you need to travel every day in the given list of <code>days</code>.</p><p>days数组中存储的是该年中去旅游的日期（范围为1到365之间的数字），costs数组大小为3，存储的是1天，7天和30天火车票的价格。我们需要做一个方案选择合适的购票方案达到旅游days天最省钱的目的。</p><h2 id="算法描述">算法描述</h2><p>采用动态规划进行解决，假设现在是第days[i]天，我们在该天出行旅游需要选择买票方案，现在我们有三种方案：第一，购买一天的通行票，当天出行，花费就是第days[i-1]天的花费加上一天的通行票价；第二，购买七天的通行票，而七天的通行票可以在连续的七天之内使用，所以花费是第days[i-7]天的花费加上七天的通行票价（即从第days[i-8]天到days[i]天的花费都包含在这七天的通行票中）；第三，购买三十天的通行票，同理，花费是days[i-30]天加上三十天的通行票价。然后我们在这三种方案中选择最实惠的。最后，在实现代码中注意数组越界的问题。</p><p>使用dp[j]代表着我们旅行到i天为止需要的最少旅行价格，递推公式为：</p><ol type="1"><li>dp[j] = dp[j-1] （第j天不用旅行）</li><li>dp[j] = min(dp[j-1] + costs[0], dp[j-7] + costs[1], dp[j-30] + costs[2]) （第j天需要旅行）</li></ol><h2 id="c实现">C++实现</h2><div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> Solution {</span><span id="cb1-2"><a href="#cb1-2"></a><span class="kw">public</span>:</span><span id="cb1-3"><a href="#cb1-3"></a>    <span class="dt">int</span> mincostTickets(vector&lt;<span class="dt">int</span>&gt; &amp;days, vector&lt;<span class="dt">int</span>&gt; &amp;costs) {</span><span id="cb1-4"><a href="#cb1-4"></a>        <span class="cf">if</span> (days.size() == <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">0</span>;</span><span id="cb1-5"><a href="#cb1-5"></a>        <span class="ot">assert</span>(costs.size() == <span class="dv">3</span>);</span><span id="cb1-6"><a href="#cb1-6"></a>        <span class="co">// dp[i]代表着我们旅行到i天需要的最少旅行价格, dp[0]为0，没实际含义</span></span><span id="cb1-7"><a href="#cb1-7"></a>        array&lt;<span class="dt">int</span>, <span class="dv">366</span>&gt; dp = {<span class="dv">0</span>};</span><span id="cb1-8"><a href="#cb1-8"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt; dp.size(); ++i) {</span><span id="cb1-9"><a href="#cb1-9"></a>            <span class="co">// 如果这一天不旅行</span></span><span id="cb1-10"><a href="#cb1-10"></a>            <span class="cf">if</span> (find(days.begin(), days.end(), i) == days.end()) dp[i] = dp[i - <span class="dv">1</span>];</span><span id="cb1-11"><a href="#cb1-11"></a>            <span class="cf">else</span> {</span><span id="cb1-12"><a href="#cb1-12"></a>                dp[i] = min({</span><span id="cb1-13"><a href="#cb1-13"></a>                   dp[i - <span class="dv">1</span>] + costs[<span class="dv">0</span>],</span><span id="cb1-14"><a href="#cb1-14"></a>                   dp[max(<span class="dv">0</span>, i - <span class="dv">7</span>)] + costs[<span class="dv">1</span>],</span><span id="cb1-15"><a href="#cb1-15"></a>                   dp[max(<span class="dv">0</span>, i - <span class="dv">30</span>)] + costs[<span class="dv">2</span>]</span><span id="cb1-16"><a href="#cb1-16"></a>                });</span><span id="cb1-17"><a href="#cb1-17"></a>            }</span><span id="cb1-18"><a href="#cb1-18"></a>        }</span><span id="cb1-19"><a href="#cb1-19"></a>        <span class="cf">return</span> dp[<span class="dv">365</span>];</span><span id="cb1-20"><a href="#cb1-20"></a>    }</span><span id="cb1-21"><a href="#cb1-21"></a>};</span></code></pre></div><h2 id="scala实现">Scala实现</h2><p>注：如果有童鞋有纯函数的实现，希望分享出来！共享！</p><div class="sourceCode" id="cb2"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">object</span> Solution {</span><span id="cb2-2"><a href="#cb2-2"></a>  <span class="kw">def</span> <span class="fu">mincostTickets</span>(days: Array[Int], costs: Array[Int]): Int = {</span><span id="cb2-3"><a href="#cb2-3"></a>    <span class="kw">if</span> (days.<span class="fu">length</span> == <span class="dv">0</span>) <span class="kw">return</span> <span class="dv">0</span></span><span id="cb2-4"><a href="#cb2-4"></a>    <span class="fu">assert</span>(costs.<span class="fu">length</span> == <span class="dv">3</span>)</span><span id="cb2-5"><a href="#cb2-5"></a>    <span class="kw">val</span> travels = days.<span class="fu">toSet</span></span><span id="cb2-6"><a href="#cb2-6"></a>    <span class="kw">val</span> dp = Array.<span class="fu">fill</span>[Int](<span class="dv">366</span>)(<span class="dv">0</span>)</span><span id="cb2-7"><a href="#cb2-7"></a></span><span id="cb2-8"><a href="#cb2-8"></a>    <span class="kw">for</span> (i &lt;- <span class="dv">1</span> until <span class="dv">366</span>) {</span><span id="cb2-9"><a href="#cb2-9"></a>      <span class="kw">if</span> (!travels.<span class="fu">contains</span>(i)) <span class="fu">dp</span>(i) = <span class="fu">dp</span>(i - <span class="dv">1</span>)</span><span id="cb2-10"><a href="#cb2-10"></a>      <span class="kw">else</span> <span class="fu">dp</span>(i) = List(</span><span id="cb2-11"><a href="#cb2-11"></a>        <span class="fu">dp</span>(i - <span class="dv">1</span>) + <span class="fu">costs</span>(<span class="dv">0</span>),</span><span id="cb2-12"><a href="#cb2-12"></a>        <span class="fu">dp</span>(math.<span class="fu">max</span>(<span class="dv">0</span>, i - <span class="dv">7</span>)) + <span class="fu">costs</span>(<span class="dv">1</span>),</span><span id="cb2-13"><a href="#cb2-13"></a>        <span class="fu">dp</span>(math.<span class="fu">max</span>(<span class="dv">0</span>, i - <span class="dv">30</span>)) + <span class="fu">costs</span>(<span class="dv">2</span>)</span><span id="cb2-14"><a href="#cb2-14"></a>      ).<span class="fu">min</span></span><span id="cb2-15"><a href="#cb2-15"></a>    }</span><span id="cb2-16"><a href="#cb2-16"></a></span><span id="cb2-17"><a href="#cb2-17"></a>    <span class="fu">dp</span>(<span class="dv">365</span>)</span><span id="cb2-18"><a href="#cb2-18"></a>  }</span><span id="cb2-19"><a href="#cb2-19"></a>}</span></code></pre></div>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;minimum-cost-for-tickets&quot;&gt;Minimum Cost For Tickets&lt;/h1&gt;
-&lt;h2 id=&quot;题目描述&quot;&gt;题目描述&lt;/h2&gt;
-&lt;p&gt;LeetCode地址：&lt;a href=&quot;https://leetcode.com/problems
       
     
     </summary>
