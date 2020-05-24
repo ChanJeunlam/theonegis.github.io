@@ -3,6 +3,56 @@
   
     
     <entry>
+      <title>QGIS制图中面积小的区域不显示注记</title>
+      <link href="/geos/QGIS%E5%88%B6%E5%9B%BE%E4%B8%AD%E9%9D%A2%E7%A7%AF%E5%B0%8F%E7%9A%84%E5%8C%BA%E5%9F%9F%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%B3%A8%E8%AE%B0/"/>
+      <url>/geos/QGIS%E5%88%B6%E5%9B%BE%E4%B8%AD%E9%9D%A2%E7%A7%AF%E5%B0%8F%E7%9A%84%E5%8C%BA%E5%9F%9F%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%B3%A8%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>作者：阿振</p><p>写作时间：2020-05-24 周天</p><hr><h1 id="qgis制图中面积太小的区域不显示注记">QGIS制图中面积太小的区域不显示注记</h1><p>在使用QGIS进行制图的过程中，对于面积太小的区域有可能存在注记显示不出来的情况。比如在中国地图中，香港和澳门区域面积较小，就存在显示不了注记的情况。</p><p>如下图，就会发现澳门没有显示出来。</p><figure><img src="/images/QGIS/屏幕快照%202020-05-24%20上午7.36.07.png" alt=""><figcaption>屏幕快照 2020-05-24 上午7.36.07</figcaption></figure><p>这时候，我们需要进行一些额外的设置，右键相应的图层，选择属性，在注记选项卡中进行设置（<code>Show all labels for this layer</code>），如下图。</p><figure><img src="/images/QGIS/屏幕快照%202020-05-24%20上午7.36.30.png" alt=""><figcaption>屏幕快照 2020-05-24 上午7.36.30</figcaption></figure><p>设置完成以后应该就可以显示了，但是有时候仍然不能正确显示，我们还需要进行如下设置（<code>whole polygon</code>）：</p><figure><img src="/images/QGIS/屏幕快照%202020-05-24%20上午7.37.18.png" alt=""><figcaption>屏幕快照 2020-05-24 上午7.37.18</figcaption></figure><p>最终结果可能存在标签注记压盖的情况，这时候我们可以手动对标签的位置进行调整，达到视觉上清晰的状态。</p><figure><img src="/images/QGIS/屏幕快照%202020-05-24%20上午7.38.47.png" alt=""><figcaption>屏幕快照 2020-05-24 上午7.38.47</figcaption></figure>]]></content>
+      
+      <categories>
+          
+          <category> 空间数据处理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> QGIS </tag>
+            
+            <tag> 制图 </tag>
+            
+            <tag> 技巧 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title></title>
+      <link href="/geos/QGIS%E9%9D%A2%E6%95%B0%E6%8D%AE%E8%9E%8D%E5%90%88%E4%BB%A5%E5%90%8E%E6%9C%89%E5%B0%8F%E7%9A%84%E7%BA%BF%E6%AE%B5%E6%88%96%E8%80%85%E6%B4%9E%E5%AD%98%E5%9C%A8%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/"/>
+      <url>/geos/QGIS%E9%9D%A2%E6%95%B0%E6%8D%AE%E8%9E%8D%E5%90%88%E4%BB%A5%E5%90%8E%E6%9C%89%E5%B0%8F%E7%9A%84%E7%BA%BF%E6%AE%B5%E6%88%96%E8%80%85%E6%B4%9E%E5%AD%98%E5%9C%A8%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/</url>
+      <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>作者：阿振</p><p>写作时间：2020-05-24 周末</p><hr><h1 id="qgis面数据融合以后有小的线段或者洞存在如何解决">QGIS面数据融合以后有小的线段或者洞存在如何解决</h1><p>在QGIS中我们使用<code>Dissolve</code>工具进行面数据的融合，如下图对中国分省的矢量面数据进行融合得到国界</p><figure><img src="/images/QGIS/屏幕快照2020-05-24上午7.15.23.png" alt=""><figcaption>屏幕快照2020-05-24上午7.15.23</figcaption></figure><figure><img src="/images/QGIS/屏幕快照2020-05-24%20上午7.13.58.png" alt=""><figcaption>屏幕快照2020-05-24 上午7.13.58</figcaption></figure><figure><img src="/images/QGIS/屏幕快照2020-05-24上午7.15.57.png" alt=""><figcaption>屏幕快照2020-05-24上午7.15.57</figcaption></figure><p>可以看到融合结果中存在明显的细小线段存在，那么融合处理这些问题呢？</p><p>我们可以使用QGIS提供的<code>Delete holes</code>工具进行处理（从菜单栏Processing -&gt; Toolbox进行打开，然后根据名称搜索相关工具）</p><figure><img src="/images/QGIS/屏幕快照2020-05-24上午7.18.08.png" alt=""><figcaption>屏幕快照2020-05-24上午7.18.08</figcaption></figure><p>下面是处理以后的结果图，可以看到讨厌的线段被清除了。</p><figure><img src="/images/QGIS/屏幕快照2020-05-24上午7.19.12.png" alt=""><figcaption>屏幕快照2020-05-24上午7.19.12</figcaption></figure><p>总结一下，QGIS面数据融合的步骤是首先使用<code>Dissolve</code>工具进行面融合，然后使用<code>Delete holes</code>工具进行离散的线段或者小洞的删除。</p>]]></content>
+      
+      <categories>
+          
+          <category> 空间数据处理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> QGIS </tag>
+            
+            <tag> 制图 </tag>
+            
+            <tag> 技巧 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Scala和Kotlin脚本编程</title>
       <link href="/java/Scala%E5%92%8CKotlin%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/"/>
       <url>/java/Scala%E5%92%8CKotlin%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/</url>
