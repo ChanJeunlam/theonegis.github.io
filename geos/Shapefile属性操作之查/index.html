@@ -47,7 +47,7 @@
     
     <title>
         
-            标签: 函数指针 | 
+            Shapefile属性操作之查 | 
         
         阿振的博客
     </title>
@@ -58,7 +58,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="博学之，审问之，慎思之，明辨之，笃行之">
-    <meta name="keywords" content="TheoneGIS, 空间信息处理">
+    <meta name="keywords" content="TheoneGIS, 空间信息处理,Shapefile,GDAL,矢量数据,属性操作,增加字段">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -85,6 +85,9 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/atelier-lakeside-light.min.css?vHkP60BXIENHxF6lUdDXhA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
             
         
 
@@ -221,7 +224,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="阿振的博客">
-    <meta name="msapplication-starturl" content="http://theonegis.github.io/tags/函数指针/">
+    <meta name="msapplication-starturl" content="http://theonegis.github.io/geos/Shapefile属性操作之查/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="阿振的博客">
@@ -240,13 +243,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://theonegis.github.io/tags/函数指针/">
+    <meta property="og:url" content="http://theonegis.github.io/geos/Shapefile属性操作之查/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: 函数指针 | 阿振的博客">
+    <meta property="og:title" content="Shapefile属性操作之查 | 阿振的博客">
     <meta property="og:image" content="/img/logo.png">
     <meta property="og:description" content="博学之，审问之，慎思之，明辨之，笃行之">
-    
+    <meta property="og:article:tag" content="Shapefile"> <meta property="og:article:tag" content="GDAL"> <meta property="og:article:tag" content="矢量数据"> <meta property="og:article:tag" content="属性操作"> <meta property="og:article:tag" content="增加字段"> 
 
+    
+        <meta property="article:published_time" content="Sat Jun 13 2020 23:14:28 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jun 13 2020 23:41:58 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -254,13 +260,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://theonegis.github.io/tags/函数指针/index.html" />
+        <link rel="canonical" href="http://theonegis.github.io/geos/Shapefile属性操作之查/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://theonegis.github.io/geos/Shapefile属性操作之查/index.html",
+    "headline": "Shapefile属性操作之查",
+    "datePublished": "Sat Jun 13 2020 23:14:28 GMT+0800",
+    "dateModified": "Sat Jun 13 2020 23:41:58 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "阿振",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.gif"
+        },
+        "description": "博学之，审问之，慎思之，明辨之，笃行之"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "阿振的博客",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/logo.png"
+        }
+    },
+    "keywords": ",Shapefile,GDAL,矢量数据,属性操作,增加字段TheoneGIS, 空间信息处理",
+    "description": "博学之，审问之，慎思之，明辨之，笃行之",
+}
+</script>
 
 
     
@@ -294,99 +330,305 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开篇"><span class="post-toc-number">1.</span> <span class="post-toc-text">开篇</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#案例介绍"><span class="post-toc-number">2.</span> <span class="post-toc-text">案例介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#sql查询方式"><span class="post-toc-number">3.</span> <span class="post-toc-text">SQL查询方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码展示"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">代码展示</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法总结"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">方法总结</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遍历feature要素方式"><span class="post-toc-number">4.</span> <span class="post-toc-text">遍历Feature要素方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码展示-1"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">代码展示</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法总结-1"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">方法总结</span></a></li></ol></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/cxx/C-函数指针和std-function对象/">C++函数指针和std::function对象</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            C++函数指针和std::function对象
-这篇博文中通过实现对String...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/cxx/C-函数指针和std-function对象/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.gif" width="44px" height="44px" alt="阿振's avatar">
-            </div>
-            <div>
-                <strong>阿振</strong>
-                <span>10月 07, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/cxx/">C++</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Shapefile属性操作之查
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.gif" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>阿振</strong>
+        <span>6月 13, 2020</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/GDAL/">GDAL</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Shapefile/">Shapefile</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/增加字段/">增加字段</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/属性操作/">属性操作</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/矢量数据/">矢量数据</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Shapefile属性操作之查&url=http://theonegis.github.io/geos/Shapefile属性操作之查/index.html&pic=http://theonegis.github.io/img/logo.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Shapefile属性操作之查&url=http://theonegis.github.io/geos/Shapefile属性操作之查/index.html&via=阿振" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://theonegis.github.io/geos/Shapefile属性操作之查/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=阿振的博客&title=Shapefile属性操作之查&summary=博学之，审问之，慎思之，明辨之，笃行之&pics=http://theonegis.github.io/img/logo.png&url=http://theonegis.github.io/geos/Shapefile属性操作之查/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>版权声明：本文为博主原创文章，转载请注明原文出处！</p>
+<p>作者：阿振</p>
+<p>写作时间：2020-06-13 夜</p>
+<hr>
+<h1 id="开篇">开篇</h1>
+<p>在前面几篇博文中，我们分别介绍了矢量空间数据的属性数据的增（CREATE）删（DELETE）改（UPDATE）操作，这篇博文我们来聊聊属性数据的查询（Retrieve）操作。</p>
+<h1 id="案例介绍">案例介绍</h1>
+<p>我们还是使用之前的分省Shapefile数据，主要包含每个省的一些统计信息。下面以两个案例进行介绍：</p>
+<ol type="1">
+<li>从给定数据中查询中学数量（HighSchool字段）大于1万所的省份</li>
+<li>从给定数据中查询中学数量最多的省份</li>
+</ol>
+<p>下面简单说一下使用GDAL进行属性数据查询的两种思路：</p>
+<ol type="1">
+<li>因为矢量数据的属性一般都是以关系表进行保存的，所以我们可以使用关系数据库查询语言SQL进行数据查询。GDAL支持部分SQL查询功能。</li>
+<li>我们可以遍历图层Layer中包含的所有Feature要素，然后读取要素的属性数据进行筛选过滤得到我们想要的结果。</li>
+</ol>
+<h1 id="sql查询方式">SQL查询方式</h1>
+<h2 id="代码展示">代码展示</h2>
+<p>Talk is cheap. Show me the code.</p>
+<p>首先，我们来看看使用SQL进行查询的代码。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> osgeo <span class="im">import</span> ogr</span>
+<span id="cb1-2"><a href="#cb1-2"></a>ogr.UseExceptions()</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>ds: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/Provinces.shp&#39;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># 注意Layer的名称不能包含中文</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>layer: ogr.Layer <span class="op">=</span> ds.GetLayer()</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># 选择出中学数量大于1万所的省份</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>query: <span class="bu">str</span> <span class="op">=</span> <span class="ss">f&#39;SELECT NAME, HighSchool FROM </span><span class="sc">{</span>layer<span class="sc">.</span>GetName()<span class="sc">}</span><span class="ss"> WHERE HighSchool &gt; 10000&#39;</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>selected: ogr.Layer <span class="op">=</span> ds.ExecuteSQL(query)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># 这里的Feature中只包含两个属性NAME和HighSchool</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="cf">for</span> feature <span class="kw">in</span> selected:</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="bu">print</span>(feature.GetField(<span class="st">&#39;NAME&#39;</span>))</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co"># 选择出中学数量最多的省份</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># 我尝试使用MAX函数和嵌套的SELECT语句进行实现，但是执行报错，应该是OGR不支持嵌套的SQL查询</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>query: <span class="bu">str</span> <span class="op">=</span> <span class="ss">f&#39;SELECT NAME, HighSchool FROM </span><span class="sc">{</span>layer<span class="sc">.</span>GetName()<span class="sc">}</span><span class="ss"> ORDER BY HighSchool DESC&#39;</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>selected: ogr.Layer <span class="op">=</span> ds.ExecuteSQL(query)</span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="bu">print</span>(selected.GetFeature(<span class="dv">0</span>).GetField(<span class="st">&#39;NAME&#39;</span>))</span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="bu">print</span>(selected.GetFeature(<span class="dv">0</span>).GetField(<span class="st">&#39;HighSchool&#39;</span>))</span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="kw">del</span> ds</span></code></pre></div>
+<h2 id="方法总结">方法总结</h2>
+<ol type="1">
+<li>首先我们使用<code>ogr.Open()</code>函数读取数据，使用<code>GetLayer()</code>方法获取图层</li>
+<li>然后构造SQL查询语句，图层名称对应的是SQL语句中的表名。注意如果图层名称为中文，查询会失败。</li>
+<li>然后使用<code>ExecuteSQL()</code>方法执行查询，得到的查询结果仍然是一个<code>ogr.Layer</code>图层类，但是图层中的要素属性只包含我们查询语句中指定的字段</li>
+<li>对于第二个案例，我们本来可以使用一个嵌套的SELECT查询语句以及MAX聚合函数得到最大的中学数量，但是使用嵌套的SQL查询执行会失败。所以我在第二个案例中使用了ORDER BY子句进行排序，然后查询结果的第一个要素就是我们寻找的最大值。</li>
+</ol>
+<h1 id="遍历feature要素方式">遍历Feature要素方式</h1>
+<h2 id="代码展示-1">代码展示</h2>
+<p>我们再来看使用遍历Feature要素的方法。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> osgeo <span class="im">import</span> ogr</span>
+<span id="cb2-2"><a href="#cb2-2"></a>ogr.UseExceptions()</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a>ds: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/Provinces.shp&#39;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># 注意Layer的名称不能包含中文</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>layer: ogr.Layer <span class="op">=</span> ds.GetLayer()</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># 使用filter函数对要素属性进行过滤</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>selected <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> f: f.GetField(<span class="st">&#39;HighSchool&#39;</span>) <span class="op">&gt;</span> <span class="dv">10000</span>, layer))</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="cf">for</span> feature <span class="kw">in</span> selected:</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="bu">print</span>(feature.GetField(<span class="st">&#39;NAME&#39;</span>))</span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co"># 使用sorted方法对要素进行自定义排序，这里使用逆序</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>selected <span class="op">=</span> <span class="bu">sorted</span>(layer, key<span class="op">=</span><span class="kw">lambda</span> f: f.GetField(<span class="st">&#39;HighSchool&#39;</span>), reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="bu">print</span>(selected[<span class="dv">0</span>].GetField(<span class="st">&#39;NAME&#39;</span>))</span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="bu">print</span>(selected[<span class="dv">0</span>].GetField(<span class="st">&#39;HighSchool&#39;</span>))</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="kw">del</span> ds</span></code></pre></div>
+<h2 id="方法总结-1">方法总结</h2>
+<ol type="1">
+<li>使用遍历Feature要素的方法进行查询是我们在获取了图层包含的所有Feature要素集合以后，使用Python内置的函数对该集合进行过滤，排序等操作得到我们想要的查询结果。</li>
+<li><code>filter()</code>函数的第一个参数是一个自定义函数，第二个参数是一个可迭代对象iterable。该函数会遍历可迭代对象将满足第一个自定义函数的值过滤出来。</li>
+<li><code>sorted()</code>函数包含三个参数（后两个可选），第一个参数是一个可迭代对象iterable，第二个参数是用于自定义排序的函数，第三个参数指定是否逆序。<code>sorted()</code>函数的返回值是一个<code>list</code>对象。</li>
+<li>我更喜欢使用第二种遍历的方式，因为更方便调试一些。当然如果对SQL语言熟悉的同学，可能更喜欢SQL这种声明式编程的方式。</li>
+</ol>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/geos/Shapefile属性操作之改/" id="post_nav-older" class="next-content">
+            上一篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -584,6 +826,14 @@ It will not impact the appearance and can give developers a lot of support :)
                     
 
                     
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
 
                     <!--Footer-->
 <footer class="mdl-mini-footer" id="bottom">
@@ -724,6 +974,10 @@ It will not impact the appearance and can give developers a lot of support :)
 <!-- Import prettify js  -->
 
     
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
 
 
 
@@ -736,6 +990,11 @@ It will not impact the appearance and can give developers a lot of support :)
     });
 
     
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
         
     
     
