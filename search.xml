@@ -3,6 +3,33 @@
   
     
     <entry>
+      <title>GIS空间分析之Buffer</title>
+      <link href="/geos/GIS%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E4%B9%8BBuffer/"/>
+      <url>/geos/GIS%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E4%B9%8BBuffer/</url>
+      <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>作者：阿振</p><p>写作时间：2020-06-14 周末 夏夜</p><hr><h1 id="开篇">开篇</h1><p>GIS空间分析是通过对GIS系统中的空间地物的空间位置以及分布形态等空间特性进行分析推理等得到额外有用信息的过程。GIS空间分析包含广泛的内容，是GIS系统的核心功能。</p><p>从这篇博文开始，我们会简单介绍几种GIS系统中最常见最简单的空间分析功能，并使用Python的GDAL API进行实现。</p><p>首先，我们来看一下开源GIS软件QGIS中提供的几种简单的空间分析工具，我们接下来的几篇博文会介绍如何使用Python脚本实现这些功能。</p><figure><img src="/images/geos/屏幕快照%202020-06-14%20下午10.07.57.png" alt=""><figcaption>QGIS空间分析功能</figcaption></figure><p>虽然，这些都是最基础的空间分析操作，但是很多复杂的分析功能就是这些简单操作的组合，所以掌握这些基础操作很重要。</p><h1 id="案例介绍">案例介绍</h1><p>本文我们将使用缓冲区分析工具Buffer制作中国地图的晕线。中国地图边界的晕线就是我们经常看到的国界外面的突出色浅色部分。</p><p>那么我们如何制作晕线呢？一个解决方案是我们给国界做一个缓冲区，然后将缓冲区图层放置在边界图层的上面就可以形成这样的效果。</p><h1 id="代码展示">代码展示</h1><p>下面的代码展示了如何制作面状地物的缓冲区。</p><div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span><span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> ogr</span><span id="cb1-3"><a href="#cb1-3"></a></span><span id="cb1-4"><a href="#cb1-4"></a>ogr.UseExceptions()</span><span id="cb1-5"><a href="#cb1-5"></a></span><span id="cb1-6"><a href="#cb1-6"></a>in_ds: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/China.shp&#39;</span>)</span><span id="cb1-7"><a href="#cb1-7"></a>in_lyr: ogr.Layer <span class="op">=</span> in_ds.GetLayer()</span><span id="cb1-8"><a href="#cb1-8"></a></span><span id="cb1-9"><a href="#cb1-9"></a>fname: <span class="bu">str</span> <span class="op">=</span> <span class="st">&#39;Buffer.shp&#39;</span></span><span id="cb1-10"><a href="#cb1-10"></a><span class="co"># 创建输出Buffer文件</span></span><span id="cb1-11"><a href="#cb1-11"></a>driver: ogr.Driver <span class="op">=</span> ogr.GetDriverByName(<span class="st">&#39;ESRI Shapefile&#39;</span>)</span><span id="cb1-12"><a href="#cb1-12"></a><span class="cf">if</span> Path(fname).exists():</span><span id="cb1-13"><a href="#cb1-13"></a>    driver.DeleteDataSource(fname)</span><span id="cb1-14"><a href="#cb1-14"></a><span class="co"># 新建DataSource，Layer</span></span><span id="cb1-15"><a href="#cb1-15"></a>out_ds: ogr.DataSource <span class="op">=</span> driver.CreateDataSource(fname)</span><span id="cb1-16"><a href="#cb1-16"></a>out_lyr: ogr.Layer <span class="op">=</span> out_ds.CreateLayer(fname,</span><span id="cb1-17"><a href="#cb1-17"></a>                                        in_lyr.GetSpatialRef(), ogr.wkbPolygon)</span><span id="cb1-18"><a href="#cb1-18"></a>def_feature: ogr.FeatureDefn <span class="op">=</span> out_lyr.GetLayerDefn()</span><span id="cb1-19"><a href="#cb1-19"></a></span><span id="cb1-20"><a href="#cb1-20"></a><span class="co"># 遍历原始的Shapefile文件给每个Geometry做Buffer操作</span></span><span id="cb1-21"><a href="#cb1-21"></a><span class="cf">for</span> feature <span class="kw">in</span> in_lyr:</span><span id="cb1-22"><a href="#cb1-22"></a>    geometry <span class="op">=</span> feature.GetGeometryRef()</span><span id="cb1-23"><a href="#cb1-23"></a>    <span class="bu">buffer</span> <span class="op">=</span> geometry.Buffer(<span class="fl">20000.0</span>)</span><span id="cb1-24"><a href="#cb1-24"></a>    out_feature <span class="op">=</span> ogr.Feature(def_feature)</span><span id="cb1-25"><a href="#cb1-25"></a>    out_feature.SetGeometry(<span class="bu">buffer</span>)</span><span id="cb1-26"><a href="#cb1-26"></a>    out_lyr.CreateFeature(out_feature)</span><span id="cb1-27"><a href="#cb1-27"></a>    out_feature <span class="op">=</span> <span class="va">None</span></span><span id="cb1-28"><a href="#cb1-28"></a>out_ds.FlushCache()</span><span id="cb1-29"><a href="#cb1-29"></a><span class="kw">del</span> in_ds, out_ds</span></code></pre></div><p>结果展示（紫色部分就是我们的缓冲区）：</p><figure><img src="/images/geos/屏幕快照%202020-06-14%20下午10.07.31.png" alt=""><figcaption>缓冲区分析</figcaption></figure><h1 id="方法总结">方法总结</h1><ol type="1"><li>首先我们使用<code>Driver</code>类的<code>CreateDataSource()</code>方法创建输出缓冲区文件。</li><li>然后使用<code>DataSource</code>类的<code>CreateLayer()</code>方法创建一个图层，该方法有三个参数，分别是图层名，空间投影以及空间几何体类型。这里我们的空间投影直接从原始的Shapefile中进行读取，输入的空间几何体类型设置为<code>ogr.wkbPolygon</code>。</li><li>加下来我们对原始数据图层中的每个Feature要素进行遍历，取出其中的Geometry，然后利用<code>Geometry</code>类的<code>Buffer()</code>方法生成新的缓冲区Feature。<code>Buffer</code>的参数是缓冲区的距离，距离的单位是投影坐标系中的默认单位。</li><li>生成新的缓冲区Geometry以后，我们新建一个Feature并使用<code>SetGeometry()</code>将缓冲区Geometry设置为该Feature的Geometry。最后使用<code>CreateFeature()</code>方法将该Feature添加到图层中。</li><li>如此循环，直到遍历完所有的Feature为止。</li></ol>]]></content>
+      
+      <categories>
+          
+          <category> 空间数据处理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> GDAL </tag>
+            
+            <tag> GIS </tag>
+            
+            <tag> 空间分析 </tag>
+            
+            <tag> 缓冲区分析 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>矢量数据空间查询</title>
       <link href="/geos/%E7%9F%A2%E9%87%8F%E6%95%B0%E6%8D%AE%E7%A9%BA%E9%97%B4%E6%9F%A5%E8%AF%A2/"/>
       <url>/geos/%E7%9F%A2%E9%87%8F%E6%95%B0%E6%8D%AE%E7%A9%BA%E9%97%B4%E6%9F%A5%E8%AF%A2/</url>
@@ -1766,13 +1793,6 @@
   
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      <content type="html"><![CDATA[]]></content>
-    </entry>
-    
-    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -1780,9 +1800,9 @@
     </entry>
     
     <entry>
-      <title>时间轴</title>
-      <link href="/timeline/index.html"/>
-      <url>/timeline/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
@@ -1790,6 +1810,13 @@
       <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      <content type="html"><![CDATA[]]></content>
+    </entry>
+    
+    <entry>
+      <title>时间轴</title>
+      <link href="/timeline/index.html"/>
+      <url>/timeline/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
