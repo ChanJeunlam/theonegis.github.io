@@ -3,6 +3,33 @@
   
     
     <entry>
+      <title>矢量数据空间查询</title>
+      <link href="/geos/%E7%9F%A2%E9%87%8F%E6%95%B0%E6%8D%AE%E7%A9%BA%E9%97%B4%E6%9F%A5%E8%AF%A2/"/>
+      <url>/geos/%E7%9F%A2%E9%87%8F%E6%95%B0%E6%8D%AE%E7%A9%BA%E9%97%B4%E6%9F%A5%E8%AF%A2/</url>
+      <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>作者：阿振</p><p>写作时间：2020-06-14 周天</p><hr><h1 id="开篇">开篇</h1><p>在前面四篇博客中我们主要讲了对于空间矢量数据的属性数据的增删改查，在这篇博文中我们要讲解空间查询–GIS系统很重要的一项功能。空间查询就是根据地物的空间位置进行查询的一种数据检索方式。比如，我们要查询一条河流经的城市；一个公园内的所有路灯；离当前位置最近的公共卫生间等等都属于常用的空间查询。</p><p>OGC<a href="https://www.ogc.org/standards/sfa" target="_blank" rel="noopener">简单要素规范</a>定义了空间几何体之间的空间关系，包括Equals，Disjoint，Intersects，Touches，Crosses，Within，Contains，Overlaps，Relate，LocateAlong，LocateBetween。感兴趣的同学可以从OGC官网下载下来看看。</p><p>现有的空间数据库例如Oracle Spatial，PostGIS，SQL Server都根据OGC简单要素规范提供了对空间查询的支持，他们有差异地在标准SQL语句中添加了空间关系查询的功能。</p><p>本文主要介绍如何使用GDAL库对空间数据进行空间查询，常用的方法可以概括为三大类：</p><ol type="1"><li>第一类就是使用支持空间查询的SQL语句进行查询，但是这种方式只对某些特定种类的数据源可以使用，有些数据源不一定支持。</li><li>第二类是使用GDAL提供的<code>SetSpatialFilter()</code>方法增加过滤条件。但是这种方式只能是选择给定范围的空间地位，类似于Within或者Contains的功能，不能实现其他类型的空间关系查询。</li><li>第三类就是读取每个Feature要素包含的Geometry对象，根据Geometry的空间关系手动进行筛选。因为GDAL中的Geometry对象基本上实现了OGC简单要素规范定义的空间关系，所以这种方式最灵活，本文主要介绍如何使用这种方式进行空间查询。</li></ol><h1 id="案例一">案例一</h1><h2 id="案例说明">案例说明</h2><p>我们现在有省的面状数据以及每个城市的点数据，我们需要找到湖北省内的所有城市。</p><p>实现思路是先从省的面状数据中找出湖北省，然后遍历城市的点数据看是否落在湖北省境内。</p><h2 id="代码演示">代码演示</h2><div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> ogr</span><span id="cb1-2"><a href="#cb1-2"></a>ogr.UseExceptions()</span><span id="cb1-3"><a href="#cb1-3"></a></span><span id="cb1-4"><a href="#cb1-4"></a>ds_province: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/Provinces.shp&#39;</span>)</span><span id="cb1-5"><a href="#cb1-5"></a>l_province: ogr.Layer <span class="op">=</span> ds_province.GetLayer()</span><span id="cb1-6"><a href="#cb1-6"></a><span class="co"># 使用filter()方法找出湖北省</span></span><span id="cb1-7"><a href="#cb1-7"></a>f_hubei: ogr.Feature <span class="op">=</span> <span class="bu">next</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> f: <span class="st">&#39;湖北&#39;</span> <span class="kw">in</span> f.GetField(<span class="st">&#39;NAME&#39;</span>), l_province))</span><span id="cb1-8"><a href="#cb1-8"></a></span><span id="cb1-9"><a href="#cb1-9"></a>ds_city: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/Cities.shp&#39;</span>)</span><span id="cb1-10"><a href="#cb1-10"></a>l_city: ogr.Layer <span class="op">=</span> ds_city.GetLayer()</span><span id="cb1-11"><a href="#cb1-11"></a><span class="co"># 使用filter()方法过滤出落在湖北省境内的所有市</span></span><span id="cb1-12"><a href="#cb1-12"></a>selected <span class="op">=</span> <span class="bu">filter</span>(<span class="kw">lambda</span> f: f.GetGeometryRef().Within(f_hubei.GetGeometryRef()), l_city)</span><span id="cb1-13"><a href="#cb1-13"></a><span class="cf">for</span> city <span class="kw">in</span> selected:</span><span id="cb1-14"><a href="#cb1-14"></a>    <span class="bu">print</span>(city.GetField(<span class="st">&#39;name&#39;</span>))</span><span id="cb1-15"><a href="#cb1-15"></a><span class="kw">del</span> ds_province</span><span id="cb1-16"><a href="#cb1-16"></a><span class="kw">del</span> ds_city</span></code></pre></div><h2 id="方法总结">方法总结</h2><ol type="1"><li>使用<code>ogr.Open()</code>函数读取Shapefile数据，使用<code>GetLayer()</code>获取当前图层，图层中包含了所有的Feature要素。</li><li>使用Python的内置<code>filter()</code>函数对省进行过滤，通过<code>NAME</code>字段找出湖北省。<code>filter()</code>函数的第一个参数是一个自定义函数，第二个参数是一个可迭代对象iterable。该函数会遍历可迭代对象将满足第一个自定义函数的值过滤出来。通过<code>next()</code>方法拿到迭代器的当前值，即湖北省的Feature对象。</li><li>继续使用<code>filter()</code>函数对城市的点数据进行筛选，这里通过Feature的<code>GetGeometryRef()</code>方法获得要素代表的几何体，然后调用Geometry的<code>Within()</code>方法判断该城市是否落在湖北省对应的Geometry中。</li></ol><h1 id="案例二">案例二</h1><h2 id="案例说明-1">案例说明</h2><p>我们将使用城市的点数据获取离武汉市最近的三座城市。</p><p>实现的思路是首先从数据中找到武汉市，然后计算每个城市到武汉市的距离并排序，对排好序的Feature选择前三即可。</p><h2 id="代码演示-1">代码演示</h2><div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> ogr</span><span id="cb2-2"><a href="#cb2-2"></a>ogr.UseExceptions()</span><span id="cb2-3"><a href="#cb2-3"></a></span><span id="cb2-4"><a href="#cb2-4"></a>ds: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/Cities.shp&#39;</span>)</span><span id="cb2-5"><a href="#cb2-5"></a>cities: ogr.Layer <span class="op">=</span> ds.GetLayer()</span><span id="cb2-6"><a href="#cb2-6"></a><span class="co"># 使用filter()方法找出武汉市</span></span><span id="cb2-7"><a href="#cb2-7"></a>city: ogr.Feature <span class="op">=</span> <span class="bu">next</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> f: <span class="st">&#39;武汉&#39;</span> <span class="kw">in</span> f.GetField(<span class="st">&#39;name&#39;</span>), cities))</span><span id="cb2-8"><a href="#cb2-8"></a><span class="co"># 调用ResetReading()方法特别重要，如果不ResetReading的话后面的对Feature的遍历会出错</span></span><span id="cb2-9"><a href="#cb2-9"></a>cities.ResetReading()</span><span id="cb2-10"><a href="#cb2-10"></a><span class="co"># 根据每个市到武汉市的距离进行排序</span></span><span id="cb2-11"><a href="#cb2-11"></a>selected <span class="op">=</span> <span class="bu">sorted</span>(cities, key<span class="op">=</span><span class="kw">lambda</span> f: f.GetGeometryRef().Distance(city.GetGeometryRef()))</span><span id="cb2-12"><a href="#cb2-12"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>):</span><span id="cb2-13"><a href="#cb2-13"></a>    <span class="bu">print</span>(selected[i].GetField(<span class="st">&#39;name&#39;</span>))</span><span id="cb2-14"><a href="#cb2-14"></a><span class="kw">del</span> ds</span></code></pre></div><h2 id="方法总结-1">方法总结</h2><ol type="1"><li>跟案例一一样，我们使用Python的内置<code>filter()</code>函数对市进行过滤，通过<code>NAME</code>字段找出武汉市。</li><li>需要特别注意了，当我们遍历完一遍Layer的Feature以后需要调用<code>ResetReading()</code>对迭代器重新归位，否则后面要继续进行要素遍历的话会出错。</li><li>接着我们使用Python内置函数<code>sorted()</code>根据每个城市到武汉市的距离进行排序。<code>sorted()</code>函数包含三个参数（后两个可选），第一个参数是一个可迭代对象iterable，第二个参数是用于自定义排序的函数，第三个参数指定是否逆序。<code>sorted()</code>函数的返回值是一个<code>list</code>对象。</li><li>对于距离的计算，我们首先使用<code>GetGeometryRef()</code>函数获得要素对应的空间几何体，然后再使用Geometry对象的<code>Distance()</code>函数进行。</li><li>计算完以后我们从第二个元素进行输出，因为第一个元素肯定是武汉市，武汉市到武汉市的距离为0，为最小距离。</li></ol>]]></content>
+      
+      <categories>
+          
+          <category> 空间数据处理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> GDAL </tag>
+            
+            <tag> 矢量数据 </tag>
+            
+            <tag> 空间查询 </tag>
+            
+            <tag> 简单要素模型 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Shapefile属性操作之查</title>
       <link href="/geos/Shapefile%E5%B1%9E%E6%80%A7%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%9F%A5/"/>
       <url>/geos/Shapefile%E5%B1%9E%E6%80%A7%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%9F%A5/</url>
@@ -1739,13 +1766,6 @@
   
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      <content type="html"><![CDATA[]]></content>
-    </entry>
-    
-    <entry>
       <title>分类</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -1753,9 +1773,9 @@
     </entry>
     
     <entry>
-      <title>标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
@@ -1763,6 +1783,13 @@
       <title>时间轴</title>
       <link href="/timeline/index.html"/>
       <url>/timeline/index.html</url>
+      <content type="html"><![CDATA[]]></content>
+    </entry>
+    
+    <entry>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
