@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://theonegis.github.io/"/>
-  <updated>2020-06-14T15:11:00.882Z</updated>
+  <updated>2020-06-16T00:50:25.068Z</updated>
   <id>http://theonegis.github.io/</id>
   
   <author>
@@ -15,6 +15,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GIS空间分析之Clip</title>
+    <link href="http://theonegis.github.io/geos/GIS%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E4%B9%8BClip/"/>
+    <id>http://theonegis.github.io/geos/GIS空间分析之Clip/</id>
+    <published>2020-06-16T00:23:13.000Z</published>
+    <updated>2020-06-16T00:50:25.068Z</updated>
+    
+    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>作者：阿振</p><p>写作时间：2020-06-16 周一 早安</p><hr><h1 id="开篇">开篇</h1><p>接着上篇《<a href="https://blog.csdn.net/theonegis/article/details/106753745" target="_blank" rel="noopener">GIS空间分析之Buffer</a>》之后，这篇来介绍矢量数据的裁剪（Clip）。裁剪其实算不上是一种空间分析功能，就是一种简单矢量数据处理操作。</p><p>一般，我们会使用一个代表研究区域或者感兴趣的区域（AOI，Area of Interest）的多边形数据去裁剪一个比较大的全区域的数据，得到的结果就是感兴趣区域中包含的数据。矢量数据的裁剪在平时工作中用得不是特别多。</p><h1 id="案例介绍">案例介绍</h1><p>本文使用一个AOI区域（黄河流域区）区裁剪中国的县界（线要素），从而得到黄河流域区中的县界。</p><p>在上篇《<a href="https://blog.csdn.net/theonegis/article/details/106753745" target="_blank" rel="noopener">GIS空间分析之Buffer</a>》中我们是使用了Geometry类的<code>Buffer()</code>方法建立缓冲区的，而本篇中我们需要使用Layer图层类的<code>Clip()</code>方法进行矢量数据裁切。</p><p>对于矢量数据的操作，有的是通过Geometry类的方法实现的，有的是通过Layer类的方法实现的。</p><p>下面来看一下我们的数据，红色区块是黄河流域，红色的线表示的是各个县的边界。</p><p><img src="/images/geos/屏幕快照%202020-06-16%20上午8.34.13.png"></p><h1 id="代码展示">代码展示</h1><div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span><span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> ogr</span><span id="cb1-3"><a href="#cb1-3"></a></span><span id="cb1-4"><a href="#cb1-4"></a>ogr.UseExceptions()</span><span id="cb1-5"><a href="#cb1-5"></a></span><span id="cb1-6"><a href="#cb1-6"></a><span class="co"># 读取被裁剪的数据</span></span><span id="cb1-7"><a href="#cb1-7"></a>in_ds: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/County.shp&#39;</span>)</span><span id="cb1-8"><a href="#cb1-8"></a>in_lyr: ogr.Layer <span class="op">=</span> in_ds.GetLayer()</span><span id="cb1-9"><a href="#cb1-9"></a></span><span id="cb1-10"><a href="#cb1-10"></a><span class="co"># 读取裁剪范围数据</span></span><span id="cb1-11"><a href="#cb1-11"></a>method_ds: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/YellowRiver.shp&#39;</span>)</span><span id="cb1-12"><a href="#cb1-12"></a>method_lyr: ogr.Layer <span class="op">=</span> method_ds.GetLayer()</span><span id="cb1-13"><a href="#cb1-13"></a></span><span id="cb1-14"><a href="#cb1-14"></a>fname: <span class="bu">str</span> <span class="op">=</span> <span class="st">&#39;Clipped.shp&#39;</span></span><span id="cb1-15"><a href="#cb1-15"></a><span class="co"># 创建被裁剪以后的输出文件</span></span><span id="cb1-16"><a href="#cb1-16"></a>driver: ogr.Driver <span class="op">=</span> ogr.GetDriverByName(<span class="st">&#39;ESRI Shapefile&#39;</span>)</span><span id="cb1-17"><a href="#cb1-17"></a><span class="cf">if</span> Path(fname).exists():</span><span id="cb1-18"><a href="#cb1-18"></a>    driver.DeleteDataSource(fname)</span><span id="cb1-19"><a href="#cb1-19"></a><span class="co"># 新建DataSource，Layer</span></span><span id="cb1-20"><a href="#cb1-20"></a>out_ds: ogr.DataSource <span class="op">=</span> driver.CreateDataSource(fname)</span><span id="cb1-21"><a href="#cb1-21"></a>out_lyr: ogr.Layer <span class="op">=</span> out_ds.CreateLayer(fname,</span><span id="cb1-22"><a href="#cb1-22"></a>                                        in_lyr.GetSpatialRef(),</span><span id="cb1-23"><a href="#cb1-23"></a>                                        in_lyr.GetGeomType())</span><span id="cb1-24"><a href="#cb1-24"></a><span class="co"># 开始进行裁剪</span></span><span id="cb1-25"><a href="#cb1-25"></a>in_lyr.Clip(method_lyr, out_lyr)</span><span id="cb1-26"><a href="#cb1-26"></a>out_ds.FlushCache()</span><span id="cb1-27"><a href="#cb1-27"></a><span class="kw">del</span> in_ds, method_ds, out_ds</span></code></pre></div><p>裁剪的结果如下：</p><p><img src="/images/geos/屏幕快照%202020-06-16%20上午8.34.55.png"></p><h1 id="方法总结">方法总结</h1><ol type="1"><li>首先我们使用<code>ogr.Open()</code>函数分别读取被裁剪的数据以及裁剪范围数据；使用<code>GetLayer()</code>方法获取数据的图层。裁剪范围数据在GDAL中被称为Method Layer。</li><li>使用Driver类的<code>CreateDataSource()</code>方法创建裁剪输出结果；使用<code>CreateLayer()</code>函数创建输出图层。<code>CreateLayer()</code>函数传入三个参数，分别是图层名，空间参考以及空间要素类型。后两个参数可以通过读取被裁剪数据获取。</li><li>使用读取被裁剪数据图层的<code>Clip()</code>函数进行裁剪，改函数传入两个参数，分别是方法图层（Method Layer）以及输出结果图层（Result Layer）。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
+&lt;p&gt;作者：阿振&lt;/p&gt;
+&lt;p&gt;写作时间：2020-06-16 周一 早安&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;开篇&quot;&gt;开篇&lt;/h1&gt;
+&lt;p&gt;接着上篇《&lt;a href=&quot;https://blog.csdn.net/t
+      
+    
+    </summary>
+    
+      <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
+    
+    
+      <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
+    
+      <category term="GIS" scheme="http://theonegis.github.io/tags/GIS/"/>
+    
+      <category term="空间分析" scheme="http://theonegis.github.io/tags/%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90/"/>
+    
+      <category term="裁剪" scheme="http://theonegis.github.io/tags/%E8%A3%81%E5%89%AA/"/>
+    
+  </entry>
   
   <entry>
     <title>GIS空间分析之Buffer</title>
@@ -114,9 +150,9 @@
       <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
     
     
-      <category term="Shapefile" scheme="http://theonegis.github.io/tags/Shapefile/"/>
-    
       <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
+    
+      <category term="Shapefile" scheme="http://theonegis.github.io/tags/Shapefile/"/>
     
       <category term="矢量数据" scheme="http://theonegis.github.io/tags/%E7%9F%A2%E9%87%8F%E6%95%B0%E6%8D%AE/"/>
     
@@ -152,9 +188,9 @@
       <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
     
     
-      <category term="Shapefile" scheme="http://theonegis.github.io/tags/Shapefile/"/>
-    
       <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
+    
+      <category term="Shapefile" scheme="http://theonegis.github.io/tags/Shapefile/"/>
     
       <category term="矢量数据" scheme="http://theonegis.github.io/tags/%E7%9F%A2%E9%87%8F%E6%95%B0%E6%8D%AE/"/>
     
@@ -190,9 +226,9 @@
       <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
     
     
-      <category term="Shapefile" scheme="http://theonegis.github.io/tags/Shapefile/"/>
-    
       <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
+    
+      <category term="Shapefile" scheme="http://theonegis.github.io/tags/Shapefile/"/>
     
       <category term="矢量数据" scheme="http://theonegis.github.io/tags/%E7%9F%A2%E9%87%8F%E6%95%B0%E6%8D%AE/"/>
     
@@ -228,9 +264,9 @@
       <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
     
     
-      <category term="Shapefile" scheme="http://theonegis.github.io/tags/Shapefile/"/>
-    
       <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
+    
+      <category term="Shapefile" scheme="http://theonegis.github.io/tags/Shapefile/"/>
     
       <category term="矢量数据" scheme="http://theonegis.github.io/tags/%E7%9F%A2%E9%87%8F%E6%95%B0%E6%8D%AE/"/>
     
@@ -466,9 +502,9 @@
       <category term="空间数据处理" scheme="http://theonegis.github.io/categories/geos/"/>
     
     
-      <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
-    
       <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
+    
+      <category term="Java" scheme="http://theonegis.github.io/tags/Java/"/>
     
       <category term="Maven" scheme="http://theonegis.github.io/tags/Maven/"/>
     
@@ -664,36 +700,6 @@
       <category term="GDAL" scheme="http://theonegis.github.io/tags/GDAL/"/>
     
       <category term="裁剪" scheme="http://theonegis.github.io/tags/%E8%A3%81%E5%89%AA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python中如何优雅地使用switch语句</title>
-    <link href="http://theonegis.github.io/python/Python%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8switch%E8%AF%AD%E5%8F%A5/"/>
-    <id>http://theonegis.github.io/python/Python中如何优雅地使用switch语句/</id>
-    <published>2019-03-07T05:49:45.000Z</published>
-    <updated>2019-03-22T19:39:53.825Z</updated>
-    
-    <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>写作时间：2019-03-07 13:49:45</p><h1 id="python中如何优雅地使用switch语句">Python中如何优雅地使用switch语句</h1><p>我们知道Python中没有类似C++或者Java中的<code>switch...case</code>语句，我们可以使用多个<code>if...elif...else</code>进行模拟，但是这样的写法让代码看起来很凌乱，个人不是很推荐在代码中大量使用<code>if</code>语句。</p><p>那么解决的办法是什么呢？答曰：字典（<code>dict</code>）。下面我们以两个典型案例进行说明。</p><h2 id="案例一简单情况">案例一（简单情况）</h2><p>第一种简单情况就是一对一，给定一个值，返回一个值，这是C++和Java中的<code>switch</code>语句支持的情况。</p><p>下面的案例是将英文日期翻译为中文日期：</p><div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>dates <span class="op">=</span> {</span><span id="cb1-2"><a href="#cb1-2"></a>    <span class="st">&#39;Sun&#39;</span>: <span class="st">&#39;星期天&#39;</span>, <span class="st">&#39;Mon&#39;</span>: <span class="st">&#39;星期一&#39;</span>, <span class="st">&#39;Tues&#39;</span>: <span class="st">&#39;星期二&#39;</span>, <span class="st">&#39;Wed&#39;</span>: <span class="st">&#39;星期三&#39;</span>,</span><span id="cb1-3"><a href="#cb1-3"></a>    <span class="st">&#39;Thurs&#39;</span>: <span class="st">&#39;星期四&#39;</span>, <span class="st">&#39;Fri&#39;</span>: <span class="st">&#39;星期五&#39;</span>, <span class="st">&#39;Sat&#39;</span>: <span class="st">&#39;星期六&#39;</span>}</span><span id="cb1-4"><a href="#cb1-4"></a></span><span id="cb1-5"><a href="#cb1-5"></a>day <span class="op">=</span> dates.get(<span class="st">&#39;Fri&#39;</span>, <span class="st">&#39;未知&#39;</span>)</span><span id="cb1-6"><a href="#cb1-6"></a><span class="bu">print</span>(day)  <span class="co"># 输出结果为星期五</span></span></code></pre></div><h2 id="案例二带条件判断">案例二（带条件判断）</h2><p>第二种情况是多对一，反映在编程上就是<code>case</code>语句中带条件判断，这个是诸如Scala中的<code>switch</code>和Kotlin中的<code>when</code>支持的情况。</p><p>下面给出的案例是给定一个数字，如果该数字在某个范围之类，则返回一个指定的数字。</p><div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># 这里的conditions是一个函数</span></span><span id="cb2-2"><a href="#cb2-2"></a>conditions <span class="op">=</span> <span class="kw">lambda</span> x: {</span><span id="cb2-3"><a href="#cb2-3"></a>    x <span class="op">&lt;</span> <span class="op">-</span><span class="dv">1</span>: <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span> <span class="op">&lt;=</span> x <span class="op">&lt;=</span> <span class="dv">1</span>: <span class="fl">0.5</span>, x <span class="op">&gt;</span> <span class="dv">1</span>: <span class="dv">1</span></span><span id="cb2-4"><a href="#cb2-4"></a>}</span><span id="cb2-5"><a href="#cb2-5"></a></span><span id="cb2-6"><a href="#cb2-6"></a>num <span class="op">=</span> conditions(<span class="fl">0.25</span>)[<span class="va">True</span>]</span><span id="cb2-7"><a href="#cb2-7"></a><span class="bu">print</span>(num)</span><span id="cb2-8"><a href="#cb2-8"></a>num <span class="op">=</span> conditions(<span class="dv">10</span>)[<span class="va">True</span>]</span><span id="cb2-9"><a href="#cb2-9"></a><span class="bu">print</span>(num)</span></code></pre></div><p>这里我们的<code>dict</code>不是一个普通的字典，其<code>key</code>是一个<code>lambda</code>表达式（一个函数）。如果我们调用该函数，则会返回一个字典，该字典中有两个元素：一个元素的键是<code>True</code>，另一个是<code>False</code>。<code>True</code>元素包含的值是对应<code>lambda</code>函数中满足条件的给定值，<code>False</code>元素包含的值是对应<code>lambda</code>函数中最后一个不满足条件的给定值（这句话写得比较拗口，不好理解。动手实践一下，可以加深理解）。</p><p>经过上面的介绍，我们以后可以大大减少对<code>if...else</code>语句的使用了，让我们的代码更加干净一些！</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;版权声明：本文为博主原创文章，转载请注明原文出处！&lt;/p&gt;
-&lt;p&gt;写作时间：2019-03-07 13:49:45&lt;/p&gt;
-&lt;h1 id=&quot;python中如何优雅地使用switch语句&quot;&gt;Python中如何优雅地使用switch语句&lt;/h1&gt;
-&lt;p&gt;我们知道Python中没
-      
-    
-    </summary>
-    
-      <category term="Python" scheme="http://theonegis.github.io/categories/python/"/>
-    
-    
-      <category term="Python" scheme="http://theonegis.github.io/tags/Python/"/>
-    
-      <category term="Switch" scheme="http://theonegis.github.io/tags/Switch/"/>
     
   </entry>
   

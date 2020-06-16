@@ -3,6 +3,33 @@
   
     
     <entry>
+      <title>GIS空间分析之Clip</title>
+      <link href="/geos/GIS%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E4%B9%8BClip/"/>
+      <url>/geos/GIS%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E4%B9%8BClip/</url>
+      <content type="html"><![CDATA[<p>版权声明：本文为博主原创文章，转载请注明原文出处！</p><p>作者：阿振</p><p>写作时间：2020-06-16 周一 早安</p><hr><h1 id="开篇">开篇</h1><p>接着上篇《<a href="https://blog.csdn.net/theonegis/article/details/106753745" target="_blank" rel="noopener">GIS空间分析之Buffer</a>》之后，这篇来介绍矢量数据的裁剪（Clip）。裁剪其实算不上是一种空间分析功能，就是一种简单矢量数据处理操作。</p><p>一般，我们会使用一个代表研究区域或者感兴趣的区域（AOI，Area of Interest）的多边形数据去裁剪一个比较大的全区域的数据，得到的结果就是感兴趣区域中包含的数据。矢量数据的裁剪在平时工作中用得不是特别多。</p><h1 id="案例介绍">案例介绍</h1><p>本文使用一个AOI区域（黄河流域区）区裁剪中国的县界（线要素），从而得到黄河流域区中的县界。</p><p>在上篇《<a href="https://blog.csdn.net/theonegis/article/details/106753745" target="_blank" rel="noopener">GIS空间分析之Buffer</a>》中我们是使用了Geometry类的<code>Buffer()</code>方法建立缓冲区的，而本篇中我们需要使用Layer图层类的<code>Clip()</code>方法进行矢量数据裁切。</p><p>对于矢量数据的操作，有的是通过Geometry类的方法实现的，有的是通过Layer类的方法实现的。</p><p>下面来看一下我们的数据，红色区块是黄河流域，红色的线表示的是各个县的边界。</p><p><img src="/images/geos/屏幕快照%202020-06-16%20上午8.34.13.png"></p><h1 id="代码展示">代码展示</h1><div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span><span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> ogr</span><span id="cb1-3"><a href="#cb1-3"></a></span><span id="cb1-4"><a href="#cb1-4"></a>ogr.UseExceptions()</span><span id="cb1-5"><a href="#cb1-5"></a></span><span id="cb1-6"><a href="#cb1-6"></a><span class="co"># 读取被裁剪的数据</span></span><span id="cb1-7"><a href="#cb1-7"></a>in_ds: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/County.shp&#39;</span>)</span><span id="cb1-8"><a href="#cb1-8"></a>in_lyr: ogr.Layer <span class="op">=</span> in_ds.GetLayer()</span><span id="cb1-9"><a href="#cb1-9"></a></span><span id="cb1-10"><a href="#cb1-10"></a><span class="co"># 读取裁剪范围数据</span></span><span id="cb1-11"><a href="#cb1-11"></a>method_ds: ogr.DataSource <span class="op">=</span> ogr.Open(<span class="st">&#39;../data/YellowRiver.shp&#39;</span>)</span><span id="cb1-12"><a href="#cb1-12"></a>method_lyr: ogr.Layer <span class="op">=</span> method_ds.GetLayer()</span><span id="cb1-13"><a href="#cb1-13"></a></span><span id="cb1-14"><a href="#cb1-14"></a>fname: <span class="bu">str</span> <span class="op">=</span> <span class="st">&#39;Clipped.shp&#39;</span></span><span id="cb1-15"><a href="#cb1-15"></a><span class="co"># 创建被裁剪以后的输出文件</span></span><span id="cb1-16"><a href="#cb1-16"></a>driver: ogr.Driver <span class="op">=</span> ogr.GetDriverByName(<span class="st">&#39;ESRI Shapefile&#39;</span>)</span><span id="cb1-17"><a href="#cb1-17"></a><span class="cf">if</span> Path(fname).exists():</span><span id="cb1-18"><a href="#cb1-18"></a>    driver.DeleteDataSource(fname)</span><span id="cb1-19"><a href="#cb1-19"></a><span class="co"># 新建DataSource，Layer</span></span><span id="cb1-20"><a href="#cb1-20"></a>out_ds: ogr.DataSource <span class="op">=</span> driver.CreateDataSource(fname)</span><span id="cb1-21"><a href="#cb1-21"></a>out_lyr: ogr.Layer <span class="op">=</span> out_ds.CreateLayer(fname,</span><span id="cb1-22"><a href="#cb1-22"></a>                                        in_lyr.GetSpatialRef(),</span><span id="cb1-23"><a href="#cb1-23"></a>                                        in_lyr.GetGeomType())</span><span id="cb1-24"><a href="#cb1-24"></a><span class="co"># 开始进行裁剪</span></span><span id="cb1-25"><a href="#cb1-25"></a>in_lyr.Clip(method_lyr, out_lyr)</span><span id="cb1-26"><a href="#cb1-26"></a>out_ds.FlushCache()</span><span id="cb1-27"><a href="#cb1-27"></a><span class="kw">del</span> in_ds, method_ds, out_ds</span></code></pre></div><p>裁剪的结果如下：</p><p><img src="/images/geos/屏幕快照%202020-06-16%20上午8.34.55.png"></p><h1 id="方法总结">方法总结</h1><ol type="1"><li>首先我们使用<code>ogr.Open()</code>函数分别读取被裁剪的数据以及裁剪范围数据；使用<code>GetLayer()</code>方法获取数据的图层。裁剪范围数据在GDAL中被称为Method Layer。</li><li>使用Driver类的<code>CreateDataSource()</code>方法创建裁剪输出结果；使用<code>CreateLayer()</code>函数创建输出图层。<code>CreateLayer()</code>函数传入三个参数，分别是图层名，空间参考以及空间要素类型。后两个参数可以通过读取被裁剪数据获取。</li><li>使用读取被裁剪数据图层的<code>Clip()</code>函数进行裁剪，改函数传入两个参数，分别是方法图层（Method Layer）以及输出结果图层（Result Layer）。</li></ol>]]></content>
+      
+      <categories>
+          
+          <category> 空间数据处理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> GDAL </tag>
+            
+            <tag> GIS </tag>
+            
+            <tag> 空间分析 </tag>
+            
+            <tag> 裁剪 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>GIS空间分析之Buffer</title>
       <link href="/geos/GIS%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E4%B9%8BBuffer/"/>
       <url>/geos/GIS%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E4%B9%8BBuffer/</url>
@@ -71,9 +98,9 @@
       
         <tags>
             
-            <tag> Shapefile </tag>
-            
             <tag> GDAL </tag>
+            
+            <tag> Shapefile </tag>
             
             <tag> 矢量数据 </tag>
             
@@ -100,9 +127,9 @@
       
         <tags>
             
-            <tag> Shapefile </tag>
-            
             <tag> GDAL </tag>
+            
+            <tag> Shapefile </tag>
             
             <tag> 矢量数据 </tag>
             
@@ -129,9 +156,9 @@
       
         <tags>
             
-            <tag> Shapefile </tag>
-            
             <tag> GDAL </tag>
+            
+            <tag> Shapefile </tag>
             
             <tag> 矢量数据 </tag>
             
@@ -158,9 +185,9 @@
       
         <tags>
             
-            <tag> Shapefile </tag>
-            
             <tag> GDAL </tag>
+            
+            <tag> Shapefile </tag>
             
             <tag> 矢量数据 </tag>
             
@@ -339,9 +366,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> GDAL </tag>
+            
+            <tag> Java </tag>
             
             <tag> Maven </tag>
             
@@ -1265,11 +1292,11 @@
       
         <tags>
             
-            <tag> Sentinel </tag>
-            
             <tag> Python </tag>
             
             <tag> GDAL </tag>
+            
+            <tag> Sentinel </tag>
             
         </tags>
       
@@ -1793,16 +1820,16 @@
   
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
