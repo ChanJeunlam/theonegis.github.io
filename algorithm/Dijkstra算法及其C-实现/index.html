@@ -252,7 +252,7 @@
 
     
         <meta property="article:published_time" content="Wed Aug 19 2020 20:02:34 GMT+0800">
-        <meta property="article:modified_time" content="Wed Aug 19 2020 20:40:39 GMT+0800">
+        <meta property="article:modified_time" content="Wed Aug 19 2020 20:48:07 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -275,7 +275,7 @@
     "mainEntityOfPage": "http://theonegis.github.io/algorithm/Dijkstra算法及其C-实现/index.html",
     "headline": "Dijkstra算法及其C++实现",
     "datePublished": "Wed Aug 19 2020 20:02:34 GMT+0800",
-    "dateModified": "Wed Aug 19 2020 20:40:39 GMT+0800",
+    "dateModified": "Wed Aug 19 2020 20:48:07 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "阿振",
@@ -525,10 +525,10 @@
 <p>按最短路径长度递增的顺序逐个把<span class="math inline">\(U\)</span>中的顶点加到<span class="math inline">\(S\)</span>中去，同时动态更新<span class="math inline">\(U\)</span>集合中源点到各个顶点的最短距离，直至所有顶点都包括到<span class="math inline">\(S\)</span>中。</p>
 <h2 id="实现思路">实现思路</h2>
 <ol type="1">
-<li>初始时，<span class="math inline">\(S\)</span>集合只包含起点<span class="math inline">\(v_0\)</span>；<span class="math inline">\(U\)</span>集合包含除<span class="math inline">\(v_0\)</span>外的其他顶点，且<span class="math inline">\(U\)</span>中顶点的距离为起点<span class="math inline">\(v_0\)</span>到该顶点的距离。（<span class="math inline">\(U\)</span>中顶点<span class="math inline">\(v_t\)</span>的距离为<span class="math inline">\((v_0, v_t)\)</span>的长度，如果<span class="math inline">\(v_0\)</span>和<span class="math inline">\(v_t\)</span>不相邻，则<span class="math inline">\(v_t\)</span>的最短距离为<span class="math inline">\(\infty\)</span>）</li>
-<li>从<span class="math inline">\(U\)</span>中选出距离最短的顶点<span class="math inline">\(v_t\)</span>，并将顶点<span class="math inline">\(v_t\)</span>加入到<span class="math inline">\(S\)</span>中；同时，从<span class="math inline">\(U\)</span>中移除顶点<span class="math inline">\(v_t\)</span>。</li>
-<li>更新<span class="math inline">\(U\)</span>中各个顶点到起点<span class="math inline">\(v_0\)</span>的距离以及最短路径中的<span class="math inline">\(v_t\)</span>顶点的前驱顶点。之所以更新<span class="math inline">\(U\)</span>中顶点的距离以及前驱顶点是由于上一步中确定了<span class="math inline">\(v_{t&#39;}\)</span>是求出最短路径的顶点，从而可以利用<span class="math inline">\(v_{t&#39;}\)</span>来更新其它顶点<span class="math inline">\(v_t\)</span>的距离，因为存在<span class="math inline">\((v_0, v_t)\)</span>的距离可能大于<span class="math inline">\((v_0, v_{t&#39;}) + (v_{t&#39;}, v_t)\)</span>距离的情况。</li>
-<li>重复步骤(2)和(3)，直到遍历完所有顶点。</li>
+<li>初始时，<span class="math inline">\(S\)</span>集合只包含起点<span class="math inline">\(v_0\)</span>；<span class="math inline">\(U\)</span>集合包含除<span class="math inline">\(v_0\)</span>外的其他顶点<span class="math inline">\(v_t\)</span>，且<span class="math inline">\(U\)</span>中顶点的距离为起点<span class="math inline">\(v_0\)</span>到该顶点的距离。（<span class="math inline">\(U\)</span>中顶点<span class="math inline">\(v_t\)</span>的距离为<span class="math inline">\((v_0, v_t)\)</span>的长度，如果<span class="math inline">\(v_0\)</span>和<span class="math inline">\(v_t\)</span>不相邻，则<span class="math inline">\(v_t\)</span>的最短距离为<span class="math inline">\(\infty\)</span>）</li>
+<li>从<span class="math inline">\(U\)</span>中选出距离最短的顶点<span class="math inline">\(v_{t&#39;}\)</span>，并将顶点<span class="math inline">\(v_{t&#39;}\)</span>加入到<span class="math inline">\(S\)</span>中；同时，从<span class="math inline">\(U\)</span>中移除顶点<span class="math inline">\(v_{t&#39;}\)</span>。</li>
+<li>更新<span class="math inline">\(U\)</span>中各个顶点<span class="math inline">\(v_t\)</span>到起点<span class="math inline">\(v_0\)</span>的距离以及最短路径中当前顶点的前驱顶点。之所以更新<span class="math inline">\(U\)</span>中顶点的距离以及前驱顶点是由于上一步中确定了<span class="math inline">\(v_{t&#39;}\)</span>是求出最短路径的顶点，从而可以利用<span class="math inline">\(v_{t&#39;}\)</span>来更新<span class="math inline">\(U\)</span>中其它顶点<span class="math inline">\(v_t\)</span>的距离，因为存在<span class="math inline">\((v_0, v_t)\)</span>的距离可能大于<span class="math inline">\((v_0, v_{t&#39;}) + (v_{t&#39;}, v_t)\)</span>距离的情况，从而也需要更新其前驱顶点</li>
+<li>重复步骤(2)和(3)，直到遍历完所有顶点</li>
 </ol>
 <h2 id="案例分析">案例分析</h2>
 <figure>
