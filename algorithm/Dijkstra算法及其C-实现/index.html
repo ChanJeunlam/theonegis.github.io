@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+    <link rel="dns-prefetch" href="//cdn.mathjax.org" />
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info"/>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            Dijkstra算法及其C++实现 | 
+        
+        阿振的博客
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/logo.png">
+    <link rel="icon" href="/img/logo.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="博学之，审问之，慎思之，明辨之，笃行之">
+    <meta name="keywords" content="TheoneGIS, 空间信息处理,最短路径,Dijkstra,迪克斯特拉">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/atelier-lakeside-light.min.css?vHkP60BXIENHxF6lUdDXhA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", Arial, "Microsoft YaHei", "微软雅黑", sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="阿振的博客">
+    <meta name="msapplication-starturl" content="http://theonegis.github.io/algorithm/Dijkstra算法及其C-实现/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="阿振的博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/logo.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+        
+            <link rel=alternate type="application/atom+xml" href="/atom.xml">
+        
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://theonegis.github.io/algorithm/Dijkstra算法及其C-实现/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Dijkstra算法及其C++实现 | 阿振的博客">
+    <meta property="og:image" content="/img/logo.png">
+    <meta property="og:description" content="博学之，审问之，慎思之，明辨之，笃行之">
+    <meta property="og:article:tag" content="最短路径"> <meta property="og:article:tag" content="Dijkstra"> <meta property="og:article:tag" content="迪克斯特拉"> 
+
+    
+        <meta property="article:published_time" content="Wed Aug 19 2020 20:02:34 GMT+0800">
+        <meta property="article:modified_time" content="Wed Aug 19 2020 20:40:39 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://theonegis.github.io/algorithm/Dijkstra算法及其C-实现/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://theonegis.github.io/algorithm/Dijkstra算法及其C-实现/index.html",
+    "headline": "Dijkstra算法及其C++实现",
+    "datePublished": "Wed Aug 19 2020 20:02:34 GMT+0800",
+    "dateModified": "Wed Aug 19 2020 20:40:39 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "阿振",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.gif"
+        },
+        "description": "博学之，审问之，慎思之，明辨之，笃行之"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "阿振的博客",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/logo.png"
+        }
+    },
+    "keywords": ",最短路径,Dijkstra,迪克斯特拉TheoneGIS, 空间信息处理",
+    "description": "博学之，审问之，慎思之，明辨之，笃行之",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#dijkstra算法及其c实现"><span class="post-toc-number">1.</span> <span class="post-toc-text">Dijkstra算法及其C++实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是最短路径问题"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">什么是最短路径问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dijkstra算法"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Dijkstra算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现思路"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">实现思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#案例分析"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">案例分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码实现"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">代码实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#section"><span class="post-toc-number">1.6.</span> <span class="post-toc-text"></span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Dijkstra算法及其C++实现
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.gif" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>阿振</strong>
+        <span>8月 19, 2020</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Dijkstra/">Dijkstra</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/最短路径/">最短路径</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/迪克斯特拉/">迪克斯特拉</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Dijkstra算法及其C++实现&url=http://theonegis.github.io/algorithm/Dijkstra算法及其C-实现/index.html&pic=http://theonegis.github.io/img/logo.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Dijkstra算法及其C++实现&url=http://theonegis.github.io/algorithm/Dijkstra算法及其C-实现/index.html&via=阿振" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://theonegis.github.io/algorithm/Dijkstra算法及其C-实现/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=阿振的博客&title=Dijkstra算法及其C++实现&summary=博学之，审问之，慎思之，明辨之，笃行之&pics=http://theonegis.github.io/img/logo.png&url=http://theonegis.github.io/algorithm/Dijkstra算法及其C-实现/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="dijkstra算法及其c实现">Dijkstra算法及其C++实现</h1>
+<h2 id="什么是最短路径问题">什么是最短路径问题</h2>
+<p>如果从图中某一顶点（称为源点）到达另一顶点（称为终点）的路径可能不止一条，如何找到一条路径使得沿此路径上各边上的权值总和达到最小。</p>
+<p>单源最短路径问题是指对于给定的图<span class="math inline">\(G=(V, E)\)</span>，求源点<span class="math inline">\(v_0\)</span>到其它顶点<span class="math inline">\(v_t\)</span>的最短路径。</p>
+<h2 id="dijkstra算法">Dijkstra算法</h2>
+<p>Dijkstra算法用于计算一个节点到其他节点的最短路径。Dijkstra是一种按路径长度递增的顺序逐步产生最短路径的方法，是一种贪婪算法。</p>
+<p>Dijkstra算法的核心思想是首先求出长度最短的一条最短路径，再参照它求出长度次短的一条最短路径，依次类推，直到从源点<span class="math inline">\(v_0\)</span>到其它各顶点的最短路径全部求出为止。</p>
+<p>具体来说：图中所有顶点分成两组，第一组是已确定最短路径的顶点，初始只包含一个源点，记为集合<span class="math inline">\(S\)</span>；第二组是尚未确定最短路径的顶点，记为集合<span class="math inline">\(U\)</span>。</p>
+<p>按最短路径长度递增的顺序逐个把<span class="math inline">\(U\)</span>中的顶点加到<span class="math inline">\(S\)</span>中去，同时动态更新<span class="math inline">\(U\)</span>集合中源点到各个顶点的最短距离，直至所有顶点都包括到<span class="math inline">\(S\)</span>中。</p>
+<h2 id="实现思路">实现思路</h2>
+<ol type="1">
+<li>初始时，<span class="math inline">\(S\)</span>集合只包含起点<span class="math inline">\(v_0\)</span>；<span class="math inline">\(U\)</span>集合包含除<span class="math inline">\(v_0\)</span>外的其他顶点，且<span class="math inline">\(U\)</span>中顶点的距离为起点<span class="math inline">\(v_0\)</span>到该顶点的距离。（<span class="math inline">\(U\)</span>中顶点<span class="math inline">\(v_t\)</span>的距离为<span class="math inline">\((v_0, v_t)\)</span>的长度，如果<span class="math inline">\(v_0\)</span>和<span class="math inline">\(v_t\)</span>不相邻，则<span class="math inline">\(v_t\)</span>的最短距离为<span class="math inline">\(\infty\)</span>）</li>
+<li>从<span class="math inline">\(U\)</span>中选出距离最短的顶点<span class="math inline">\(v_t\)</span>，并将顶点<span class="math inline">\(v_t\)</span>加入到<span class="math inline">\(S\)</span>中；同时，从<span class="math inline">\(U\)</span>中移除顶点<span class="math inline">\(v_t\)</span>。</li>
+<li>更新<span class="math inline">\(U\)</span>中各个顶点到起点<span class="math inline">\(v_0\)</span>的距离以及最短路径中的<span class="math inline">\(v_t\)</span>顶点的前驱顶点。之所以更新<span class="math inline">\(U\)</span>中顶点的距离以及前驱顶点是由于上一步中确定了<span class="math inline">\(v_{t&#39;}\)</span>是求出最短路径的顶点，从而可以利用<span class="math inline">\(v_{t&#39;}\)</span>来更新其它顶点<span class="math inline">\(v_t\)</span>的距离，因为存在<span class="math inline">\((v_0, v_t)\)</span>的距离可能大于<span class="math inline">\((v_0, v_{t&#39;}) + (v_{t&#39;}, v_t)\)</span>距离的情况。</li>
+<li>重复步骤(2)和(3)，直到遍历完所有顶点。</li>
+</ol>
+<h2 id="案例分析">案例分析</h2>
+<figure>
+<img src="/images/algorithm/Dijkstra.png" alt=""><figcaption>Dijkstra</figcaption>
+</figure>
+<h2 id="代码实现">代码实现</h2>
+<p>使用了部分C++11特性，注释丰富，读起来应该不会太困难！</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="pp">#include </span><span class="im">&lt;list&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="pp">#include </span><span class="im">&lt;stack&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">using</span> Matrix = vector&lt;vector&lt;<span class="ex">uint</span>&gt;&gt;;                <span class="co">// 连接矩阵（使用嵌套的vector表示）</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">using</span> SNodes = vector&lt;tuple&lt;<span class="ex">uint</span>, <span class="ex">uint</span>, <span class="ex">uint</span>&gt;&gt;;     <span class="co">// 已计算出最短路径的顶点集合S（类似一个动态数组）</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">using</span> UNodes = list&lt;tuple&lt;<span class="ex">uint</span>, <span class="ex">uint</span>, <span class="ex">uint</span>&gt;&gt;;       <span class="co">// 未进行遍历的顶点集合U（使用list主要是方便元素删除操作）</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="kw">using</span> ENode = tuple&lt;<span class="ex">uint</span>, <span class="ex">uint</span>, <span class="ex">uint</span>&gt;;              <span class="co">// 每个节点包含（顶点编号，当前顶点到起始点最短距离，最短路径中当前顶点的上一个顶点）信息</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">/***</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"> * 从未遍历的U顶点集合中找到下一个离起始顶点距离最短的顶点</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"> * @param unvisitedNodes 未遍历的U顶点集合</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co"> * 每个元素是（顶点编号，当前顶点到起始点最短距离，最短路径中当前顶点的上一个顶点）的tuple</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co"> * @return 下一个离起始顶点距离最短的顶点</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co"> */</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>ENode searchNearest(<span class="at">const</span> UNodes &amp;unvisitedNodes) {</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    <span class="ex">uint</span> minDistance = UINT_MAX;</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    ENode nearest;</span>
+<span id="cb1-23"><a href="#cb1-23"></a>    <span class="cf">for</span> (<span class="at">const</span> <span class="kw">auto</span> &amp;node: unvisitedNodes) {</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        <span class="cf">if</span> (get&lt;<span class="dv">1</span>&gt;(node) &lt;= minDistance) {</span>
+<span id="cb1-25"><a href="#cb1-25"></a>            minDistance = get&lt;<span class="dv">1</span>&gt;(node);</span>
+<span id="cb1-26"><a href="#cb1-26"></a>            nearest = node;</span>
+<span id="cb1-27"><a href="#cb1-27"></a>        }</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    }</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    <span class="cf">return</span> nearest;</span>
+<span id="cb1-30"><a href="#cb1-30"></a>}</span>
+<span id="cb1-31"><a href="#cb1-31"></a></span>
+<span id="cb1-32"><a href="#cb1-32"></a></span>
+<span id="cb1-33"><a href="#cb1-33"></a><span class="co">/***</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="co"> * 迪克斯特拉算法的实现</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a><span class="co"> * @param graph 连接矩阵（使用嵌套的vector表示）</span></span>
+<span id="cb1-36"><a href="#cb1-36"></a><span class="co"> * @param startNodeIndex 起始点编码（从0开始）</span></span>
+<span id="cb1-37"><a href="#cb1-37"></a><span class="co"> * @return 返回一个vector，每个元素是到起始顶点的距离排列的包含（顶点编号，当前顶点到起始点最短距离，最短路径中当前顶点的上一个顶点）的tuple</span></span>
+<span id="cb1-38"><a href="#cb1-38"></a><span class="co"> */</span></span>
+<span id="cb1-39"><a href="#cb1-39"></a>SNodes dijkstra(<span class="at">const</span> Matrix &amp;graph, <span class="ex">uint</span> startNodeIndex) {</span>
+<span id="cb1-40"><a href="#cb1-40"></a>    <span class="at">const</span> <span class="ex">uint</span> numOfNodes = graph.size();   <span class="co">// 图中顶点的个数</span></span>
+<span id="cb1-41"><a href="#cb1-41"></a>    <span class="co">// S是已计算出最短路径的顶点的集合（顶点编号，当前顶点到起始点最短距离，最短路径中当前顶点的上一个顶点）</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a>    SNodes visitedNodes;</span>
+<span id="cb1-43"><a href="#cb1-43"></a>    <span class="co">// U是未计算出最短路径的顶点的集合（其中的key为顶点编号，value为到起始顶点最短距离和最短路径中上一个节点编号组成的pair）</span></span>
+<span id="cb1-44"><a href="#cb1-44"></a>    UNodes unvisitedNodes;</span>
+<span id="cb1-45"><a href="#cb1-45"></a></span>
+<span id="cb1-46"><a href="#cb1-46"></a>    <span class="co">// 对S和U集合进行初始化，起始顶点的距离为0，其他顶点的距离为无穷大</span></span>
+<span id="cb1-47"><a href="#cb1-47"></a>    <span class="co">// 最短路径中当前顶点的上一个顶点初始化为起始顶点，后面会逐步进行修正</span></span>
+<span id="cb1-48"><a href="#cb1-48"></a>    <span class="cf">for</span> (<span class="kw">auto</span> i = <span class="dv">0</span>; i &lt; numOfNodes; ++i) {</span>
+<span id="cb1-49"><a href="#cb1-49"></a>        <span class="cf">if</span> (i == startNodeIndex) visitedNodes.emplace_back(i, <span class="dv">0</span>, startNodeIndex);</span>
+<span id="cb1-50"><a href="#cb1-50"></a>        <span class="cf">else</span> unvisitedNodes.emplace_back(i, graph[startNodeIndex][i], startNodeIndex);</span>
+<span id="cb1-51"><a href="#cb1-51"></a>    }</span>
+<span id="cb1-52"><a href="#cb1-52"></a></span>
+<span id="cb1-53"><a href="#cb1-53"></a>    <span class="cf">while</span> (!unvisitedNodes.empty()) {</span>
+<span id="cb1-54"><a href="#cb1-54"></a>        <span class="co">// 从U中找到距离起始顶点距离最短的顶点，加入S，同时从U中删除</span></span>
+<span id="cb1-55"><a href="#cb1-55"></a>        <span class="kw">auto</span> nextNode = searchNearest(unvisitedNodes);</span>
+<span id="cb1-56"><a href="#cb1-56"></a>        unvisitedNodes.erase(find(unvisitedNodes.begin(), unvisitedNodes.end(), nextNode));</span>
+<span id="cb1-57"><a href="#cb1-57"></a>        visitedNodes.emplace_back(nextNode);</span>
+<span id="cb1-58"><a href="#cb1-58"></a>        <span class="co">// 更新U集合中各个顶点的最短距离以及最短路径中的上一个顶点</span></span>
+<span id="cb1-59"><a href="#cb1-59"></a>        <span class="cf">for</span> (<span class="kw">auto</span> &amp;node: unvisitedNodes) {</span>
+<span id="cb1-60"><a href="#cb1-60"></a>            <span class="co">// 更新的判断依据就是起始顶点到当前顶点（nextNode）距离加上当前顶点到U集合中顶点的距离小于原来起始顶点到U集合中顶点的距离</span></span>
+<span id="cb1-61"><a href="#cb1-61"></a>            <span class="co">// 更新最短距离的时候同时需要更新最短路径中的上一个顶点为nextNode</span></span>
+<span id="cb1-62"><a href="#cb1-62"></a>            <span class="cf">if</span> (graph[get&lt;<span class="dv">0</span>&gt;(nextNode)][get&lt;<span class="dv">0</span>&gt;(node)] != UINT_MAX &amp;&amp;</span>
+<span id="cb1-63"><a href="#cb1-63"></a>                graph[get&lt;<span class="dv">0</span>&gt;(nextNode)][get&lt;<span class="dv">0</span>&gt;(node)] + get&lt;<span class="dv">1</span>&gt;(nextNode) &lt; get&lt;<span class="dv">1</span>&gt;(node)) {</span>
+<span id="cb1-64"><a href="#cb1-64"></a>                get&lt;<span class="dv">1</span>&gt;(node) = graph[get&lt;<span class="dv">0</span>&gt;(nextNode)][get&lt;<span class="dv">0</span>&gt;(node)] + get&lt;<span class="dv">1</span>&gt;(nextNode);</span>
+<span id="cb1-65"><a href="#cb1-65"></a>                get&lt;<span class="dv">2</span>&gt;(node) = get&lt;<span class="dv">0</span>&gt;(nextNode);</span>
+<span id="cb1-66"><a href="#cb1-66"></a>            }</span>
+<span id="cb1-67"><a href="#cb1-67"></a>        }</span>
+<span id="cb1-68"><a href="#cb1-68"></a>    }</span>
+<span id="cb1-69"><a href="#cb1-69"></a></span>
+<span id="cb1-70"><a href="#cb1-70"></a>    <span class="cf">return</span> visitedNodes;</span>
+<span id="cb1-71"><a href="#cb1-71"></a>}</span>
+<span id="cb1-72"><a href="#cb1-72"></a></span>
+<span id="cb1-73"><a href="#cb1-73"></a></span>
+<span id="cb1-74"><a href="#cb1-74"></a><span class="co">/***</span></span>
+<span id="cb1-75"><a href="#cb1-75"></a><span class="co"> * 对使用迪克斯特拉算法求解的最短路径进行打印输出</span></span>
+<span id="cb1-76"><a href="#cb1-76"></a><span class="co"> * @param paths vector表示的最短路径集合</span></span>
+<span id="cb1-77"><a href="#cb1-77"></a><span class="co"> * 每个元素是到起始顶点的距离排列的包含（顶点编号，当前顶点到起始点最短距离，最短路径中当前顶点的上一个顶点）的tuple</span></span>
+<span id="cb1-78"><a href="#cb1-78"></a><span class="co"> */</span></span>
+<span id="cb1-79"><a href="#cb1-79"></a><span class="dt">void</span> print(<span class="at">const</span> SNodes &amp;paths) {</span>
+<span id="cb1-80"><a href="#cb1-80"></a>    stack&lt;<span class="dt">int</span>&gt; tracks;  <span class="co">//从尾部出发，使用stack将每个顶点的最短路径中的前一个顶点入栈，然后出栈的顺序就是最短路径顺序</span></span>
+<span id="cb1-81"><a href="#cb1-81"></a>    <span class="co">// 第一个元素是起始点，从第二个元素进行打印输出</span></span>
+<span id="cb1-82"><a href="#cb1-82"></a>    <span class="cf">for</span> (<span class="kw">auto</span> it = ++paths.begin(); it != paths.end(); ++it) {</span>
+<span id="cb1-83"><a href="#cb1-83"></a>        <span class="co">// 打印头部信息</span></span>
+<span id="cb1-84"><a href="#cb1-84"></a>        printf(<span class="st">&quot;</span><span class="sc">%c</span><span class="st"> -&gt; </span><span class="sc">%c</span><span class="st">:</span><span class="sc">\t</span><span class="st"> Length: </span><span class="sc">%d\t</span><span class="st"> Paths: </span><span class="sc">%c</span><span class="st">&quot;</span>,</span>
+<span id="cb1-85"><a href="#cb1-85"></a>               <span class="dt">char</span>(get&lt;<span class="dv">0</span>&gt;(paths[<span class="dv">0</span>]) + <span class="dv">65</span>),</span>
+<span id="cb1-86"><a href="#cb1-86"></a>               <span class="dt">char</span>(get&lt;<span class="dv">0</span>&gt;(*it) + <span class="dv">65</span>),</span>
+<span id="cb1-87"><a href="#cb1-87"></a>               get&lt;<span class="dv">1</span>&gt;(*it),</span>
+<span id="cb1-88"><a href="#cb1-88"></a>               <span class="dt">char</span>(get&lt;<span class="dv">0</span>&gt;(paths[<span class="dv">0</span>]) + <span class="dv">65</span>));</span>
+<span id="cb1-89"><a href="#cb1-89"></a>        <span class="kw">auto</span> pointer = *it;</span>
+<span id="cb1-90"><a href="#cb1-90"></a>        <span class="co">// 如果当前指针pointer指向的节点有中途节点（判断的条件是最短路径中的前一个节点不是起始点）</span></span>
+<span id="cb1-91"><a href="#cb1-91"></a>        <span class="cf">while</span> (get&lt;<span class="dv">2</span>&gt;(pointer) != get&lt;<span class="dv">0</span>&gt;(paths[<span class="dv">0</span>])) {</span>
+<span id="cb1-92"><a href="#cb1-92"></a>            tracks.push(get&lt;<span class="dv">0</span>&gt;(pointer));</span>
+<span id="cb1-93"><a href="#cb1-93"></a>            <span class="co">// Lambda表达式，使用find_if函数把当前顶点的前一个顶点从paths中找出来继续进行循环直到前一个节点就是起始点</span></span>
+<span id="cb1-94"><a href="#cb1-94"></a>            <span class="kw">auto</span> condition = [pointer](tuple&lt;<span class="ex">uint</span>, <span class="ex">uint</span>, <span class="ex">uint</span>&gt; x) { <span class="cf">return</span> get&lt;<span class="dv">0</span>&gt;(x) == get&lt;<span class="dv">2</span>&gt;(pointer); };</span>
+<span id="cb1-95"><a href="#cb1-95"></a>            pointer = *find_if(paths.begin(), paths.end(), condition);</span>
+<span id="cb1-96"><a href="#cb1-96"></a>        }</span>
+<span id="cb1-97"><a href="#cb1-97"></a>        tracks.push(get&lt;<span class="dv">0</span>&gt;(pointer));</span>
+<span id="cb1-98"><a href="#cb1-98"></a></span>
+<span id="cb1-99"><a href="#cb1-99"></a>        <span class="co">// 以出栈的顺序进行打印输出</span></span>
+<span id="cb1-100"><a href="#cb1-100"></a>        <span class="cf">while</span> (!tracks.empty()) {</span>
+<span id="cb1-101"><a href="#cb1-101"></a>            printf(<span class="st">&quot; -&gt; </span><span class="sc">%c</span><span class="st">&quot;</span>, <span class="dt">char</span>(tracks.top() + <span class="dv">65</span>));</span>
+<span id="cb1-102"><a href="#cb1-102"></a>            tracks.pop();</span>
+<span id="cb1-103"><a href="#cb1-103"></a>        }</span>
+<span id="cb1-104"><a href="#cb1-104"></a>        printf(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
+<span id="cb1-105"><a href="#cb1-105"></a>    }</span>
+<span id="cb1-106"><a href="#cb1-106"></a>}</span>
+<span id="cb1-107"><a href="#cb1-107"></a></span>
+<span id="cb1-108"><a href="#cb1-108"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-109"><a href="#cb1-109"></a>    Matrix graph = {</span>
+<span id="cb1-110"><a href="#cb1-110"></a>            {<span class="dv">0</span>,        <span class="dv">12</span>,       UINT_MAX, UINT_MAX, UINT_MAX, <span class="dv">16</span>, <span class="dv">14</span>},</span>
+<span id="cb1-111"><a href="#cb1-111"></a>            {<span class="dv">12</span>,       <span class="dv">0</span>,        <span class="dv">10</span>,       UINT_MAX, UINT_MAX, <span class="dv">7</span>, UINT_MAX},</span>
+<span id="cb1-112"><a href="#cb1-112"></a>            {UINT_MAX, <span class="dv">10</span>,       <span class="dv">0</span>, <span class="dv">3</span>,               <span class="dv">5</span>,        <span class="dv">6</span>, UINT_MAX},</span>
+<span id="cb1-113"><a href="#cb1-113"></a>            {UINT_MAX, UINT_MAX, <span class="dv">3</span>, <span class="dv">0</span>,               <span class="dv">4</span>, UINT_MAX, UINT_MAX},</span>
+<span id="cb1-114"><a href="#cb1-114"></a>            {UINT_MAX, UINT_MAX, <span class="dv">5</span>, <span class="dv">4</span>,               <span class="dv">0</span>,        <span class="dv">2</span>,  <span class="dv">8</span>},</span>
+<span id="cb1-115"><a href="#cb1-115"></a>            {<span class="dv">16</span>,       <span class="dv">7</span>,        <span class="dv">6</span>,        UINT_MAX, <span class="dv">2</span>,        <span class="dv">9</span>,  <span class="dv">9</span>},</span>
+<span id="cb1-116"><a href="#cb1-116"></a>            {<span class="dv">14</span>,       UINT_MAX, UINT_MAX, UINT_MAX, <span class="dv">8</span>,        <span class="dv">9</span>,  <span class="dv">0</span>}</span>
+<span id="cb1-117"><a href="#cb1-117"></a>    };  <span class="co">// 图对应的连接矩阵</span></span>
+<span id="cb1-118"><a href="#cb1-118"></a>    <span class="kw">auto</span> results = dijkstra(graph, <span class="ex">uint</span>(<span class="ch">&#39;D&#39;</span> - <span class="dv">65</span>));          <span class="co">// 选取顶点C（大写字母A的ASCII编码是65）</span></span>
+<span id="cb1-119"><a href="#cb1-119"></a>    print(results);     <span class="co">// 打印输出结果</span></span>
+<span id="cb1-120"><a href="#cb1-120"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-121"><a href="#cb1-121"></a>}</span></code></pre></div>
+<p>运行结果：</p>
+<pre><code>D -&gt; C:  Length: 3   Paths: D -&gt; C
+D -&gt; E:  Length: 4   Paths: D -&gt; E
+D -&gt; F:  Length: 6   Paths: D -&gt; E -&gt; F
+D -&gt; G:  Length: 12  Paths: D -&gt; E -&gt; G
+D -&gt; B:  Length: 13  Paths: D -&gt; C -&gt; B
+D -&gt; A:  Length: 22  Paths: D -&gt; E -&gt; F -&gt; A</code></pre>
+<h2 id="section"></h2>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/geos/GIS空间分析之Clip/" id="post_nav-older" class="next-content">
+            上一篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.gif" alt="阿振's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        阿振的博客
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:camefromnowhere@163.com" target="_blank" title="写信告诉我">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        写信告诉我
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="标签">
+                
+                    <i class="material-icons sidebar-material-icons">label</i>
+                
+                标签
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">linear_scale</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="https://blog.csdn.net/theonegis" title="CSDN">
+                
+                    <i class="material-icons sidebar-material-icons">edit</i>
+                
+                CSDN
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">73</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            版权所有&nbsp;&copy;<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>阿振的博客
+            
+                <br>
+                
+                    空间信息处理技术分享站，转载请注明出处
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?d+XW6aNuIPgOn1iA7NnB4g==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?lOy/ACj5suSNi7ZVFVbpFQ==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+        </body>
+    
+</html>
