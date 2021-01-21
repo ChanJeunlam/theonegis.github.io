@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta charset="utf-8">
     <link rel="dns-prefetch" href="//cdn.bootcss.com" />
     <link rel="dns-prefetch" href="//cdn.mathjax.org" />
     <!--
@@ -306,15 +306,15 @@
     
     
 
-    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <!-- Custom Head -->
     
 
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -359,7 +359,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#minimum-cost-for-tickets"><span class="post-toc-number">1.</span> <span class="post-toc-text">Minimum Cost For Tickets</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目描述"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#算法描述"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">算法描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#c实现"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#scala实现"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala实现</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Minimum-Cost-For-Tickets"><span class="post-toc-number">1.</span> <span class="post-toc-text">Minimum Cost For Tickets</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B0"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">算法描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#C-%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Scala%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala实现</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -434,7 +434,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/LeetCode/">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/动态规划/">动态规划</a>
+        <a class="post_tag-none-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a>
     </ul>
     
 
@@ -514,69 +514,64 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="minimum-cost-for-tickets">Minimum Cost For Tickets</h1>
-<h2 id="题目描述">题目描述</h2>
-<p>LeetCode地址：<a href="https://leetcode.com/problems/minimum-cost-for-tickets/" target="_blank" rel="noopener">983. Minimum Cost For Tickets</a></p>
-<p>In a country popular for train travel, you have planned some train travelling one year in advance. The days of the year that you will travel is given as an array <code>days</code>. Each day is an integer from <code>1</code> to <code>365</code>.</p>
+        <h1 id="Minimum-Cost-For-Tickets"><a href="#Minimum-Cost-For-Tickets" class="headerlink" title="Minimum Cost For Tickets"></a>Minimum Cost For Tickets</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>LeetCode地址：<a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-cost-for-tickets/">983. Minimum Cost For Tickets</a></p>
+<p>In a country popular for train travel, you have planned some train travelling one year in advance.  The days of the year that you will travel is given as an array <code>days</code>.  Each day is an integer from <code>1</code> to <code>365</code>.</p>
 <p>Train tickets are sold in 3 different ways:</p>
 <ul>
 <li>a 1-day pass is sold for <code>costs[0]</code> dollars;</li>
 <li>a 7-day pass is sold for <code>costs[1]</code> dollars;</li>
 <li>a 30-day pass is sold for <code>costs[2]</code> dollars.</li>
 </ul>
-<p>The passes allow that many days of consecutive travel. For example, if we get a 7-day pass on day 2, then we can travel for 7 days: day 2, 3, 4, 5, 6, 7, and 8.</p>
+<p>The passes allow that many days of consecutive travel.  For example, if we get a 7-day pass on day 2, then we can travel for 7 days: day 2, 3, 4, 5, 6, 7, and 8.</p>
 <p>Return the minimum number of dollars you need to travel every day in the given list of <code>days</code>.</p>
 <p>days数组中存储的是该年中去旅游的日期（范围为1到365之间的数字），costs数组大小为3，存储的是1天，7天和30天火车票的价格。我们需要做一个方案选择合适的购票方案达到旅游days天最省钱的目的。</p>
-<h2 id="算法描述">算法描述</h2>
-<p>采用动态规划进行解决，假设现在是第days[i]天，我们在该天出行旅游需要选择买票方案，现在我们有三种方案：第一，购买一天的通行票，当天出行，花费就是第days[i-1]天的花费加上一天的通行票价；第二，购买七天的通行票，而七天的通行票可以在连续的七天之内使用，所以花费是第days[i-7]天的花费加上七天的通行票价（即从第days[i-8]天到days[i]天的花费都包含在这七天的通行票中）；第三，购买三十天的通行票，同理，花费是days[i-30]天加上三十天的通行票价。然后我们在这三种方案中选择最实惠的。最后，在实现代码中注意数组越界的问题。</p>
+<h2 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h2><p>采用动态规划进行解决，假设现在是第days[i]天，我们在该天出行旅游需要选择买票方案，现在我们有三种方案：第一，购买一天的通行票，当天出行，花费就是第days[i-1]天的花费加上一天的通行票价；第二，购买七天的通行票，而七天的通行票可以在连续的七天之内使用，所以花费是第days[i-7]天的花费加上七天的通行票价（即从第days[i-8]天到days[i]天的花费都包含在这七天的通行票中）；第三，购买三十天的通行票，同理，花费是days[i-30]天加上三十天的通行票价。然后我们在这三种方案中选择最实惠的。最后，在实现代码中注意数组越界的问题。</p>
 <p>使用dp[j]代表着我们旅行到i天为止需要的最少旅行价格，递推公式为：</p>
-<ol type="1">
+<ol>
 <li>dp[j] = dp[j-1] （第j天不用旅行）</li>
 <li>dp[j] = min(dp[j-1] + costs[0], dp[j-7] + costs[1], dp[j-30] + costs[2]) （第j天需要旅行）</li>
 </ol>
-<h2 id="c实现">C++实现</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> Solution {</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">public</span>:</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="dt">int</span> mincostTickets(vector&lt;<span class="dt">int</span>&gt; &amp;days, vector&lt;<span class="dt">int</span>&gt; &amp;costs) {</span>
-<span id="cb1-4"><a href="#cb1-4"></a>        <span class="cf">if</span> (days.size() == <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        <span class="ot">assert</span>(costs.size() == <span class="dv">3</span>);</span>
-<span id="cb1-6"><a href="#cb1-6"></a>        <span class="co">// dp[i]代表着我们旅行到i天需要的最少旅行价格, dp[0]为0，没实际含义</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>        array&lt;<span class="dt">int</span>, <span class="dv">366</span>&gt; dp = {<span class="dv">0</span>};</span>
-<span id="cb1-8"><a href="#cb1-8"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt; dp.size(); ++i) {</span>
-<span id="cb1-9"><a href="#cb1-9"></a>            <span class="co">// 如果这一天不旅行</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>            <span class="cf">if</span> (find(days.begin(), days.end(), i) == days.end()) dp[i] = dp[i - <span class="dv">1</span>];</span>
-<span id="cb1-11"><a href="#cb1-11"></a>            <span class="cf">else</span> {</span>
-<span id="cb1-12"><a href="#cb1-12"></a>                dp[i] = min({</span>
-<span id="cb1-13"><a href="#cb1-13"></a>                   dp[i - <span class="dv">1</span>] + costs[<span class="dv">0</span>],</span>
-<span id="cb1-14"><a href="#cb1-14"></a>                   dp[max(<span class="dv">0</span>, i - <span class="dv">7</span>)] + costs[<span class="dv">1</span>],</span>
-<span id="cb1-15"><a href="#cb1-15"></a>                   dp[max(<span class="dv">0</span>, i - <span class="dv">30</span>)] + costs[<span class="dv">2</span>]</span>
-<span id="cb1-16"><a href="#cb1-16"></a>                });</span>
-<span id="cb1-17"><a href="#cb1-17"></a>            }</span>
-<span id="cb1-18"><a href="#cb1-18"></a>        }</span>
-<span id="cb1-19"><a href="#cb1-19"></a>        <span class="cf">return</span> dp[<span class="dv">365</span>];</span>
-<span id="cb1-20"><a href="#cb1-20"></a>    }</span>
-<span id="cb1-21"><a href="#cb1-21"></a>};</span></code></pre></div>
-<h2 id="scala实现">Scala实现</h2>
-<p>注：如果有童鞋有纯函数的实现，希望分享出来！共享！</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">object</span> Solution {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="kw">def</span> <span class="fu">mincostTickets</span>(days: Array[Int], costs: Array[Int]): Int = {</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="kw">if</span> (days.<span class="fu">length</span> == <span class="dv">0</span>) <span class="kw">return</span> <span class="dv">0</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>    <span class="fu">assert</span>(costs.<span class="fu">length</span> == <span class="dv">3</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a>    <span class="kw">val</span> travels = days.<span class="fu">toSet</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="kw">val</span> dp = Array.<span class="fu">fill</span>[Int](<span class="dv">366</span>)(<span class="dv">0</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="kw">for</span> (i &lt;- <span class="dv">1</span> until <span class="dv">366</span>) {</span>
-<span id="cb2-9"><a href="#cb2-9"></a>      <span class="kw">if</span> (!travels.<span class="fu">contains</span>(i)) <span class="fu">dp</span>(i) = <span class="fu">dp</span>(i - <span class="dv">1</span>)</span>
-<span id="cb2-10"><a href="#cb2-10"></a>      <span class="kw">else</span> <span class="fu">dp</span>(i) = List(</span>
-<span id="cb2-11"><a href="#cb2-11"></a>        <span class="fu">dp</span>(i - <span class="dv">1</span>) + <span class="fu">costs</span>(<span class="dv">0</span>),</span>
-<span id="cb2-12"><a href="#cb2-12"></a>        <span class="fu">dp</span>(math.<span class="fu">max</span>(<span class="dv">0</span>, i - <span class="dv">7</span>)) + <span class="fu">costs</span>(<span class="dv">1</span>),</span>
-<span id="cb2-13"><a href="#cb2-13"></a>        <span class="fu">dp</span>(math.<span class="fu">max</span>(<span class="dv">0</span>, i - <span class="dv">30</span>)) + <span class="fu">costs</span>(<span class="dv">2</span>)</span>
-<span id="cb2-14"><a href="#cb2-14"></a>      ).<span class="fu">min</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>    }</span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a>    <span class="fu">dp</span>(<span class="dv">365</span>)</span>
-<span id="cb2-18"><a href="#cb2-18"></a>  }</span>
-<span id="cb2-19"><a href="#cb2-19"></a>}</span></code></pre></div>
+<h2 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a>C++实现</h2><pre><code class="C++">class Solution &#123;
+public:
+    int mincostTickets(vector&lt;int&gt; &amp;days, vector&lt;int&gt; &amp;costs) &#123;
+        if (days.size() == 0) return 0;
+        assert(costs.size() == 3);
+        // dp[i]代表着我们旅行到i天需要的最少旅行价格, dp[0]为0，没实际含义
+        array&lt;int, 366&gt; dp = &#123;0&#125;;
+        for (int i = 1; i &lt; dp.size(); ++i) &#123;
+            // 如果这一天不旅行
+            if (find(days.begin(), days.end(), i) == days.end()) dp[i] = dp[i - 1];
+            else &#123;
+                dp[i] = min(&#123;
+                   dp[i - 1] + costs[0],
+                   dp[max(0, i - 7)] + costs[1],
+                   dp[max(0, i - 30)] + costs[2]
+                &#125;);
+            &#125;
+        &#125;
+        return dp[365];
+    &#125;
+&#125;;</code></pre>
+<h2 id="Scala实现"><a href="#Scala实现" class="headerlink" title="Scala实现"></a>Scala实现</h2><p>注：如果有童鞋有纯函数的实现，希望分享出来！共享！</p>
+<pre><code class="Scala">object Solution &#123;
+  def mincostTickets(days: Array[Int], costs: Array[Int]): Int = &#123;
+    if (days.length == 0) return 0
+    assert(costs.length == 3)
+    val travels = days.toSet
+    val dp = Array.fill[Int](366)(0)
+
+    for (i &lt;- 1 until 366) &#123;
+      if (!travels.contains(i)) dp(i) = dp(i - 1)
+      else dp(i) = List(
+        dp(i - 1) + costs(0),
+        dp(math.max(0, i - 7)) + costs(1),
+        dp(math.max(0, i - 30)) + costs(2)
+      ).min
+    &#125;
+
+    dp(365)
+  &#125;
+&#125;</code></pre>
 
         
     
@@ -611,7 +606,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/math/小波变换三之Haar变换/" id="post_nav-older" class="next-content">
+        <a href="/math/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2%E4%B8%89%E4%B9%8BHaar%E5%8F%98%E6%8D%A2/" id="post_nav-older" class="next-content">
             上一篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -703,7 +698,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -721,7 +716,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">geos<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
             </ul>
         </li>
         
@@ -752,7 +747,7 @@
         
     
         <li>
-            <a href="https://blog.csdn.net/theonegis" title="CSDN">
+            <a target="_blank" rel="noopener" href="https://blog.csdn.net/theonegis" title="CSDN">
                 
                     <i class="material-icons sidebar-material-icons">edit</i>
                 
@@ -769,7 +764,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">73</span>
+                <span class="sidebar-badge">74</span>
             </a>
         </li>
         
@@ -961,7 +956,9 @@ It will not impact the appearance and can give developers a lot of support :)
 <script>
 	var agent = navigator.userAgent.toLowerCase();
 	if(agent.indexOf('ucbrowser')>0) {
-		document.write('<link rel="stylesheet" href="/css/uc.css">');
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
 	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
 	}
 </script>
@@ -1034,24 +1031,7 @@ console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viose
 </script>
 
                 </main>
-            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+            </div>
         </body>
     
 </html>

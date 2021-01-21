@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta charset="utf-8">
     <link rel="dns-prefetch" href="//cdn.bootcss.com" />
     <link rel="dns-prefetch" href="//cdn.mathjax.org" />
     <!--
@@ -306,15 +306,15 @@
     
     
 
-    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <!-- Custom Head -->
     
 
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -359,7 +359,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#leetcode-longest-palindromic-substring"><span class="post-toc-number">1.</span> <span class="post-toc-text">LeetCode-Longest Palindromic Substring</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目描述"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思路分析"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">思路分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#c实现"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#scala实现"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala实现</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#LeetCode-Longest-Palindromic-Substring"><span class="post-toc-number">1.</span> <span class="post-toc-text">LeetCode-Longest Palindromic Substring</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">思路分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#C-%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Scala%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala实现</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -434,7 +434,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/LeetCode/">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/回文/">回文</a>
+        <a class="post_tag-none-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E5%9B%9E%E6%96%87/" rel="tag">回文</a>
     </ul>
     
 
@@ -516,9 +516,7 @@
     
         <p>版权声明：本文为博主原创文章，转载请注明原文出处！</p>
 <p>写作时间：2019-02-10 00:04:34</p>
-<h1 id="leetcode-longest-palindromic-substring">LeetCode-Longest Palindromic Substring</h1>
-<h2 id="题目描述">题目描述</h2>
-<p>LeetCode第5道题目：<a href="https://leetcode.com/problems/longest-palindromic-substring/" target="_blank" rel="noopener">5. Longest Palindromic Substring</a></p>
+<h1 id="LeetCode-Longest-Palindromic-Substring"><a href="#LeetCode-Longest-Palindromic-Substring" class="headerlink" title="LeetCode-Longest Palindromic Substring"></a>LeetCode-Longest Palindromic Substring</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>LeetCode第5道题目：<a target="_blank" rel="noopener" href="https://leetcode.com/problems/longest-palindromic-substring/">5. Longest Palindromic Substring</a></p>
 <p>Given a string <strong>s</strong>, find the longest palindromic substring in <strong>s</strong>. You may assume that the maximum length of <strong>s</strong> is 1000.</p>
 <p><strong>Example 1:</strong></p>
 <pre><code>Input: &quot;babad&quot;
@@ -528,57 +526,57 @@ Note: &quot;aba&quot; is also a valid answer.</code></pre>
 <pre><code>Input: &quot;cbbd&quot;
 Output: &quot;bb&quot;</code></pre>
 <p>题目要求我们找到给定字符串中的所有回文子串中最长子串。</p>
-<h2 id="思路分析">思路分析</h2>
-<p>这个题目和之前的<a href="https://theonegis.github.io/algorithm/LeetCode-Palindromic-Substrings/">LeetCode-Palindromic Substrings</a>题目的思路是一样的，<a href="https://leetcode.com/problems/palindromic-substrings/" target="_blank" rel="noopener">Palindromic Substrings</a>是找回文的个数。在这个过程中其实我们是找出了所有的回文子串，接下来我们统计一下每个回文的长度，选择出最长的那个就是本文的答案了（当然，在代码实现过程中统计最长子串不一定是找到了所有的子串之后再统计，可能是边寻找边统计）。所以，方法还是老方法，可以利用动态规划，也可以利用中心扩散法。</p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>这个题目和之前的<a href="https://theonegis.github.io/algorithm/LeetCode-Palindromic-Substrings/">LeetCode-Palindromic Substrings</a>题目的思路是一样的，<a target="_blank" rel="noopener" href="https://leetcode.com/problems/palindromic-substrings/">Palindromic Substrings</a>是找回文的个数。在这个过程中其实我们是找出了所有的回文子串，接下来我们统计一下每个回文的长度，选择出最长的那个就是本文的答案了（当然，在代码实现过程中统计最长子串不一定是找到了所有的子串之后再统计，可能是边寻找边统计）。所以，方法还是老方法，可以利用动态规划，也可以利用中心扩散法。</p>
 <p>有不明白的地方可以参见我之前的博文《<a href="https://theonegis.github.io/algorithm/LeetCode-Palindromic-Substrings/">LeetCode-Palindromic Substrings</a>》，这里我只给出了使用中心扩散法进行求解的代码实现。</p>
-<h2 id="c实现">C++实现</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> Solution {</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">private</span>:</span>
-<span id="cb3-3"><a href="#cb3-3"></a>    <span class="dt">int</span> longest = <span class="dv">0</span>;            <span class="co">// 记录最长子串的字符个数</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>    string palindrome = <span class="st">&quot;&quot;</span>;     <span class="co">// 保存最长的子串</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="dt">void</span> extendPalindrome(<span class="at">const</span> string&amp; s, <span class="dt">int</span> left, <span class="dt">int</span> right) {</span>
-<span id="cb3-6"><a href="#cb3-6"></a>        <span class="cf">while</span> ((left &gt;= <span class="dv">0</span>) &amp;&amp; (right &lt; s.size()) &amp;&amp; (s[left] == s[right])) {</span>
-<span id="cb3-7"><a href="#cb3-7"></a>            --left;</span>
-<span id="cb3-8"><a href="#cb3-8"></a>            ++right;</span>
-<span id="cb3-9"><a href="#cb3-9"></a>        }</span>
-<span id="cb3-10"><a href="#cb3-10"></a>        <span class="dt">int</span> count = right - left - <span class="dv">1</span>;</span>
-<span id="cb3-11"><a href="#cb3-11"></a>        <span class="cf">if</span> (count &gt; longest) {</span>
-<span id="cb3-12"><a href="#cb3-12"></a>            longest = count;</span>
-<span id="cb3-13"><a href="#cb3-13"></a>            palindrome = s.substr(left + <span class="dv">1</span>, longest);</span>
-<span id="cb3-14"><a href="#cb3-14"></a>        }</span>
-<span id="cb3-15"><a href="#cb3-15"></a>    }</span>
-<span id="cb3-16"><a href="#cb3-16"></a></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="kw">public</span>:</span>
-<span id="cb3-18"><a href="#cb3-18"></a>    string longestPalindrome(string s) {</span>
-<span id="cb3-19"><a href="#cb3-19"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; s.size(); ++i) {</span>
-<span id="cb3-20"><a href="#cb3-20"></a>            extendPalindrome(s, i, i);</span>
-<span id="cb3-21"><a href="#cb3-21"></a>            extendPalindrome(s, i, i + <span class="dv">1</span>);</span>
-<span id="cb3-22"><a href="#cb3-22"></a>        }</span>
-<span id="cb3-23"><a href="#cb3-23"></a>        <span class="cf">return</span> palindrome;</span>
-<span id="cb3-24"><a href="#cb3-24"></a>    }</span>
-<span id="cb3-25"><a href="#cb3-25"></a>};</span></code></pre></div>
+<h2 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a>C++实现</h2><pre><code class="C++">class Solution &#123;
+private:
+    int longest = 0;            // 记录最长子串的字符个数
+    string palindrome = &quot;&quot;;     // 保存最长的子串
+    void extendPalindrome(const string&amp; s, int left, int right) &#123;
+        while ((left &gt;= 0) &amp;&amp; (right &lt; s.size()) &amp;&amp; (s[left] == s[right])) &#123;
+            --left;
+            ++right;
+        &#125;
+        int count = right - left - 1;
+        if (count &gt; longest) &#123;
+            longest = count;
+            palindrome = s.substr(left + 1, longest);
+        &#125;
+    &#125;
+
+public:
+    string longestPalindrome(string s) &#123;
+        for (int i = 0; i &lt; s.size(); ++i) &#123;
+            extendPalindrome(s, i, i);
+            extendPalindrome(s, i, i + 1);
+        &#125;
+        return palindrome;
+    &#125;
+&#125;;</code></pre>
 <p>可以对比一下，和<a href="https://theonegis.github.io/algorithm/LeetCode-Palindromic-Substrings/">LeetCode-Palindromic Substrings</a>的答案是不是没多大变化？</p>
-<h2 id="scala实现">Scala实现</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">object</span> Solution {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="kw">def</span> <span class="fu">longestPalindrome</span>(s: String): String = {</span>
-<span id="cb4-3"><a href="#cb4-3"></a>    s.<span class="fu">length</span> <span class="kw">match</span> {</span>
-<span id="cb4-4"><a href="#cb4-4"></a>      <span class="kw">case</span> <span class="dv">0</span> =&gt; s</span>
-<span id="cb4-5"><a href="#cb4-5"></a>      <span class="kw">case</span> _ =&gt; {</span>
-<span id="cb4-6"><a href="#cb4-6"></a>        <span class="kw">val</span> longest = (<span class="kw">for</span> {</span>
-<span id="cb4-7"><a href="#cb4-7"></a>          i &lt;- s.<span class="fu">indices</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>          j &lt;- List(i, i + <span class="dv">1</span>)</span>
-<span id="cb4-9"><a href="#cb4-9"></a>          k &lt;- (i to <span class="dv">0</span> by <span class="dv">-1</span>).<span class="fu">zip</span>(j until s.<span class="fu">length</span>).<span class="fu">takeWhile</span>(p =&gt; <span class="fu">s</span>(p._<span class="dv">1</span>) == <span class="fu">s</span>(p._<span class="dv">2</span>))</span>
-<span id="cb4-10"><a href="#cb4-10"></a>        } <span class="kw">yield</span> (k._<span class="dv">1</span>, k._<span class="dv">2</span>)).<span class="fu">maxBy</span>(p =&gt; p._<span class="dv">2</span> - p._<span class="dv">1</span>)</span>
-<span id="cb4-11"><a href="#cb4-11"></a>        s.<span class="fu">substring</span>(longest._<span class="dv">1</span>, longest._<span class="dv">2</span> + <span class="dv">1</span>)</span>
-<span id="cb4-12"><a href="#cb4-12"></a>      }</span>
-<span id="cb4-13"><a href="#cb4-13"></a>    }</span>
-<span id="cb4-14"><a href="#cb4-14"></a>  }</span>
-<span id="cb4-15"><a href="#cb4-15"></a>}</span></code></pre></div>
+<h2 id="Scala实现"><a href="#Scala实现" class="headerlink" title="Scala实现"></a>Scala实现</h2><pre><code class="Scala">object Solution &#123;
+  def longestPalindrome(s: String): String = &#123;
+    s.length match &#123;
+      case 0 =&gt; s
+      case _ =&gt; &#123;
+        val longest = (for &#123;
+          i &lt;- s.indices
+          j &lt;- List(i, i + 1)
+          k &lt;- (i to 0 by -1).zip(j until s.length).takeWhile(p =&gt; s(p._1) == s(p._2))
+        &#125; yield (k._1, k._2)).maxBy(p =&gt; p._2 - p._1)
+        s.substring(longest._1, longest._2 + 1)
+      &#125;
+    &#125;
+  &#125;
+&#125;</code></pre>
 <p>这里需要注意的是：</p>
-<ol type="1">
-<li><p>需要对于空字符串的特殊处理（这里使用的是<code>match</code>匹配，当然也可以使用<code>if...else</code>条件语句）</p></li>
-<li><p>我们使用<code>yield</code>每次生成回文子串的左右指针，然后再使用<code>maxBy</code>得到最长子串对应的左右指针。</p></li>
-<li><p><code>takeWhile</code>函数对集合进行遍历过程中当条件不满足的时候会立即停止判断，返回的是最后那个满足的元素。（<code>filter</code>函数会返回集合中所有满足条件的元素）</p></li>
+<ol>
+<li><p>需要对于空字符串的特殊处理（这里使用的是<code>match</code>匹配，当然也可以使用<code>if...else</code>条件语句）</p>
+</li>
+<li><p>我们使用<code>yield</code>每次生成回文子串的左右指针，然后再使用<code>maxBy</code>得到最长子串对应的左右指针。</p>
+</li>
+<li><p><code>takeWhile</code>函数对集合进行遍历过程中当条件不满足的时候会立即停止判断，返回的是最后那个满足的元素。（<code>filter</code>函数会返回集合中所有满足条件的元素）</p>
+</li>
 </ol>
 
         
@@ -706,7 +704,7 @@ Output: &quot;bb&quot;</code></pre>
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -724,7 +722,7 @@ Output: &quot;bb&quot;</code></pre>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">geos<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
             </ul>
         </li>
         
@@ -755,7 +753,7 @@ Output: &quot;bb&quot;</code></pre>
         
     
         <li>
-            <a href="https://blog.csdn.net/theonegis" title="CSDN">
+            <a target="_blank" rel="noopener" href="https://blog.csdn.net/theonegis" title="CSDN">
                 
                     <i class="material-icons sidebar-material-icons">edit</i>
                 
@@ -772,7 +770,7 @@ Output: &quot;bb&quot;</code></pre>
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">73</span>
+                <span class="sidebar-badge">74</span>
             </a>
         </li>
         
@@ -964,7 +962,9 @@ It will not impact the appearance and can give developers a lot of support :)
 <script>
 	var agent = navigator.userAgent.toLowerCase();
 	if(agent.indexOf('ucbrowser')>0) {
-		document.write('<link rel="stylesheet" href="/css/uc.css">');
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
 	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
 	}
 </script>
@@ -1037,24 +1037,7 @@ console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viose
 </script>
 
                 </main>
-            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+            </div>
         </body>
     
 </html>

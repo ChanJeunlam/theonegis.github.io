@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta charset="utf-8">
     <link rel="dns-prefetch" href="//cdn.bootcss.com" />
     <link rel="dns-prefetch" href="//cdn.mathjax.org" />
     <!--
@@ -306,15 +306,15 @@
     
     
 
-    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <!-- Custom Head -->
     
 
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -359,7 +359,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#range-sum-query---immutable"><span class="post-toc-number">1.</span> <span class="post-toc-text">303. Range Sum Query - Immutable</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目描述"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思路分析"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">思路分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#c示例"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++示例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#scala示例"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala示例</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#303-Range-Sum-Query-Immutable"><span class="post-toc-number">1.</span> <span class="post-toc-text">303. Range Sum Query - Immutable</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">思路分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#C-%E7%A4%BA%E4%BE%8B"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++示例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Scala%E7%A4%BA%E4%BE%8B"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala示例</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -434,7 +434,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/LeetCode/">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/动态规划/">动态规划</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/算法/">算法</a>
+        <a class="post_tag-none-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
     </ul>
     
 
@@ -514,9 +514,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="range-sum-query---immutable">303. Range Sum Query - Immutable</h1>
-<h2 id="题目描述">题目描述</h2>
-<p>Given an integer array <em>nums</em>, find the sum of the elements between indices <em>i</em> and <em>j</em> (<em>i</em> ≤ <em>j</em>), inclusive.</p>
+        <h1 id="303-Range-Sum-Query-Immutable"><a href="#303-Range-Sum-Query-Immutable" class="headerlink" title="303. Range Sum Query - Immutable"></a>303. Range Sum Query - Immutable</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>Given an integer array <em>nums</em>, find the sum of the elements between indices <em>i</em> and <em>j</em> (<em>i</em> ≤ <em>j</em>), inclusive.</p>
 <p><strong>Example:</strong></p>
 <pre><code>Given nums = [-2, 0, 3, -5, 2, -1]
 
@@ -524,60 +522,57 @@ sumRange(0, 2) -&gt; 1
 sumRange(2, 5) -&gt; -1
 sumRange(0, 5) -&gt; -3</code></pre>
 <p><strong>Note:</strong></p>
-<ol type="1">
+<ol>
 <li>You may assume that the array does not change.</li>
 <li>There are many calls to <em>sumRange</em> function.</li>
 </ol>
-<h2 id="思路分析">思路分析</h2>
-<p>题目中提示给定的<code>nums</code>数组不变，而且<code>sumRange()</code>函数可能需要多次被调用。</p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>题目中提示给定的<code>nums</code>数组不变，而且<code>sumRange()</code>函数可能需要多次被调用。</p>
 <p>这个就很简单了，我们计算出来当前位置元素到初始元素之间所有元素之和，并进行存储，每次需要求解给定区间元素之和的时候收尾相减即可。这样就可以大大减少调用多次<code>sumRange()</code>函数的计算时间。</p>
 <p>注意：我们的和元素组成的数组中第一个元素是0。</p>
 <p>其实，我觉得这道题并不完全能算得上一道动态规划的题目。但是LeetCode把这道题归类到动态规划中也说得过去吧。</p>
-<h2 id="c示例">C++示例</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> NumArray {</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">private</span>:</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    vector&lt;<span class="dt">int</span>&gt; sums;</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">public</span>:</span>
-<span id="cb2-5"><a href="#cb2-5"></a>    NumArray(vector&lt;<span class="dt">int</span>&gt; nums) {</span>
-<span id="cb2-6"><a href="#cb2-6"></a>        sums.push_back(<span class="dv">0</span>);</span>
-<span id="cb2-7"><a href="#cb2-7"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; nums.size(); ++i) {</span>
-<span id="cb2-8"><a href="#cb2-8"></a>            sums.push_back(nums[i] + sums[i]);</span>
-<span id="cb2-9"><a href="#cb2-9"></a>        }</span>
-<span id="cb2-10"><a href="#cb2-10"></a>    }</span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a>    <span class="dt">int</span> sumRange(<span class="dt">int</span> i, <span class="dt">int</span> j) {</span>
-<span id="cb2-13"><a href="#cb2-13"></a>        <span class="cf">return</span> sums[j + <span class="dv">1</span>] - sums[i];</span>
-<span id="cb2-14"><a href="#cb2-14"></a>    }</span>
-<span id="cb2-15"><a href="#cb2-15"></a>};</span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="dt">int</span> main() {</span>
-<span id="cb2-18"><a href="#cb2-18"></a>    vector&lt;<span class="dt">int</span>&gt; nums{-<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">3</span>, -<span class="dv">5</span>, <span class="dv">2</span>, -<span class="dv">1</span>};</span>
-<span id="cb2-19"><a href="#cb2-19"></a>    NumArray obj(nums);</span>
-<span id="cb2-20"><a href="#cb2-20"></a>    <span class="dt">int</span> result = obj.sumRange(<span class="dv">2</span>, <span class="dv">5</span>);</span>
-<span id="cb2-21"><a href="#cb2-21"></a>    cout &lt;&lt; result &lt;&lt; endl;</span>
-<span id="cb2-22"><a href="#cb2-22"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb2-23"><a href="#cb2-23"></a>}</span></code></pre></div>
-<h2 id="scala示例">Scala示例</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">object</span> RangeSumQuery {</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="kw">class</span> <span class="fu">NumArray</span>(nums: Array[Int]) {</span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="kw">private</span> <span class="kw">val</span> sums = <span class="kw">new</span> Array[Int](nums.<span class="fu">length</span> + <span class="dv">1</span>)</span>
-<span id="cb3-6"><a href="#cb3-6"></a>    <span class="kw">for</span> (i &lt;- nums.<span class="fu">indices</span>)</span>
-<span id="cb3-7"><a href="#cb3-7"></a>      <span class="fu">sums</span>(i + <span class="dv">1</span>) = <span class="fu">sums</span>(i) + <span class="fu">nums</span>(i)</span>
-<span id="cb3-8"><a href="#cb3-8"></a></span>
-<span id="cb3-9"><a href="#cb3-9"></a>    <span class="kw">def</span> <span class="fu">sumRange</span>(i: Int, j: Int): Int = {</span>
-<span id="cb3-10"><a href="#cb3-10"></a>      <span class="fu">sums</span>(j + <span class="dv">1</span>) - <span class="fu">sums</span>(i)</span>
-<span id="cb3-11"><a href="#cb3-11"></a>    }</span>
-<span id="cb3-12"><a href="#cb3-12"></a>  }</span>
-<span id="cb3-13"><a href="#cb3-13"></a></span>
-<span id="cb3-14"><a href="#cb3-14"></a>  <span class="kw">def</span> <span class="fu">main</span>(args: Array[String]): Unit = {</span>
-<span id="cb3-15"><a href="#cb3-15"></a>    <span class="kw">val</span> nums = Array(-<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">-5</span>, <span class="dv">2</span>, <span class="dv">-1</span>)</span>
-<span id="cb3-16"><a href="#cb3-16"></a>    <span class="kw">val</span> obj = <span class="kw">new</span> <span class="fu">NumArray</span>(nums)</span>
-<span id="cb3-17"><a href="#cb3-17"></a>    <span class="kw">val</span> result = obj.<span class="fu">sumRange</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
-<span id="cb3-18"><a href="#cb3-18"></a>    <span class="fu">println</span>(result)</span>
-<span id="cb3-19"><a href="#cb3-19"></a>  }</span>
-<span id="cb3-20"><a href="#cb3-20"></a>}</span></code></pre></div>
+<h2 id="C-示例"><a href="#C-示例" class="headerlink" title="C++示例"></a>C++示例</h2><pre><code class="C++">class NumArray &#123;
+private:
+    vector&lt;int&gt; sums;
+public:
+    NumArray(vector&lt;int&gt; nums) &#123;
+        sums.push_back(0);
+        for (int i = 0; i &lt; nums.size(); ++i) &#123;
+            sums.push_back(nums[i] + sums[i]);
+        &#125;
+    &#125;
+
+    int sumRange(int i, int j) &#123;
+        return sums[j + 1] - sums[i];
+    &#125;
+&#125;;
+
+int main() &#123;
+    vector&lt;int&gt; nums&#123;-2, 0, 3, -5, 2, -1&#125;;
+    NumArray obj(nums);
+    int result = obj.sumRange(2, 5);
+    cout &lt;&lt; result &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+<h2 id="Scala示例"><a href="#Scala示例" class="headerlink" title="Scala示例"></a>Scala示例</h2><pre><code class="Scala">object RangeSumQuery &#123;
+
+  class NumArray(nums: Array[Int]) &#123;
+
+    private val sums = new Array[Int](nums.length + 1)
+    for (i &lt;- nums.indices)
+      sums(i + 1) = sums(i) + nums(i)
+
+    def sumRange(i: Int, j: Int): Int = &#123;
+      sums(j + 1) - sums(i)
+    &#125;
+  &#125;
+
+  def main(args: Array[String]): Unit = &#123;
+    val nums = Array(-2, 0, 3, -5, 2, -1)
+    val obj = new NumArray(nums)
+    val result = obj.sumRange(2, 5)
+    println(result)
+  &#125;
+&#125;</code></pre>
 
         
     
@@ -598,7 +593,7 @@ sumRange(0, 5) -&gt; -3</code></pre>
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/dl/反向传播算法大揭秘/" id="post_nav-newer" class="prev-content">
+        <a href="/dl/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95%E5%A4%A7%E6%8F%AD%E7%A7%98/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -612,7 +607,7 @@ sumRange(0, 5) -&gt; -3</code></pre>
 
     <!-- Next Nav -->
     
-        <a href="/python/Python调用C-代码/" id="post_nav-older" class="next-content">
+        <a href="/python/Python%E8%B0%83%E7%94%A8C-%E4%BB%A3%E7%A0%81/" id="post_nav-older" class="next-content">
             上一篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -704,7 +699,7 @@ sumRange(0, 5) -&gt; -3</code></pre>
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -722,7 +717,7 @@ sumRange(0, 5) -&gt; -3</code></pre>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">geos<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
             </ul>
         </li>
         
@@ -753,7 +748,7 @@ sumRange(0, 5) -&gt; -3</code></pre>
         
     
         <li>
-            <a href="https://blog.csdn.net/theonegis" title="CSDN">
+            <a target="_blank" rel="noopener" href="https://blog.csdn.net/theonegis" title="CSDN">
                 
                     <i class="material-icons sidebar-material-icons">edit</i>
                 
@@ -770,7 +765,7 @@ sumRange(0, 5) -&gt; -3</code></pre>
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">73</span>
+                <span class="sidebar-badge">74</span>
             </a>
         </li>
         
@@ -962,7 +957,9 @@ It will not impact the appearance and can give developers a lot of support :)
 <script>
 	var agent = navigator.userAgent.toLowerCase();
 	if(agent.indexOf('ucbrowser')>0) {
-		document.write('<link rel="stylesheet" href="/css/uc.css">');
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
 	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
 	}
 </script>
@@ -1035,24 +1032,7 @@ console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viose
 </script>
 
                 </main>
-            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+            </div>
         </body>
     
 </html>

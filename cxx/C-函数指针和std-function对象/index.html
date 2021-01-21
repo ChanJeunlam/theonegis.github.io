@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta charset="utf-8">
     <link rel="dns-prefetch" href="//cdn.bootcss.com" />
     <link rel="dns-prefetch" href="//cdn.mathjax.org" />
     <!--
@@ -224,7 +224,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="阿振的博客">
-    <meta name="msapplication-starturl" content="http://theonegis.github.io/cxx/C-函数指针和std-function对象/">
+    <meta name="msapplication-starturl" content="http://theonegis.github.io/cxx/C-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%92%8Cstd-function%E5%AF%B9%E8%B1%A1/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="阿振的博客">
@@ -243,7 +243,7 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://theonegis.github.io/cxx/C-函数指针和std-function对象/">
+    <meta property="og:url" content="http://theonegis.github.io/cxx/C-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%92%8Cstd-function%E5%AF%B9%E8%B1%A1/">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="C++函数指针和std::function对象 | 阿振的博客">
     <meta property="og:image" content="/img/logo.png">
@@ -260,7 +260,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://theonegis.github.io/cxx/C-函数指针和std-function对象/index.html" />
+        <link rel="canonical" href="http://theonegis.github.io/cxx/C-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%92%8Cstd-function%E5%AF%B9%E8%B1%A1/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -272,7 +272,7 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://theonegis.github.io/cxx/C-函数指针和std-function对象/index.html",
+    "mainEntityOfPage": "http://theonegis.github.io/cxx/C-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%92%8Cstd-function%E5%AF%B9%E8%B1%A1/index.html",
     "headline": "C++函数指针和std::function对象",
     "datePublished": "Sun Oct 07 2018 15:18:57 GMT+0800",
     "dateModified": "Sat Mar 23 2019 03:39:53 GMT+0800",
@@ -306,15 +306,15 @@
     
     
 
-    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <!-- Custom Head -->
     
 
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -359,7 +359,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#c函数指针和stdfunction对象"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++函数指针和std::function对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#函数指针"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">函数指针</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stdfunction对象"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">std::function对象</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%92%8Cstd-function%E5%AF%B9%E8%B1%A1"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++函数指针和std::function对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">函数指针</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-function%E5%AF%B9%E8%B1%A1"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">std::function对象</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -434,7 +434,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/c/">c++</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/function/">function</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/函数指针/">函数指针</a>
+        <a class="post_tag-none-link" href="/tags/c/" rel="tag">c++</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/function/" rel="tag">function</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88/" rel="tag">函数指针</a>
     </ul>
     
 
@@ -462,7 +462,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=C++函数指针和std::function对象&url=http://theonegis.github.io/cxx/C-函数指针和std-function对象/index.html&pic=http://theonegis.github.io/img/logo.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=C++函数指针和std::function对象&url=http://theonegis.github.io/cxx/C-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%92%8Cstd-function%E5%AF%B9%E8%B1%A1/index.html&pic=http://theonegis.github.io/img/logo.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -471,7 +471,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++函数指针和std::function对象&url=http://theonegis.github.io/cxx/C-函数指针和std-function对象/index.html&via=阿振" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++函数指针和std::function对象&url=http://theonegis.github.io/cxx/C-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%92%8Cstd-function%E5%AF%B9%E8%B1%A1/index.html&via=阿振" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -480,7 +480,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://theonegis.github.io/cxx/C-函数指针和std-function对象/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://theonegis.github.io/cxx/C-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%92%8Cstd-function%E5%AF%B9%E8%B1%A1/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -495,7 +495,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=阿振的博客&title=C++函数指针和std::function对象&summary=博学之，审问之，慎思之，明辨之，笃行之&pics=http://theonegis.github.io/img/logo.png&url=http://theonegis.github.io/cxx/C-函数指针和std-function对象/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=阿振的博客&title=C++函数指针和std::function对象&summary=博学之，审问之，慎思之，明辨之，笃行之&pics=http://theonegis.github.io/img/logo.png&url=http://theonegis.github.io/cxx/C-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%92%8Cstd-function%E5%AF%B9%E8%B1%A1/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -514,131 +514,128 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="c函数指针和stdfunction对象">C++函数指针和std::function对象</h1>
-<p>这篇博文中通过实现对String字符串大小写转换为列来说明C++中函数指针和std::function对象的使用。</p>
+        <h1 id="C-函数指针和std-function对象"><a href="#C-函数指针和std-function对象" class="headerlink" title="C++函数指针和std::function对象"></a>C++函数指针和std::function对象</h1><p>这篇博文中通过实现对String字符串大小写转换为列来说明C++中函数指针和std::function对象的使用。</p>
 <p>我们在博文《<a href="https://theonegis.github.io/cxx/C-%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84String%E7%B1%BB/">C++实现一个简单的String类</a>》中的自定义的<code>String</code>类为基础，再添加两个成员函数用于将字符串全部转为大写（<code>toUpperCase</code>）和全部转为小写（<code>toLowerCase</code>）。</p>
 <p>分析一下这两个函数，我们可以发现，两个函数的实现有相同之处，都需要变量字符串中的每个字符，然后使用大写转换函数（<code>std::touuper</code>）和小写转换函数（<code>std::tolower</code>）进行转换即可。</p>
 <p>既然两个函数有相同的部分，我们可以将相同的部分抽取出来，抽取出来的这部分负责对字符串进行遍历，然后将对于单个字符转换的函数作为参数传递到该用于字符串遍历的函数中。</p>
 <p>下面我们分别使用函数指针的方式和C++ 11中的<code>std::function</code>对象进行实现。本文不对<code>std::function</code>的优点进行介绍，这是以一个简单示例进行入门介绍。</p>
-<h2 id="函数指针">函数指针</h2>
-<p>头文件：</p>
+<h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2><p>头文件：</p>
 <p>头文件实现中我们使用了<code>typedef</code>定义了一个函数指针类型，当然我们也可以使用<code>using</code>关键字进行定义，两者类似。</p>
 <p><code>String::map</code>函数用于对字符串进行遍历操作，然后通过传进来的函数指针对每个字符进行操作。</p>
 <p>注意我们定义的<code>transform</code>函数指针的返回值是<code>int</code>，函数参数也是<code>int</code>，这是因为<code>cctype</code>头文件中的<code>std::toupper</code>和<code>std::tolower</code>函数的签名也是这样的。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> String {</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">private</span>:</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="dt">char</span>* _buffer;</span>
-<span id="cb1-4"><a href="#cb1-4"></a>    <span class="dt">size_t</span> _length;</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="co">// 使用using和typedef都可以: typedef int (*transform)(int);</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="kw">using</span> transform = <span class="dt">int</span> (*)(<span class="dt">int</span>);</span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="dt">void</span> init(<span class="at">const</span> <span class="dt">char</span>* str);</span>
-<span id="cb1-8"><a href="#cb1-8"></a>    String map(transform fun);</span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">public</span>:</span>
-<span id="cb1-11"><a href="#cb1-11"></a>    String(<span class="at">const</span> <span class="dt">char</span>* str= <span class="kw">nullptr</span>);       <span class="co">// 默认构造函数</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>    String(<span class="at">const</span> String&amp; other);            <span class="co">// 拷贝构造函数</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>    String(String&amp;&amp; other) <span class="kw">noexcept</span>;        <span class="co">// 移动构造函数</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>    ~String();                              <span class="co">// 析构函数</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a>    <span class="dt">size_t</span> length();</span>
-<span id="cb1-17"><a href="#cb1-17"></a>    <span class="at">const</span> <span class="dt">char</span>* data();</span>
-<span id="cb1-18"><a href="#cb1-18"></a></span>
-<span id="cb1-19"><a href="#cb1-19"></a>    <span class="dt">char</span>&amp; <span class="kw">operator</span>[](<span class="dt">size_t</span> index);</span>
-<span id="cb1-20"><a href="#cb1-20"></a>    String&amp; <span class="kw">operator</span>=(<span class="at">const</span> String&amp; other);</span>
-<span id="cb1-21"><a href="#cb1-21"></a>    String&amp; <span class="kw">operator</span>=(String&amp;&amp; other) <span class="kw">noexcept</span>;</span>
-<span id="cb1-22"><a href="#cb1-22"></a>    String <span class="kw">operator</span>+(<span class="at">const</span> String&amp; other);</span>
-<span id="cb1-23"><a href="#cb1-23"></a>    <span class="dt">bool</span> <span class="kw">operator</span>==(<span class="at">const</span> String&amp; other);</span>
-<span id="cb1-24"><a href="#cb1-24"></a></span>
-<span id="cb1-25"><a href="#cb1-25"></a>    String toUpperCase();</span>
-<span id="cb1-26"><a href="#cb1-26"></a>    String toLowerCase();</span>
-<span id="cb1-27"><a href="#cb1-27"></a></span>
-<span id="cb1-28"><a href="#cb1-28"></a>    <span class="kw">friend</span> <span class="bu">std::</span>ostream&amp; <span class="kw">operator</span>&lt;&lt;(<span class="bu">std::</span>ostream&amp; output, <span class="at">const</span> String&amp; str);</span>
-<span id="cb1-29"><a href="#cb1-29"></a>    <span class="kw">friend</span> <span class="bu">std::</span>istream&amp; <span class="kw">operator</span>&gt;&gt;(<span class="bu">std::</span>istream&amp; input, String&amp; str);</span>
-<span id="cb1-30"><a href="#cb1-30"></a>};</span></code></pre></div>
+<pre><code class="C++">class String &#123;
+private:
+    char* _buffer;
+    size_t _length;
+    // 使用using和typedef都可以: typedef int (*transform)(int);
+    using transform = int (*)(int);
+    void init(const char* str);
+    String map(transform fun);
+
+public:
+    String(const char* str= nullptr);       // 默认构造函数
+    String(const String&amp; other);            // 拷贝构造函数
+    String(String&amp;&amp; other) noexcept;        // 移动构造函数
+    ~String();                              // 析构函数
+
+    size_t length();
+    const char* data();
+
+    char&amp; operator[](size_t index);
+    String&amp; operator=(const String&amp; other);
+    String&amp; operator=(String&amp;&amp; other) noexcept;
+    String operator+(const String&amp; other);
+    bool operator==(const String&amp; other);
+
+    String toUpperCase();
+    String toLowerCase();
+
+    friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, const String&amp; str);
+    friend std::istream&amp; operator&gt;&gt;(std::istream&amp; input, String&amp; str);
+&#125;;</code></pre>
 <p>具体实现：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a>String String::map(String::transform fun) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="dt">char</span>* transformed = <span class="kw">new</span> <span class="dt">char</span>[_length];</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; _length; ++i) {</span>
-<span id="cb2-4"><a href="#cb2-4"></a>        transformed[i] = <span class="kw">static_cast</span>&lt;<span class="dt">char</span>&gt;(fun(<span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(_buffer[i])));</span>
-<span id="cb2-5"><a href="#cb2-5"></a>    }</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="cf">return</span> String(transformed);</span>
-<span id="cb2-7"><a href="#cb2-7"></a>}</span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a>String String::toUpperCase() {</span>
-<span id="cb2-10"><a href="#cb2-10"></a>    <span class="cf">return</span> map(<span class="bu">std::</span>toupper);</span>
-<span id="cb2-11"><a href="#cb2-11"></a>}</span>
-<span id="cb2-12"><a href="#cb2-12"></a></span>
-<span id="cb2-13"><a href="#cb2-13"></a>String String::toLowerCase() {</span>
-<span id="cb2-14"><a href="#cb2-14"></a>    <span class="cf">return</span> map(<span class="bu">std::</span>tolower);</span>
-<span id="cb2-15"><a href="#cb2-15"></a>}</span></code></pre></div>
+<pre><code class="C++">String String::map(String::transform fun) &#123;
+    char* transformed = new char[_length];
+    for (size_t i = 0; i &lt; _length; ++i) &#123;
+        transformed[i] = static_cast&lt;char&gt;(fun(static_cast&lt;int&gt;(_buffer[i])));
+    &#125;
+    return String(transformed);
+&#125;
+
+String String::toUpperCase() &#123;
+    return map(std::toupper);
+&#125;
+
+String String::toLowerCase() &#123;
+    return map(std::tolower);
+&#125;</code></pre>
 <p>测试文件：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="pp">#include </span><span class="im">&quot;strings.h&quot;</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">using</span> <span class="bu">std::</span>cout;</span>
-<span id="cb3-5"><a href="#cb3-5"></a></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="dt">int</span> main() {</span>
-<span id="cb3-7"><a href="#cb3-7"></a>    String str1(<span class="st">&quot;Hello World&quot;</span>);</span>
-<span id="cb3-8"><a href="#cb3-8"></a>    String str2 = str1.toUpperCase();</span>
-<span id="cb3-9"><a href="#cb3-9"></a>    cout &lt;&lt; str2 &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
-<span id="cb3-10"><a href="#cb3-10"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb3-11"><a href="#cb3-11"></a>}</span></code></pre></div>
+<pre><code class="C++">#include &quot;strings.h&quot;
+#include &lt;iostream&gt;
+
+using std::cout;
+
+int main() &#123;
+    String str1(&quot;Hello World&quot;);
+    String str2 = str1.toUpperCase();
+    cout &lt;&lt; str2 &lt;&lt; &#39;\n&#39;;
+    return 0;
+&#125;</code></pre>
 <p>输出结果：</p>
 <pre><code>默认构造函数(Hello World)
 默认构造函数(HELLO WORLD)
 HELLO WORLD
 析构函数(HELLO WORLD)
 析构函数(Hello World)</code></pre>
-<h2 id="stdfunction对象">std::function对象</h2>
-<p>头文件</p>
+<h2 id="std-function对象"><a href="#std-function对象" class="headerlink" title="std::function对象"></a>std::function对象</h2><p>头文件</p>
 <p>可以看到我们这里使用了<code>std::function</code>类型作为<code>String::map</code>函数的参数类型，<code>std::function</code>是一个模板类，尖括号中标识了返回值，圆括号中标识了参数列表（可以是多个）。</p>
 <p>这里我们的<code>std::function</code>对象类型的返回值和参数列表都是<code>char</code>。</p>
 <p>（为什么不跟前面一样都用<code>int</code>呢？不感兴趣的可以忽略这一段。我做了测试：如果用<code>int</code>的话，会跟<code>locale</code>中定义的<code>toupper</code>和<code>tolower</code>函数定义冲突。<code>locale</code>头文件中的这两个函数的返回值和参数是<code>char_type</code>类型，编译不通过。所以我将<code>std::function</code>对象类型的返回值和参数列表定义为<code>char</code>，然后在<code>String::toUpperCase</code>和<code>String::toLowerCase</code>函数中使用匿名函数（Lambda）将<code>cctype</code>中的<code>std::toupper</code>和<code>std::tolower</code>函数的返回值和参数类型由<code>int</code>强制转换为<code>char</code>即可。）</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">class</span> String {</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">private</span>:</span>
-<span id="cb5-3"><a href="#cb5-3"></a>    <span class="dt">char</span>* _buffer;</span>
-<span id="cb5-4"><a href="#cb5-4"></a>    <span class="dt">size_t</span> _length;</span>
-<span id="cb5-5"><a href="#cb5-5"></a>    <span class="dt">void</span> init(<span class="at">const</span> <span class="dt">char</span>* str);</span>
-<span id="cb5-6"><a href="#cb5-6"></a>    String map(<span class="bu">std::</span>function&lt;<span class="dt">char</span>(<span class="dt">char</span>)&gt; fun);</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="kw">public</span>:</span>
-<span id="cb5-9"><a href="#cb5-9"></a>    String(<span class="at">const</span> <span class="dt">char</span>* str= <span class="kw">nullptr</span>);       <span class="co">// 默认构造函数</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a>    String(<span class="at">const</span> String&amp; other);            <span class="co">// 拷贝构造函数</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a>    String(String&amp;&amp; other) <span class="kw">noexcept</span>;        <span class="co">// 移动构造函数</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a>    ~String();                              <span class="co">// 析构函数</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a></span>
-<span id="cb5-14"><a href="#cb5-14"></a>    <span class="dt">size_t</span> length();</span>
-<span id="cb5-15"><a href="#cb5-15"></a>    <span class="at">const</span> <span class="dt">char</span>* data();</span>
-<span id="cb5-16"><a href="#cb5-16"></a></span>
-<span id="cb5-17"><a href="#cb5-17"></a>    <span class="dt">char</span>&amp; <span class="kw">operator</span>[](<span class="dt">size_t</span> index);</span>
-<span id="cb5-18"><a href="#cb5-18"></a>    String&amp; <span class="kw">operator</span>=(<span class="at">const</span> String&amp; other);</span>
-<span id="cb5-19"><a href="#cb5-19"></a>    String&amp; <span class="kw">operator</span>=(String&amp;&amp; other) <span class="kw">noexcept</span>;</span>
-<span id="cb5-20"><a href="#cb5-20"></a>    String <span class="kw">operator</span>+(<span class="at">const</span> String&amp; other);</span>
-<span id="cb5-21"><a href="#cb5-21"></a>    <span class="dt">bool</span> <span class="kw">operator</span>==(<span class="at">const</span> String&amp; other);</span>
-<span id="cb5-22"><a href="#cb5-22"></a></span>
-<span id="cb5-23"><a href="#cb5-23"></a>    String toUpperCase();</span>
-<span id="cb5-24"><a href="#cb5-24"></a>    String toLowerCase();</span>
-<span id="cb5-25"><a href="#cb5-25"></a></span>
-<span id="cb5-26"><a href="#cb5-26"></a>    <span class="kw">friend</span> <span class="bu">std::</span>ostream&amp; <span class="kw">operator</span>&lt;&lt;(<span class="bu">std::</span>ostream&amp; output, <span class="at">const</span> String&amp; str);</span>
-<span id="cb5-27"><a href="#cb5-27"></a>    <span class="kw">friend</span> <span class="bu">std::</span>istream&amp; <span class="kw">operator</span>&gt;&gt;(<span class="bu">std::</span>istream&amp; input, String&amp; str);</span>
-<span id="cb5-28"><a href="#cb5-28"></a>};</span></code></pre></div>
+<pre><code class="C++">class String &#123;
+private:
+    char* _buffer;
+    size_t _length;
+    void init(const char* str);
+    String map(std::function&lt;char(char)&gt; fun);
+
+public:
+    String(const char* str= nullptr);       // 默认构造函数
+    String(const String&amp; other);            // 拷贝构造函数
+    String(String&amp;&amp; other) noexcept;        // 移动构造函数
+    ~String();                              // 析构函数
+
+    size_t length();
+    const char* data();
+
+    char&amp; operator[](size_t index);
+    String&amp; operator=(const String&amp; other);
+    String&amp; operator=(String&amp;&amp; other) noexcept;
+    String operator+(const String&amp; other);
+    bool operator==(const String&amp; other);
+
+    String toUpperCase();
+    String toLowerCase();
+
+    friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, const String&amp; str);
+    friend std::istream&amp; operator&gt;&gt;(std::istream&amp; input, String&amp; str);
+&#125;;</code></pre>
 <p>实现代码：</p>
 <p>在在<code>String::toUpperCase</code>和<code>String::toLowerCase</code>函数中使用可匿名函数（Lambda）对<code>std::toupper</code>和<code>std::tolower</code>函数的返回值和参数类型<code>int</code>进行了强制转换，这样才可以跟定义的<code>std::function</code>类型的函数签名相符。</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1"></a>String String::map(function&lt;<span class="dt">char</span>(<span class="dt">char</span>)&gt; fun) {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>    <span class="dt">char</span>* transformed = <span class="kw">new</span> <span class="dt">char</span>[_length];</span>
-<span id="cb6-3"><a href="#cb6-3"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; _length; ++i) {</span>
-<span id="cb6-4"><a href="#cb6-4"></a>        transformed[i] = (fun(_buffer[i]));</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    }</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    <span class="cf">return</span> String(transformed);</span>
-<span id="cb6-7"><a href="#cb6-7"></a>}</span>
-<span id="cb6-8"><a href="#cb6-8"></a></span>
-<span id="cb6-9"><a href="#cb6-9"></a>String String::toUpperCase() {</span>
-<span id="cb6-10"><a href="#cb6-10"></a>    <span class="cf">return</span> map([](<span class="dt">char</span> c){<span class="cf">return</span> <span class="kw">static_cast</span>&lt;<span class="dt">char</span>&gt;(toupper(<span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(c)));});</span>
-<span id="cb6-11"><a href="#cb6-11"></a>}</span>
-<span id="cb6-12"><a href="#cb6-12"></a></span>
-<span id="cb6-13"><a href="#cb6-13"></a>String String::toLowerCase() {</span>
-<span id="cb6-14"><a href="#cb6-14"></a>    <span class="cf">return</span> map([](<span class="dt">char</span> c){<span class="cf">return</span> <span class="kw">static_cast</span>&lt;<span class="dt">char</span>&gt;(toupper(<span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(c)));});</span>
-<span id="cb6-15"><a href="#cb6-15"></a>}</span></code></pre></div>
+<pre><code class="C++">String String::map(function&lt;char(char)&gt; fun) &#123;
+    char* transformed = new char[_length];
+    for (size_t i = 0; i &lt; _length; ++i) &#123;
+        transformed[i] = (fun(_buffer[i]));
+    &#125;
+    return String(transformed);
+&#125;
+
+String String::toUpperCase() &#123;
+    return map([](char c)&#123;return static_cast&lt;char&gt;(toupper(static_cast&lt;int&gt;(c)));&#125;);
+&#125;
+
+String String::toLowerCase() &#123;
+    return map([](char c)&#123;return static_cast&lt;char&gt;(toupper(static_cast&lt;int&gt;(c)));&#125;);
+&#125;</code></pre>
 <p>主函数跟上面函数指针的一样，输出结果也完全一样。</p>
 <p>这个案例虽然不能体现出使用<code>std::function</code>类型的优势，但是对于它的简单使用可以有一个参考。</p>
 
@@ -661,7 +658,7 @@ HELLO WORLD
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/cxx/C-17使用std-apply和fold-expression对tuple进行遍历/" id="post_nav-newer" class="prev-content">
+        <a href="/cxx/C-17%E4%BD%BF%E7%94%A8std-apply%E5%92%8Cfold-expression%E5%AF%B9tuple%E8%BF%9B%E8%A1%8C%E9%81%8D%E5%8E%86/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -675,7 +672,7 @@ HELLO WORLD
 
     <!-- Next Nav -->
     
-        <a href="/cxx/C-移动语义及拷贝优化/" id="post_nav-older" class="next-content">
+        <a href="/cxx/C-%E7%A7%BB%E5%8A%A8%E8%AF%AD%E4%B9%89%E5%8F%8A%E6%8B%B7%E8%B4%9D%E4%BC%98%E5%8C%96/" id="post_nav-older" class="next-content">
             上一篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -767,7 +764,7 @@ HELLO WORLD
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -785,7 +782,7 @@ HELLO WORLD
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">geos<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
             </ul>
         </li>
         
@@ -816,7 +813,7 @@ HELLO WORLD
         
     
         <li>
-            <a href="https://blog.csdn.net/theonegis" title="CSDN">
+            <a target="_blank" rel="noopener" href="https://blog.csdn.net/theonegis" title="CSDN">
                 
                     <i class="material-icons sidebar-material-icons">edit</i>
                 
@@ -833,7 +830,7 @@ HELLO WORLD
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">73</span>
+                <span class="sidebar-badge">74</span>
             </a>
         </li>
         
@@ -1025,7 +1022,9 @@ It will not impact the appearance and can give developers a lot of support :)
 <script>
 	var agent = navigator.userAgent.toLowerCase();
 	if(agent.indexOf('ucbrowser')>0) {
-		document.write('<link rel="stylesheet" href="/css/uc.css">');
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
 	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
 	}
 </script>
@@ -1098,24 +1097,7 @@ console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viose
 </script>
 
                 </main>
-            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+            </div>
         </body>
     
 </html>

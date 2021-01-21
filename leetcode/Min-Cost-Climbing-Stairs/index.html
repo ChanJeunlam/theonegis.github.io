@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta charset="utf-8">
     <link rel="dns-prefetch" href="//cdn.bootcss.com" />
     <link rel="dns-prefetch" href="//cdn.mathjax.org" />
     <!--
@@ -306,15 +306,15 @@
     
     
 
-    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <!-- Custom Head -->
     
 
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -359,7 +359,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#min-cost-climbing-stairs"><span class="post-toc-number">1.</span> <span class="post-toc-text">Min Cost Climbing Stairs</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思路分析"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">思路分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#c实现"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#scala实现"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala实现</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Min-Cost-Climbing-Stairs"><span class="post-toc-number">1.</span> <span class="post-toc-text">Min Cost Climbing Stairs</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">思路分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#C-%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Scala%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala实现</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -434,7 +434,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/LeetCode/">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/动态规划/">动态规划</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/算法/">算法</a>
+        <a class="post_tag-none-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
     </ul>
     
 
@@ -514,9 +514,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="min-cost-climbing-stairs">Min Cost Climbing Stairs</h1>
-<h2 id="题目">题目</h2>
-<p>On a staircase, the <code>i</code>-th step has some non-negative cost <code>cost[i]</code> assigned (0 indexed).</p>
+        <h1 id="Min-Cost-Climbing-Stairs"><a href="#Min-Cost-Climbing-Stairs" class="headerlink" title="Min Cost Climbing Stairs"></a>Min Cost Climbing Stairs</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>On a staircase, the <code>i</code>-th step has some non-negative cost <code>cost[i]</code> assigned (0 indexed).</p>
 <p>Once you pay the cost, you can either climb one or two steps. You need to find minimum cost to reach the top of the floor, and you can either start from the step with index 0, or the step with index 1.</p>
 <p><strong>Example 1:</strong></p>
 <pre><code>Input: cost = [10, 15, 20]
@@ -526,104 +524,85 @@ Explanation: Cheapest is start on cost[1], pay that cost and go to the top.</cod
 <pre><code>Input: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
 Output: 6
 Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3].</code></pre>
-<h2 id="思路分析">思路分析</h2>
-<p>其实，刚看到这个题目的时候，我是有点迷惑的，甚至浪费了不少时间。</p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>其实，刚看到这个题目的时候，我是有点迷惑的，甚至浪费了不少时间。</p>
 <p>比如对于第一个例子，我以为结果应该是10。因为我从第0个台阶开始，跨两步就可以到达最顶层。</p>
 <p>然而，这样的理解和题目的本意是不相符的。题目中的“top of the floor”只的是最后一层台阶的更上一层。也就是说，对于第一个例子，我需要跨到3层（从0开始）台阶上去。如果从第0个台阶开始的话，花费是（10+20）= 30，而如果从第1个台阶开始，直接跨两步的话，则花费是15。</p>
 <p>理解了题目含义，我们开始做题。很显然，这是一道动态规划问题。</p>
 <p>而且我们有如下递归公式：</p>
-<p><span class="math display">\[
-\left\{  
-\begin{array}{**lr**}  
-\mathrm{dp}[0] = \mathrm{cost}[0] &amp;  \\  
-\mathrm{dp}[1] = \mathrm{cost}[1] &amp; \\  
-\mathrm{dp}[i] = \mathrm{cost}[i] + \mathrm{min}(\mathrm{dp}[i-1], \mathrm{dp}[i-2]) &amp;    
-\end{array}  
-\right.
-\]</span></p>
-<p>从第2层开始，我们往上走的选择是保持当前的花费最小，从而我们从前面的花费中选择最小的和当前的楼层的<span class="math inline">\(\mathrm{cost}[i]\)</span>相加。最后的返回值应该是<span class="math inline">\(\mathrm{min}(\mathrm{dp}[i], \mathrm{dp}[i-1])\)</span>。这种思路是一种正向思考。</p>
+<p>$$<br>\left{<br>\begin{array}{<strong>lr</strong>}<br>\mathrm{dp}[0] = \mathrm{cost}[0] &amp;  \<br>\mathrm{dp}[1] = \mathrm{cost}[1] &amp; \<br>\mathrm{dp}[i] = \mathrm{cost}[i] + \mathrm{min}(\mathrm{dp}[i-1], \mathrm{dp}[i-2]) &amp;<br>\end{array}<br>\right.<br>$$</p>
+<p>从第2层开始，我们往上走的选择是保持当前的花费最小，从而我们从前面的花费中选择最小的和当前的楼层的$\mathrm{cost}[i]$相加。最后的返回值应该是$\mathrm{min}(\mathrm{dp}[i], \mathrm{dp}[i-1])$。这种思路是一种正向思考。</p>
 <p>这是一种思路，其实我们还有另外一种思路。</p>
-<p><span class="math display">\[
-\left\{  
-\begin{array}{**lr**}  
-\mathrm{dp}[0] = 0 &amp;  \\  
-\mathrm{dp}[1] = 0 &amp; \\  
-\mathrm{dp}[i] = \mathrm{min}(\mathrm{cost}[i - 1] + \mathrm{dp}[i-1], \mathrm{cost}[i - 2] + \mathrm{dp}[i-2]) &amp;    
-\end{array}  
-\right.
-\]</span> 因为从2开始，第<span class="math inline">\(i\)</span>层的花费可以由通过<span class="math inline">\(i-2\)</span>层走2层或者通过<span class="math inline">\(i-1\)</span>走1层到达，而<span class="math inline">\(i-2\)</span>和<span class="math inline">\(i-1\)</span>层所要花费的值分别为cost[<span class="math inline">\(i-2\)</span>]和cost[<span class="math inline">\(i-1\)</span>]。最后的返回值应该是<span class="math inline">\(\mathrm{dp}[i]\)</span>。这种思路是一种反向思考，假设我们已经到达了顶点，然后列出我们达到顶点之前的两种可能选择。</p>
-<h2 id="c实现">C++实现</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="dt">int</span> minCostClimbingStairs(vector&lt;<span class="dt">int</span>&gt; &amp;cost) {</span>
-<span id="cb3-8"><a href="#cb3-8"></a>    <span class="co">// 第二种思路</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>    <span class="dt">int</span> dp0 = <span class="dv">0</span>;</span>
-<span id="cb3-10"><a href="#cb3-10"></a>    <span class="dt">int</span> dp1 = <span class="dv">0</span>;</span>
-<span id="cb3-11"><a href="#cb3-11"></a>    <span class="dt">int</span> dp = <span class="dv">0</span>;</span>
-<span id="cb3-12"><a href="#cb3-12"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">2</span>; i &lt;= cost.size(); i++) {</span>
-<span id="cb3-13"><a href="#cb3-13"></a>        dp = min(dp0 + cost[i - <span class="dv">2</span>], dp1 + cost[i -<span class="dv">1</span>]);</span>
-<span id="cb3-14"><a href="#cb3-14"></a>        dp0 = dp1;</span>
-<span id="cb3-15"><a href="#cb3-15"></a>        dp1 = dp;</span>
-<span id="cb3-16"><a href="#cb3-16"></a>    }</span>
-<span id="cb3-17"><a href="#cb3-17"></a>    <span class="cf">return</span> dp;</span>
-<span id="cb3-18"><a href="#cb3-18"></a>    <span class="co">/* 第一种思路</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">    int dp0 = cost[0];</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">    int dp1 = cost[1];</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">    int dp = 0;</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">    for (int i = 2; i &lt; cost.size(); i++) {</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">        dp = cost[i] +  min(dp0, dp1);</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co">        dp0 = dp1;</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">        dp1 = dp;</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">    }</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">    return min(dp0, dp1);</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">    */</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a>}</span>
-<span id="cb3-30"><a href="#cb3-30"></a></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="dt">int</span> main() {</span>
-<span id="cb3-32"><a href="#cb3-32"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> n = <span class="dv">0</span>;</span>
-<span id="cb3-33"><a href="#cb3-33"></a>    cout &lt;&lt; <span class="st">&quot;请输入楼梯层数：</span><span class="sc">\n</span><span class="st">&quot;</span>;</span>
-<span id="cb3-34"><a href="#cb3-34"></a>    cin &gt;&gt; n;</span>
-<span id="cb3-35"><a href="#cb3-35"></a>    vector&lt;<span class="dt">int</span>&gt; cost(n);</span>
-<span id="cb3-36"><a href="#cb3-36"></a>    cout &lt;&lt; <span class="st">&quot;请输入每层的权值：</span><span class="sc">\n</span><span class="st">&quot;</span>;</span>
-<span id="cb3-37"><a href="#cb3-37"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; n; i++) {</span>
-<span id="cb3-38"><a href="#cb3-38"></a>        cin &gt;&gt; cost[i];</span>
-<span id="cb3-39"><a href="#cb3-39"></a>    }</span>
-<span id="cb3-40"><a href="#cb3-40"></a>    <span class="dt">int</span> result = minCostClimbingStairs(cost);</span>
-<span id="cb3-41"><a href="#cb3-41"></a>    cout &lt;&lt; result &lt;&lt; endl;</span>
-<span id="cb3-42"><a href="#cb3-42"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb3-43"><a href="#cb3-43"></a>}</span></code></pre></div>
-<h2 id="scala实现">Scala实现</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">package</span> leetcode</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">import</span> scala.<span class="fu">math</span>._</span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">import</span> scala.<span class="fu">io</span>.<span class="fu">StdIn</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">object</span> MinCostClimbingStairs {</span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="kw">def</span> <span class="fu">minCostClimbingStairs</span>(cost: Array[Int]): Int = {</span>
-<span id="cb4-8"><a href="#cb4-8"></a>    <span class="kw">val</span> dp = cost.<span class="fu">clone</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>    <span class="kw">for</span> (i &lt;- <span class="dv">2</span> until cost.<span class="fu">length</span>) {</span>
-<span id="cb4-10"><a href="#cb4-10"></a>      <span class="fu">dp</span>(i) = <span class="fu">cost</span>(i) + <span class="fu">min</span>(<span class="fu">dp</span>(i - <span class="dv">1</span>), <span class="fu">dp</span>(i <span class="dv">-2</span>))</span>
-<span id="cb4-11"><a href="#cb4-11"></a>    }</span>
-<span id="cb4-12"><a href="#cb4-12"></a>    <span class="kw">return</span> <span class="fu">min</span>(<span class="fu">dp</span>(dp.<span class="fu">length</span> - <span class="dv">1</span>), <span class="fu">dp</span>(dp.<span class="fu">length</span> - <span class="dv">2</span>))</span>
-<span id="cb4-13"><a href="#cb4-13"></a>  }</span>
-<span id="cb4-14"><a href="#cb4-14"></a></span>
-<span id="cb4-15"><a href="#cb4-15"></a>  <span class="kw">def</span> <span class="fu">main</span>(args: Array[String]): Unit = {</span>
-<span id="cb4-16"><a href="#cb4-16"></a>    <span class="fu">println</span>(<span class="st">&quot;请输入楼梯层数：&quot;</span>)</span>
-<span id="cb4-17"><a href="#cb4-17"></a>    <span class="kw">val</span> count = StdIn.<span class="fu">readInt</span>()</span>
-<span id="cb4-18"><a href="#cb4-18"></a>    <span class="kw">val</span> cost = Array.<span class="fu">fill</span>[Int](count)(<span class="dv">0</span>)</span>
-<span id="cb4-19"><a href="#cb4-19"></a>    <span class="fu">println</span>(<span class="st">&quot;请输入每层的权值：&quot;</span>)</span>
-<span id="cb4-20"><a href="#cb4-20"></a>    <span class="kw">for</span> (i &lt;- <span class="dv">0</span> until cost.<span class="fu">length</span>) {</span>
-<span id="cb4-21"><a href="#cb4-21"></a>      <span class="fu">cost</span>(i) = StdIn.<span class="fu">readInt</span>()</span>
-<span id="cb4-22"><a href="#cb4-22"></a>    }</span>
-<span id="cb4-23"><a href="#cb4-23"></a></span>
-<span id="cb4-24"><a href="#cb4-24"></a>    <span class="fu">println</span>(<span class="fu">minCostClimbingStairs</span>(cost))</span>
-<span id="cb4-25"><a href="#cb4-25"></a>  }</span>
-<span id="cb4-26"><a href="#cb4-26"></a></span>
-<span id="cb4-27"><a href="#cb4-27"></a>}</span></code></pre></div>
+<p>$$<br>\left{<br>\begin{array}{<strong>lr</strong>}<br>\mathrm{dp}[0] = 0 &amp;  \<br>\mathrm{dp}[1] = 0 &amp; \<br>\mathrm{dp}[i] = \mathrm{min}(\mathrm{cost}[i - 1] + \mathrm{dp}[i-1], \mathrm{cost}[i - 2] + \mathrm{dp}[i-2]) &amp;<br>\end{array}<br>\right.<br>$$<br>因为从2开始，第$i$层的花费可以由通过$i-2$层走2层或者通过$i-1$走1层到达，而$i-2$和$i-1$层所要花费的值分别为cost[$i-2$]和cost[$i-1$]。最后的返回值应该是$\mathrm{dp}[i]$。这种思路是一种反向思考，假设我们已经到达了顶点，然后列出我们达到顶点之前的两种可能选择。</p>
+<h2 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a>C++实现</h2><pre><code class="C++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+
+int minCostClimbingStairs(vector&lt;int&gt; &amp;cost) &#123;
+    // 第二种思路
+    int dp0 = 0;
+    int dp1 = 0;
+    int dp = 0;
+    for (int i = 2; i &lt;= cost.size(); i++) &#123;
+        dp = min(dp0 + cost[i - 2], dp1 + cost[i -1]);
+        dp0 = dp1;
+        dp1 = dp;
+    &#125;
+    return dp;
+    /* 第一种思路
+    int dp0 = cost[0];
+    int dp1 = cost[1];
+    int dp = 0;
+    for (int i = 2; i &lt; cost.size(); i++) &#123;
+        dp = cost[i] +  min(dp0, dp1);
+        dp0 = dp1;
+        dp1 = dp;
+    &#125;
+    return min(dp0, dp1);
+    */
+&#125;
+
+int main() &#123;
+    unsigned int n = 0;
+    cout &lt;&lt; &quot;请输入楼梯层数：\n&quot;;
+    cin &gt;&gt; n;
+    vector&lt;int&gt; cost(n);
+    cout &lt;&lt; &quot;请输入每层的权值：\n&quot;;
+    for (int i = 0; i &lt; n; i++) &#123;
+        cin &gt;&gt; cost[i];
+    &#125;
+    int result = minCostClimbingStairs(cost);
+    cout &lt;&lt; result &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+<h2 id="Scala实现"><a href="#Scala实现" class="headerlink" title="Scala实现"></a>Scala实现</h2><pre><code class="Scala">package leetcode
+
+import scala.math._
+import scala.io.StdIn
+
+object MinCostClimbingStairs &#123;
+  def minCostClimbingStairs(cost: Array[Int]): Int = &#123;
+    val dp = cost.clone
+    for (i &lt;- 2 until cost.length) &#123;
+      dp(i) = cost(i) + min(dp(i - 1), dp(i -2))
+    &#125;
+    return min(dp(dp.length - 1), dp(dp.length - 2))
+  &#125;
+
+  def main(args: Array[String]): Unit = &#123;
+    println(&quot;请输入楼梯层数：&quot;)
+    val count = StdIn.readInt()
+    val cost = Array.fill[Int](count)(0)
+    println(&quot;请输入每层的权值：&quot;)
+    for (i &lt;- 0 until cost.length) &#123;
+      cost(i) = StdIn.readInt()
+    &#125;
+
+    println(minCostClimbingStairs(cost))
+  &#125;
+
+&#125;</code></pre>
 
         
     
@@ -644,7 +623,7 @@ Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3]
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/python/Python调用C-代码/" id="post_nav-newer" class="prev-content">
+        <a href="/python/Python%E8%B0%83%E7%94%A8C-%E4%BB%A3%E7%A0%81/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -658,7 +637,7 @@ Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3]
 
     <!-- Next Nav -->
     
-        <a href="/geos/使用GDAL读取Sentinel数据/" id="post_nav-older" class="next-content">
+        <a href="/geos/%E4%BD%BF%E7%94%A8GDAL%E8%AF%BB%E5%8F%96Sentinel%E6%95%B0%E6%8D%AE/" id="post_nav-older" class="next-content">
             上一篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -750,7 +729,7 @@ Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3]
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -768,7 +747,7 @@ Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3]
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">geos<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
             </ul>
         </li>
         
@@ -799,7 +778,7 @@ Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3]
         
     
         <li>
-            <a href="https://blog.csdn.net/theonegis" title="CSDN">
+            <a target="_blank" rel="noopener" href="https://blog.csdn.net/theonegis" title="CSDN">
                 
                     <i class="material-icons sidebar-material-icons">edit</i>
                 
@@ -816,7 +795,7 @@ Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3]
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">73</span>
+                <span class="sidebar-badge">74</span>
             </a>
         </li>
         
@@ -1008,7 +987,9 @@ It will not impact the appearance and can give developers a lot of support :)
 <script>
 	var agent = navigator.userAgent.toLowerCase();
 	if(agent.indexOf('ucbrowser')>0) {
-		document.write('<link rel="stylesheet" href="/css/uc.css">');
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
 	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
 	}
 </script>
@@ -1081,24 +1062,7 @@ console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viose
 </script>
 
                 </main>
-            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+            </div>
         </body>
     
 </html>

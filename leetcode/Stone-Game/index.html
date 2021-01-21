@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta charset="utf-8">
     <link rel="dns-prefetch" href="//cdn.bootcss.com" />
     <link rel="dns-prefetch" href="//cdn.mathjax.org" />
     <!--
@@ -306,15 +306,15 @@
     
     
 
-    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <!-- Custom Head -->
     
 
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -359,7 +359,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#stone-game"><span class="post-toc-number">1.</span> <span class="post-toc-text">Stone Game</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目描述"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#算法分析"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">算法分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#c实现"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Stone-Game"><span class="post-toc-number">1.</span> <span class="post-toc-text">Stone Game</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">算法分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#C-%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -434,7 +434,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/LeetCode/">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/算法/">算法</a>
+        <a class="post_tag-none-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
     </ul>
     
 
@@ -514,11 +514,9 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="stone-game">Stone Game</h1>
-<h2 id="题目描述">题目描述</h2>
-<p>Alex and Lee play a game with piles of stones. There are an even number of piles <strong>arranged in a row</strong>, and each pile has a positive integer number of stones <code>piles[i]</code>.</p>
-<p>The objective of the game is to end with the most stones. The total number of stones is odd, so there are no ties.</p>
-<p>Alex and Lee take turns, with Alex starting first. Each turn, a player takes the entire pile of stones from either the beginning or the end of the row. This continues until there are no more piles left, at which point the person with the most stones wins.</p>
+        <h1 id="Stone-Game"><a href="#Stone-Game" class="headerlink" title="Stone Game"></a>Stone Game</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>Alex and Lee play a game with piles of stones.  There are an even number of piles <strong>arranged in a row</strong>, and each pile has a positive integer number of stones <code>piles[i]</code>.</p>
+<p>The objective of the game is to end with the most stones.  The total number of stones is odd, so there are no ties.</p>
+<p>Alex and Lee take turns, with Alex starting first.  Each turn, a player takes the entire pile of stones from either the beginning or the end of the row.  This continues until there are no more piles left, at which point the person with the most stones wins.</p>
 <p>Assuming Alex and Lee play optimally, return <code>True</code> if and only if Alex wins the game.</p>
 <p><strong>Example 1:</strong></p>
 <pre><code>Input: [5,3,4,5]
@@ -530,33 +528,31 @@ If Lee takes 3, then the board is [4, 5], and Alex takes 5 to win with 10 points
 If Lee takes the last 5, then the board is [3, 4], and Alex takes 4 to win with 9 points.
 This demonstrated that taking the first 5 was a winning move for Alex, so we return true.</code></pre>
 <p><strong>Note:</strong></p>
-<ol type="1">
+<ol>
 <li><code>2 &lt;= piles.length &lt;= 500</code></li>
 <li><code>piles.length</code> is even.</li>
 <li><code>1 &lt;= piles[i] &lt;= 500</code></li>
 <li><code>sum(piles)</code> is odd.</li>
 </ol>
-<h2 id="算法分析">算法分析</h2>
-<p>每次都是Alex先取，从前后两个中选取最大的，然后Lee再取，Lee再从前后两个中取最大的</p>
+<h2 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h2><p>每次都是Alex先取，从前后两个中选取最大的，然后Lee再取，Lee再从前后两个中取最大的</p>
 <p>这告诉我们什么，毫无悬念，Alex肯定会赢呀</p>
-<h2 id="c实现">C++实现</h2>
-<p>直接返回<code>true</code>就好了</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="dt">bool</span> stoneGame(vector&lt;<span class="dt">int</span>&gt;&amp; piles) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="cf">return</span> <span class="kw">true</span>;</span>
-<span id="cb2-3"><a href="#cb2-3"></a>}</span></code></pre></div>
+<h2 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a>C++实现</h2><p>直接返回<code>true</code>就好了</p>
+<pre><code class="C++">bool stoneGame(vector&lt;int&gt;&amp; piles) &#123;
+    return true;
+&#125;</code></pre>
 <p>模拟他们玩游戏的过程，使用两个指针分别代表指向最前面和最后面，依次移动指针</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">bool</span> stoneGame(vector&lt;<span class="dt">int</span>&gt;&amp; piles) {</span>
-<span id="cb3-2"><a href="#cb3-2"></a>    <span class="at">const</span> <span class="dt">size_t</span> count = piles.size();</span>
-<span id="cb3-3"><a href="#cb3-3"></a>    vector&lt;<span class="dt">int</span>&gt; sum(count + <span class="dv">2</span>, <span class="dv">0</span>);</span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>, j = count - <span class="dv">1</span>, k = <span class="dv">2</span>; i != j ; k++) {</span>
-<span id="cb3-5"><a href="#cb3-5"></a>        <span class="cf">if</span> (piles[i] &gt; piles[j]) {</span>
-<span id="cb3-6"><a href="#cb3-6"></a>              sum[k] = piles[i++]  +  sum[k - <span class="dv">2</span>];</span>
-<span id="cb3-7"><a href="#cb3-7"></a>        } <span class="cf">else</span> {</span>
-<span id="cb3-8"><a href="#cb3-8"></a>            sum[k] = piles[j--] + sum[k - <span class="dv">2</span>];</span>
-<span id="cb3-9"><a href="#cb3-9"></a>        }</span>
-<span id="cb3-10"><a href="#cb3-10"></a>    }</span>
-<span id="cb3-11"><a href="#cb3-11"></a>    <span class="cf">return</span> sum[count] &gt; sum[count + <span class="dv">1</span>];</span>
-<span id="cb3-12"><a href="#cb3-12"></a>}</span></code></pre></div>
+<pre><code class="C++">bool stoneGame(vector&lt;int&gt;&amp; piles) &#123;
+    const size_t count = piles.size();
+    vector&lt;int&gt; sum(count + 2, 0);
+    for (size_t i = 0, j = count - 1, k = 2; i != j ; k++) &#123;
+        if (piles[i] &gt; piles[j]) &#123;
+              sum[k] = piles[i++]  +  sum[k - 2];
+        &#125; else &#123;
+            sum[k] = piles[j--] + sum[k - 2];
+        &#125;
+    &#125;
+    return sum[count] &gt; sum[count + 1];
+&#125;</code></pre>
 
         
     
@@ -577,7 +573,7 @@ This demonstrated that taking the first 5 was a winning move for Alex, so we ret
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/math/Python求解正态分布置信区间/" id="post_nav-newer" class="prev-content">
+        <a href="/math/Python%E6%B1%82%E8%A7%A3%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%BD%AE%E4%BF%A1%E5%8C%BA%E9%97%B4/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -683,7 +679,7 @@ This demonstrated that taking the first 5 was a winning move for Alex, so we ret
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -701,7 +697,7 @@ This demonstrated that taking the first 5 was a winning move for Alex, so we ret
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">geos<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
             </ul>
         </li>
         
@@ -732,7 +728,7 @@ This demonstrated that taking the first 5 was a winning move for Alex, so we ret
         
     
         <li>
-            <a href="https://blog.csdn.net/theonegis" title="CSDN">
+            <a target="_blank" rel="noopener" href="https://blog.csdn.net/theonegis" title="CSDN">
                 
                     <i class="material-icons sidebar-material-icons">edit</i>
                 
@@ -749,7 +745,7 @@ This demonstrated that taking the first 5 was a winning move for Alex, so we ret
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">73</span>
+                <span class="sidebar-badge">74</span>
             </a>
         </li>
         
@@ -941,7 +937,9 @@ It will not impact the appearance and can give developers a lot of support :)
 <script>
 	var agent = navigator.userAgent.toLowerCase();
 	if(agent.indexOf('ucbrowser')>0) {
-		document.write('<link rel="stylesheet" href="/css/uc.css">');
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
 	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
 	}
 </script>
@@ -1014,24 +1012,7 @@ console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viose
 </script>
 
                 </main>
-            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+            </div>
         </body>
     
 </html>

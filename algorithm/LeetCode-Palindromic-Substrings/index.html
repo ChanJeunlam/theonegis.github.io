@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta charset="utf-8">
     <link rel="dns-prefetch" href="//cdn.bootcss.com" />
     <link rel="dns-prefetch" href="//cdn.mathjax.org" />
     <!--
@@ -306,15 +306,15 @@
     
     
 
-    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <!-- Custom Head -->
     
 
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -359,7 +359,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#leetcode-palindromic-substrings"><span class="post-toc-number">1.</span> <span class="post-toc-text">LeetCode-Palindromic Substrings</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目描述"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思路分析"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">思路分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#c实现"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#scala实现"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala实现</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#LeetCode-Palindromic-Substrings"><span class="post-toc-number">1.</span> <span class="post-toc-text">LeetCode-Palindromic Substrings</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">思路分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#C-%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">C++实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Scala%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Scala实现</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -434,7 +434,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/LeetCode/">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/动态规划/">动态规划</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/回文/">回文</a>
+        <a class="post_tag-none-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E5%9B%9E%E6%96%87/" rel="tag">回文</a>
     </ul>
     
 
@@ -514,9 +514,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="leetcode-palindromic-substrings">LeetCode-Palindromic Substrings</h1>
-<h2 id="题目描述">题目描述</h2>
-<p>这是第647道题目：<a href="https://leetcode.com/problems/palindromic-substrings/" target="_blank" rel="noopener">Palindromic Substrings</a></p>
+        <h1 id="LeetCode-Palindromic-Substrings"><a href="#LeetCode-Palindromic-Substrings" class="headerlink" title="LeetCode-Palindromic Substrings"></a>LeetCode-Palindromic Substrings</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>这是第647道题目：<a target="_blank" rel="noopener" href="https://leetcode.com/problems/palindromic-substrings/">Palindromic Substrings</a></p>
 <p>Given a string, your task is to count how many palindromic substrings in this string.</p>
 <p>The substrings with different start indexes or end indexes are counted as different substrings even they consist of same characters.</p>
 <p><strong>Example 1:</strong></p>
@@ -528,83 +526,84 @@ Explanation: Three palindromic strings: &quot;a&quot;, &quot;b&quot;, &quot;c&qu
 Output: 6
 Explanation: Six palindromic strings: &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;aa&quot;, &quot;aa&quot;, &quot;aaa&quot;.</code></pre>
 <p>题目要求是需要计算出给定字符串中所有回文子串的个数（单个字符也算一个回文子串，不同索引位置的相同内容的回文子串也算不同的回文）</p>
-<h2 id="思路分析">思路分析</h2>
-<p>有两种思路：一种是采用动态规划的方法；另一种是采用中心扩散的方法。</p>
-<ol type="1">
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>有两种思路：一种是采用动态规划的方法；另一种是采用中心扩散的方法。</p>
+<ol>
 <li><p>动态规划</p>
 <p>如果用<code>dp[i][j]</code>表示从第<code>i</code>个字符到第<code>j</code>个字符是不是回文子串，<code>s</code>表示给定字符串，则有</p>
 <p><code>dp[i][j]</code>= (<code>s[i]</code> == <code>s[j]</code>) &amp;&amp; (<code>i</code> - <code>j</code> &lt; 2) （这里表示的是子串是一个字符，两个字符的情形）</p>
 <p><code>dp[i][j]</code>= (<code>s[i]</code> == <code>s[j]</code>) &amp;&amp; (<code>dp[i + 1][j -1]</code> ) （这里表示的是除了前面两种情形之外的情形）</p>
-<p>注：三个字符串的情形既可以归类到第一种情况（如果归类到第一种情况，则条件需要变为<code>i</code> - <code>j</code> &lt; 3），也可以归类到第二种情形</p></li>
+<p>注：三个字符串的情形既可以归类到第一种情况（如果归类到第一种情况，则条件需要变为<code>i</code> - <code>j</code> &lt; 3），也可以归类到第二种情形</p>
+</li>
 <li><p>中心扩散</p>
 <p>扩散法假定一个中心，然后采用左右两个指针同时向两边走来判断是不是回文。</p>
-<p>注：中心扩散法需要区分回文子串中的字符个数是奇数和偶数两种情况。</p></li>
+<p>注：中心扩散法需要区分回文子串中的字符个数是奇数和偶数两种情况。</p>
+</li>
 </ol>
-<h2 id="c实现">C++实现</h2>
-<ol type="1">
+<h2 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a>C++实现</h2><ol>
 <li><p>动态规划</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> Solution {</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">public</span>:</span>
-<span id="cb3-3"><a href="#cb3-3"></a>    <span class="dt">int</span> countSubstrings(string s) {</span>
-<span id="cb3-4"><a href="#cb3-4"></a>        <span class="at">const</span> <span class="dt">int</span> N = <span class="kw">static_cast</span>&lt;<span class="dt">int</span>&gt;(s.size());   <span class="co">// 如果不强转就会超时，好奇怪</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>        <span class="dt">int</span> count = <span class="dv">0</span>;</span>
-<span id="cb3-6"><a href="#cb3-6"></a>        <span class="co">// 下面这一行换成原生数组也是可以的int dp[N][N]</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>        vector&lt;vector&lt;<span class="dt">bool</span>&gt;&gt; dp(N, vector&lt;<span class="dt">bool</span>&gt;(N));</span>
-<span id="cb3-8"><a href="#cb3-8"></a>        <span class="co">// 从后面遍历是为了让求dp[i][j]的时候dp[i + 1][j - 1]是已经计算过的</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>        <span class="cf">for</span> (<span class="kw">auto</span> i = N - <span class="dv">1</span>; i &gt;= <span class="dv">0</span>; --i) {</span>
-<span id="cb3-10"><a href="#cb3-10"></a>            <span class="cf">for</span> (<span class="kw">auto</span> j = i; j &lt; N; ++j) {</span>
-<span id="cb3-11"><a href="#cb3-11"></a>                <span class="co">// (j - i &lt; 2)包含了两种情况，使得dp[i + 1][j - 1]可以包含剩下的所有情况</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a>                dp[i][j] = (s[i] == s[j]) &amp;&amp; ((j - i &lt; <span class="dv">2</span>) || dp[i + <span class="dv">1</span>][j - <span class="dv">1</span>]);</span>
-<span id="cb3-13"><a href="#cb3-13"></a>                <span class="cf">if</span> (dp[i][j]) count++;</span>
-<span id="cb3-14"><a href="#cb3-14"></a>            }</span>
-<span id="cb3-15"><a href="#cb3-15"></a>        }</span>
-<span id="cb3-16"><a href="#cb3-16"></a></span>
-<span id="cb3-17"><a href="#cb3-17"></a>        <span class="cf">return</span> count;</span>
-<span id="cb3-18"><a href="#cb3-18"></a>    }</span>
-<span id="cb3-19"><a href="#cb3-19"></a>};</span></code></pre></div>
+<pre><code class="C++">class Solution &#123;
+public:
+    int countSubstrings(string s) &#123;
+        const int N = static_cast&lt;int&gt;(s.size());   // 如果不强转就会超时，好奇怪
+        int count = 0;
+        // 下面这一行换成原生数组也是可以的int dp[N][N]
+        vector&lt;vector&lt;bool&gt;&gt; dp(N, vector&lt;bool&gt;(N));
+        // 从后面遍历是为了让求dp[i][j]的时候dp[i + 1][j - 1]是已经计算过的
+        for (auto i = N - 1; i &gt;= 0; --i) &#123;
+            for (auto j = i; j &lt; N; ++j) &#123;
+                // (j - i &lt; 2)包含了两种情况，使得dp[i + 1][j - 1]可以包含剩下的所有情况
+                dp[i][j] = (s[i] == s[j]) &amp;&amp; ((j - i &lt; 2) || dp[i + 1][j - 1]);
+                if (dp[i][j]) count++;
+            &#125;
+        &#125;
+
+        return count;
+    &#125;
+&#125;;</code></pre>
 <p>在使用C++实现的时候，我发现一些有意思的现象：</p>
-<ol type="1">
+<ol>
 <li>在第四行<code>s.size()</code>的返回类型本来是<code>size_t</code>，但是如果直接使用<code>size_t</code>的话，运行直接超时。我强制转换为<code>int</code>以后就可以通过测试。有童鞋能帮我解答一下疑惑吗？🙏</li>
 <li>用于存储<code>dp</code>的使用动态数组<code>vector</code>是一般都会想到的，但是我看到一些提交中也有直接使用C++原生数组的。我就奇怪了，C++原生数组的话需要使用<code>new</code>操作符去动态申请，为什么直接使用也可以通过编译呢？我后来查了一些资料，原来C99标准中支持了原生动态数组（标准中称之为变成数组variable length array）。但是C++标准中这个特性是可选的，就是说可能有的编译器支持这样写，而有的编译器不行。不过，原生数组相对<code>vector</code>容器，效率会更高一些。如果你的编译器支持，大胆地使用吧！</li>
-</ol></li>
-<li><p>中心扩散</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">class</span> Solution {</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">private</span>:</span>
-<span id="cb4-3"><a href="#cb4-3"></a>    <span class="dt">int</span> count = <span class="dv">0</span>;</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    <span class="dt">void</span> extendPalindrome(<span class="at">const</span> string&amp; s, <span class="dt">int</span> left, <span class="dt">int</span> right) {</span>
-<span id="cb4-5"><a href="#cb4-5"></a>        <span class="cf">while</span> ((left &gt;= <span class="dv">0</span>) &amp;&amp; (right &lt; s.size()) &amp;&amp; (s[left] == s[right])) {</span>
-<span id="cb4-6"><a href="#cb4-6"></a>            --left;</span>
-<span id="cb4-7"><a href="#cb4-7"></a>            ++right;</span>
-<span id="cb4-8"><a href="#cb4-8"></a>            ++count;</span>
-<span id="cb4-9"><a href="#cb4-9"></a>        }</span>
-<span id="cb4-10"><a href="#cb4-10"></a>    }</span>
-<span id="cb4-11"><a href="#cb4-11"></a></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="kw">public</span>:</span>
-<span id="cb4-13"><a href="#cb4-13"></a>    <span class="dt">int</span> countSubstrings(string s) {</span>
-<span id="cb4-14"><a href="#cb4-14"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; s.size(); ++i) {</span>
-<span id="cb4-15"><a href="#cb4-15"></a>            extendPalindrome(s, i, i);      <span class="co">// 对于奇数个字符的回文</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a>            extendPalindrome(s, i, i + <span class="dv">1</span>);  <span class="co">// 对于偶数个字符的回文</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a>        }</span>
-<span id="cb4-18"><a href="#cb4-18"></a>        <span class="cf">return</span> count;</span>
-<span id="cb4-19"><a href="#cb4-19"></a>    }</span>
-<span id="cb4-20"><a href="#cb4-20"></a>};</span></code></pre></div></li>
 </ol>
-<h2 id="scala实现">Scala实现</h2>
-<p>Scala的实现是在LeetCode上看到一个大神的答案，使用纯函数实现，写得很美妙，拿过来与大家分享！</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">object</span> Solution {</span>
-<span id="cb5-2"><a href="#cb5-2"></a>    <span class="kw">def</span> <span class="fu">countSubstrings</span>(s: String): Int = {</span>
-<span id="cb5-3"><a href="#cb5-3"></a>        (<span class="kw">for</span> {</span>
-<span id="cb5-4"><a href="#cb5-4"></a>            i &lt;- <span class="dv">0</span> until s.<span class="fu">length</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>            j &lt;- List(i, i + <span class="dv">1</span>)</span>
-<span id="cb5-6"><a href="#cb5-6"></a>            _ &lt;- (i to <span class="dv">0</span> by <span class="dv">-1</span>).<span class="fu">zip</span>(j until s.<span class="fu">length</span>).<span class="fu">takeWhile</span>(p =&gt; <span class="fu">s</span>(p._<span class="dv">1</span>) == <span class="fu">s</span>(p._<span class="dv">2</span>))</span>
-<span id="cb5-7"><a href="#cb5-7"></a>        } <span class="kw">yield</span> <span class="kw">true</span>).<span class="fu">length</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a>    }</span>
-<span id="cb5-9"><a href="#cb5-9"></a>}</span></code></pre></div>
+</li>
+<li><p>中心扩散</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    int count = 0;
+    void extendPalindrome(const string&amp; s, int left, int right) &#123;
+        while ((left &gt;= 0) &amp;&amp; (right &lt; s.size()) &amp;&amp; (s[left] == s[right])) &#123;
+            --left;
+            ++right;
+            ++count;
+        &#125;
+    &#125;
+
+public:
+    int countSubstrings(string s) &#123;
+        for (int i = 0; i &lt; s.size(); ++i) &#123;
+            extendPalindrome(s, i, i);      // 对于奇数个字符的回文
+            extendPalindrome(s, i, i + 1);  // 对于偶数个字符的回文
+        &#125;
+        return count;
+    &#125;
+&#125;;</code></pre>
+</li>
+</ol>
+<h2 id="Scala实现"><a href="#Scala实现" class="headerlink" title="Scala实现"></a>Scala实现</h2><p>Scala的实现是在LeetCode上看到一个大神的答案，使用纯函数实现，写得很美妙，拿过来与大家分享！</p>
+<pre><code class="Scala">object Solution &#123;
+    def countSubstrings(s: String): Int = &#123;
+        (for &#123;
+            i &lt;- 0 until s.length
+            j &lt;- List(i, i + 1)
+            _ &lt;- (i to 0 by -1).zip(j until s.length).takeWhile(p =&gt; s(p._1) == s(p._2))
+        &#125; yield true).length
+    &#125;
+&#125;</code></pre>
 <p>这也是采用中心扩散法实现的。</p>
 <p><code>for</code>循环中的<code>i</code>从左到右依次遍历给定字符串，<code>j</code>控制的是奇数个数的子串情况和偶数个数的子串情况，<code>for</code>循环中的第三个匿名变量其实相当于一个条件判断。整个<code>for</code>循环返回一个<code>vector</code>（里面都是<code>true</code>），最后统计这个<code>vector</code>个中包含元素的个数即可。</p>
 <p>这里重点说一下<code>for</code>循环中的第三个匿名循环控制语句。<code>(i to 0 by -1).zip(j until s.length)</code>生成一个从中间向两边扩散的<code>List</code>（其实是<code>List</code>的子类<code>::</code>非空链表），这个<code>List</code>中的每个元素是一个<code>Tuple2</code>包含的是左指针<code>i</code>和右指针<code>j</code>。<code>takeWhile</code>方法是起到一个过滤作用，将左指针和右指针指向的值相等的这<code>Tuple2</code>返回（其实返回类型是<code>::</code>,只是里面只有一个元素）。如果左指针和右指针指向的值不相等，则返回<code>Nil（一个空的List）</code>。如果返回的是<code>Nil</code>的话，则不会生成一个<code>true</code>。这样子，其实第三个循环控制语句起到的是判断的作用。</p>
 <p>注：</p>
-<ol type="1">
+<ol>
 <li>Scala中的<code>Vector</code>类似于Java中的<code>ArrayList</code>，而Scala中的<code>List</code>类似于Java中的<code>LinkedList</code></li>
 <li>Scala中的<code>List</code>有两个特殊的子类：<code>::</code>表示非空的<code>List</code>，<code>Nil</code>表示空的<code>List</code></li>
 <li>函数<code>filter</code>和<code>takeWhile</code>都可以起到过滤的作用，<code>filter</code>会过滤出给定集合中所有满足条件的元素，而<code>takeWhile</code>只会返回第一个满足条件的元素。但是两者返回的都是集合，即使<code>takeWhile</code>返回的集合只有一个元素。</li>
@@ -736,7 +735,7 @@ Explanation: Six palindromic strings: &quot;a&quot;, &quot;a&quot;, &quot;a&quot
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/08/">八月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">20</span></a>
             </ul>
         </li>
         
@@ -754,7 +753,7 @@ Explanation: Six palindromic strings: &quot;a&quot;, &quot;a&quot;, &quot;a&quot
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
+                <a class="sidebar_archives-link" href="/categories/cxx/">C++<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/leetcode/">LeetCode<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/python/">Python<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">geos<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/plot/">图表<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tools/">工具<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/math/">数学<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/dl/">深度学习<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/geos/">空间数据处理<span class="sidebar_archives-count">33</span></a></li><li><a class="sidebar_archives-link" href="/categories/algorithm/">算法<span class="sidebar_archives-count">7</span></a>
             </ul>
         </li>
         
@@ -785,7 +784,7 @@ Explanation: Six palindromic strings: &quot;a&quot;, &quot;a&quot;, &quot;a&quot
         
     
         <li>
-            <a href="https://blog.csdn.net/theonegis" title="CSDN">
+            <a target="_blank" rel="noopener" href="https://blog.csdn.net/theonegis" title="CSDN">
                 
                     <i class="material-icons sidebar-material-icons">edit</i>
                 
@@ -802,7 +801,7 @@ Explanation: Six palindromic strings: &quot;a&quot;, &quot;a&quot;, &quot;a&quot
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">73</span>
+                <span class="sidebar-badge">74</span>
             </a>
         </li>
         
@@ -994,7 +993,9 @@ It will not impact the appearance and can give developers a lot of support :)
 <script>
 	var agent = navigator.userAgent.toLowerCase();
 	if(agent.indexOf('ucbrowser')>0) {
-		document.write('<link rel="stylesheet" href="/css/uc.css">');
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
 	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
 	}
 </script>
@@ -1067,24 +1068,7 @@ console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viose
 </script>
 
                 </main>
-            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+            </div>
         </body>
     
 </html>
